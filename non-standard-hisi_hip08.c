@@ -125,6 +125,121 @@ static const struct hisi_hip08_hw_error sio_hw_int[] = {
 	{ /* sentinel */ }
 };
 
+static const struct hisi_hip08_hw_error poe_ecc_1bit_info_0[] = {
+	{ .msk = BIT(0), .msg = "add_fifo1_ecc_1bit_error" },
+	{ .msk = BIT(1), .msg = "bind_info_ecc_1bit_error" },
+	{ .msk = BIT(2), .msg = "route_tab_ecc_1bit_error" },
+	{ .msk = BIT(3), .msg = "fail_buf_ecc_1bit_error" },
+	{ .msk = BIT(4), .msg = "ofrb_fifo4_ecc_1bit_error" },
+	{ .msk = BIT(5), .msg = "ofrb_fifo5_ecc_1bit_error" },
+	{ .msk = BIT(6), .msg = "ofrb_fifo8_ecc_1bit_error" },
+	{ .msk = BIT(7), .msg = "nt_inq_ecc_1bit_error" },
+	{ .msk = BIT(8), .msg = "dt_inq_ecc_1bit_error" },
+	{ .msk = BIT(9), .msg = "nt_ovq_ecc_1bit_error" },
+	{ .msk = BIT(10), .msg = "dt_ovq_ecc_1bit_error" },
+	{ .msk = BIT(11), .msg = "indraw_ecc_1bit_error" },
+	{ .msk = BIT(12), .msg = "nt_des_ecc_1bit_error" },
+	{ .msk = BIT(13), .msg = "dt_des_ecc_1bit_error" },
+	{ .msk = BIT(14), .msg = "get_pack_tab_ecc_1bit_error" },
+	{ .msk = BIT(15), .msg = "rd_fifo1_ecc_1bit_error" },
+	{ .msk = BIT(16), .msg = "add_pkt_tab_ecc_1bit_error" },
+	{ .msk = BIT(17), .msg = "cnt_ddrq_ecc_1bit_error" },
+	{ .msk = BIT(18), .msg = "low_th_ecc_1bit_error" },
+	{ .msk = BIT(19), .msg = "high_th_ecc_1bit_error" },
+	{ .msk = BIT(20), .msg = "q_cnt_ecc_1bit_error" },
+	{ .msk = BIT(21), .msg = "oe_nt_ecc_1bit_error" },
+	{ .msk = BIT(22), .msg = "oe_wt_ecc_1bit_error" },
+	{ .msk = BIT(23), .msg = "oe_cpt_bf_ecc_1bit_error" },
+	{ .msk = BIT(24), .msg = "oe_cpt_tg_ecc_1bit_error" },
+	{ .msk = BIT(25), .msg = "oe_cpt_other_ecc_1bit_error" },
+	{ .msk = BIT(26), .msg = "oe_efp_ecc_1bit_error" },
+	{ .msk = BIT(27), .msg = "oe_qfp_ecc_1bit_error" },
+	{ .msk = BIT(28), .msg = "oe_tt_ecc_1bit_error" },
+	{ .msk = BIT(29), .msg = "ht_ddrq_ecc_1bit_error" },
+	{ .msk = BIT(30), .msg = "afnq_info_ecc_1bit_error" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error poe_ecc_1bit_info_1[] = {
+	{ .msk = BIT(0), .msg = "ht_ovq_ecc_1bit_error" },
+	{ .msk = BIT(1), .msg = "ht_inq_ecc_1bit_error" },
+	{ .msk = BIT(2), .msg = "ht_flowq_ecc_1bit_error" },
+	{ .msk = BIT(3), .msg = "push_pkt_tab_ecc_0_1bit_error" },
+	{ .msk = BIT(4), .msg = "push_pkt_tab_ecc_1_1bit_error" },
+	{ .msk = BIT(5), .msg = "nt_ddrq0_ecc_1bit_error" },
+	{ .msk = BIT(6), .msg = "nt_ddrq1_ecc_1bit_error" },
+	{ .msk = BIT(7), .msg = "nt_ddrq2_ecc_1bit_error" },
+	{ .msk = BIT(8), .msg = "nt_ddrq3_ecc_1bit_error" },
+	{ .msk = BIT(9), .msg = "nt_ddrq4_ecc_1bit_error" },
+	{ .msk = BIT(10), .msg = "nt_ddrq5_ecc_1bit_error" },
+	{ .msk = BIT(11), .msg = "nt_ddrq6_ecc_1bit_error" },
+	{ .msk = BIT(12), .msg = "nt_ddrq7_ecc_1bit_error" },
+	{ .msk = BIT(13), .msg = "dispatch_0_ecc_1bit_error" },
+	{ .msk = BIT(14), .msg = "dispatch_1_ecc_1bit_error" },
+	{ .msk = BIT(15), .msg = "fwd_poe_tab_ecc_1bit_error" },
+	{ .msk = BIT(16), .msg = "pull_pkt_tab_ecc_1bit_error" },
+	{ .msk = BIT(17), .msg = "nt_pt_ecc_1bit_error" },
+	{ .msk = BIT(18), .msg = "event_id_ecc_1bit_error" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error poe_ecc_2bit_info_0[] = {
+	{ .msk = BIT(0), .msg = "add_fifo1_ecc_2bit_error" },
+	{ .msk = BIT(1), .msg = "bind_info_ecc_2bit_error" },
+	{ .msk = BIT(2), .msg = "route_tab_ecc_2bit_error" },
+	{ .msk = BIT(3), .msg = "fail_buf_ecc_2bit_error" },
+	{ .msk = BIT(4), .msg = "ofrb_fifo4_ecc_2bit_error" },
+	{ .msk = BIT(5), .msg = "ofrb_fifo5_ecc_2bit_error" },
+	{ .msk = BIT(6), .msg = "ofrb_fifo8_ecc_2bit_error" },
+	{ .msk = BIT(7), .msg = "nt_inq_ecc_2bit_error" },
+	{ .msk = BIT(8), .msg = "dt_inq_ecc_2bit_error" },
+	{ .msk = BIT(9), .msg = "nt_ovq_ecc_2bit_error" },
+	{ .msk = BIT(10), .msg = "dt_ovq_ecc_2bit_error" },
+	{ .msk = BIT(11), .msg = "indraw_ecc_2bit_error" },
+	{ .msk = BIT(12), .msg = "nt_des_ecc_2bit_error" },
+	{ .msk = BIT(13), .msg = "dt_des_ecc_2bit_error" },
+	{ .msk = BIT(14), .msg = "get_pack_tab_ecc_2bit_error" },
+	{ .msk = BIT(15), .msg = "rd_fifo1_ecc_2bit_error" },
+	{ .msk = BIT(16), .msg = "add_pkt_tab_ecc_2bit_error" },
+	{ .msk = BIT(17), .msg = "cnt_ddrq_ecc_2bit_error" },
+	{ .msk = BIT(18), .msg = "low_th_ecc_2bit_error" },
+	{ .msk = BIT(19), .msg = "high_th_ecc_2bit_error" },
+	{ .msk = BIT(20), .msg = "q_cnt_ecc_2bit_error" },
+	{ .msk = BIT(21), .msg = "oe_nt_ecc_2bit_error" },
+	{ .msk = BIT(22), .msg = "oe_wt_ecc_2bit_error" },
+	{ .msk = BIT(23), .msg = "oe_cpt_bf_ecc_2bit_error" },
+	{ .msk = BIT(24), .msg = "oe_cpt_tg_ecc_2bit_error" },
+	{ .msk = BIT(25), .msg = "oe_cpt_other_ecc_2bit_error" },
+	{ .msk = BIT(26), .msg = "oe_efp_ecc_2bit_error" },
+	{ .msk = BIT(27), .msg = "oe_qfp_ecc_2bit_error" },
+	{ .msk = BIT(29), .msg = "ht_ddrq_ecc_2bit_error" },
+	{ .msk = BIT(30), .msg = "afnq_info_ecc_bit_error" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error poe_ecc_2bit_info_1[] = {
+	{ .msk = BIT(0), .msg = "ht_ovq_ecc_2bit_error" },
+	{ .msk = BIT(1), .msg = "ht_inq_ecc_2bit_error" },
+	{ .msk = BIT(2), .msg = "ht_flowq_ecc_2bit_error" },
+	{ .msk = BIT(3), .msg = "push_pkt_tab_ecc_0_2bit_error" },
+	{ .msk = BIT(4), .msg = "push_pkt_tab_ecc_1_2bit_error" },
+	{ .msk = BIT(5), .msg = "nt_ddrq0_ecc_2bit_error" },
+	{ .msk = BIT(6), .msg = "nt_ddrq1_ecc_2bit_error" },
+	{ .msk = BIT(7), .msg = "nt_ddrq2_ecc_2bit_error" },
+	{ .msk = BIT(8), .msg = "nt_ddrq3_ecc_2bit_error" },
+	{ .msk = BIT(9), .msg = "nt_ddrq4_ecc_2bit_error" },
+	{ .msk = BIT(10), .msg = "nt_ddrq5_ecc_2bit_error" },
+	{ .msk = BIT(11), .msg = "nt_ddrq6_ecc_2bit_error" },
+	{ .msk = BIT(12), .msg = "nt_ddrq7_ecc_2bit_error" },
+	{ .msk = BIT(13), .msg = "dispatch_0_ecc_2bit_error" },
+	{ .msk = BIT(14), .msg = "dispatch_1_ecc_2bit_error" },
+	{ .msk = BIT(15), .msg = "fwd_poe_tab_ecc_2bit_error" },
+	{ .msk = BIT(16), .msg = "pull_pkt_tab_ecc_2bit_error" },
+	{ .msk = BIT(17), .msg = "nt_pt_ecc_2bit_error" },
+	{ .msk = BIT(18), .msg = "event_id_ecc_2bit_error" },
+	{ /* sentinel */ }
+};
+
 /* helper functions */
 static char *err_severity(uint8_t err_sev)
 {
@@ -231,6 +346,27 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 					     err->err_misc_0);
 		break;
 
+	case MODULE_ID_POE:
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
+			hisi_hip08_log_error(s, "POE_ECC_1BIT_ERR_INFO_1",
+					     poe_ecc_1bit_info_1,
+					     err->err_misc_0);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_1)
+			hisi_hip08_log_error(s, "POE_ECC_1BIT_ERR_INFO_0",
+					     poe_ecc_1bit_info_0,
+					     err->err_misc_1);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_2)
+			hisi_hip08_log_error(s, "POE_ECC_2BIT_ERR_INFO_1",
+					     poe_ecc_2bit_info_1,
+					     err->err_misc_2);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_3)
+			hisi_hip08_log_error(s, "POE_ECC_2BIT_ERR_INFO_0",
+					     poe_ecc_2bit_info_0,
+					     err->err_misc_3);
+		break;
 	}
 }
 
