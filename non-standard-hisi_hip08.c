@@ -71,6 +71,34 @@ static const struct hisi_hip08_hw_error mn_hw_intr[] = {
 	{ /* sentinel */ }
 };
 
+static const struct hisi_hip08_hw_error sllc_hw_intr0[] = {
+	{ .msk = BIT(0), .msg = "int_sky_tx_req_fifo_ovf" },
+	{ .msk = BIT(1), .msg = "int_sky_tx_snp_fifo_ovf" },
+	{ .msk = BIT(2), .msg = "int_sky_tx_rsp_fifo_ovf" },
+	{ .msk = BIT(3), .msg = "int_sky_tx_dat_fifo_ovf" },
+	{ .msk = BIT(4), .msg = "int_phy_rx_flit_1bit_ecc_error" },
+	{ .msk = BIT(5), .msg = "int_phy_rx_flit_2bit_ecc_error" },
+	{ .msk = BIT(28), .msg = "int_sky_rx_req_fifo_ovf" },
+	{ .msk = BIT(29), .msg = "int_sky_rx_snp_fifo_ovf" },
+	{ .msk = BIT(30), .msg = "int_sky_rx_rsp_fifo_ovf" },
+	{ .msk = BIT(31), .msg = "int_sky_rx_dat_fifo_ovf" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error sllc_hw_intr1[] = {
+	{ .msk = BIT(8), .msg = "int_phy_rx_align_fifo0_ovf" },
+	{ .msk = BIT(9), .msg = "int_phy_rx_align_fifo1_ovf" },
+	{ .msk = BIT(10), .msg = "int_phy_rx_align_fifo2_ovf" },
+	{ .msk = BIT(11), .msg = "int_phy_rx_align_fifo3_ovf" },
+	{ .msk = BIT(12), .msg = "int_phy_rx_train_ptr_err" },
+	{ .msk = BIT(16), .msg = "int_phy_rx_async_fifo0_ovf" },
+	{ .msk = BIT(17), .msg = "int_phy_rx_async_fifo1_ovf" },
+	{ .msk = BIT(18), .msg = "int_phy_rx_async_fifo2_ovf" },
+	{ .msk = BIT(19), .msg = "int_phy_rx_async_fifo3_ovf" },
+	{ .msk = BIT(24), .msg = "int_phy_tx_async_fifo_ovf" },
+	{ /* sentinel */ }
+};
+
 /* helper functions */
 static char *err_severity(uint8_t err_sev)
 {
@@ -129,6 +157,18 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
 			trace_seq_printf(s, "SC_PLL_INT_STATUS=0x%x\n",
 					 err->err_misc_0);
+		break;
+
+	case MODULE_ID_SLLC:
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
+			hisi_hip08_log_error(s, "SLLC_INT0_SRC",
+					     sllc_hw_intr0,
+					     err->err_misc_0);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_1)
+			hisi_hip08_log_error(s, "SLLC_INT1_SRC",
+					     sllc_hw_intr1,
+					     err->err_misc_1);
 		break;
 	}
 }
