@@ -55,6 +55,55 @@
 #define HISI_OEM_TYPE2_VALID_ERR_MISC_0	BIT(10)
 #define HISI_OEM_TYPE2_VALID_ERR_MISC_1	BIT(11)
 
+#define PCIE_SUB_MODULE_ID_AP	0
+#define PCIE_SUB_MODULE_ID_TL	1
+#define PCIE_SUB_MODULE_ID_MAC	2
+#define PCIE_SUB_MODULE_ID_DL	3
+#define PCIE_SUB_MODULE_ID_SDI	4
+
+#define HISI_PCIE_LOCAL_VALID_VERSION		BIT(0)
+#define HISI_PCIE_LOCAL_VALID_SOC_ID		BIT(1)
+#define HISI_PCIE_LOCAL_VALID_SOCKET_ID		BIT(2)
+#define HISI_PCIE_LOCAL_VALID_NIMBUS_ID		BIT(3)
+#define HISI_PCIE_LOCAL_VALID_SUB_MODULE_ID	BIT(4)
+#define HISI_PCIE_LOCAL_VALID_CORE_ID		BIT(5)
+#define HISI_PCIE_LOCAL_VALID_PORT_ID		BIT(6)
+#define HISI_PCIE_LOCAL_VALID_ERR_TYPE		BIT(7)
+#define HISI_PCIE_LOCAL_VALID_ERR_SEVERITY	BIT(8)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_0	BIT(9)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_1	BIT(10)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_2	BIT(11)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_3	BIT(12)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_4	BIT(13)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_5	BIT(14)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_6	BIT(15)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_7	BIT(16)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_8	BIT(17)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_9	BIT(18)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_10	BIT(19)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_11	BIT(20)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_12	BIT(21)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_13	BIT(22)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_14	BIT(23)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_15	BIT(24)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_16	BIT(25)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_17	BIT(26)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_18	BIT(27)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_19	BIT(28)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_20	BIT(29)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_21	BIT(30)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_22	BIT(31)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_23	BIT(32)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_24	BIT(33)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_25	BIT(34)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_26	BIT(35)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_27	BIT(36)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_28	BIT(37)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_29	BIT(38)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_30	BIT(39)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_31	BIT(40)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC_32	BIT(41)
+
 struct hisi_oem_type1_err_sec {
 	uint32_t   val_bits;
 	uint8_t    version;
@@ -95,6 +144,53 @@ struct hisi_oem_type2_err_sec {
 	uint32_t   err_misc0_1;
 	uint32_t   err_misc1_0;
 	uint32_t   err_misc1_1;
+};
+
+struct hisi_pcie_local_err_sec {
+	uint64_t   val_bits;
+	uint8_t    version;
+	uint8_t    soc_id;
+	uint8_t    socket_id;
+	uint8_t    nimbus_id;
+	uint8_t    sub_module_id;
+	uint8_t    core_id;
+	uint8_t    port_id;
+	uint8_t    err_severity;
+	uint16_t   err_type;
+	uint8_t    reserv[2];
+	uint32_t   err_misc_0;
+	uint32_t   err_misc_1;
+	uint32_t   err_misc_2;
+	uint32_t   err_misc_3;
+	uint32_t   err_misc_4;
+	uint32_t   err_misc_5;
+	uint32_t   err_misc_6;
+	uint32_t   err_misc_7;
+	uint32_t   err_misc_8;
+	uint32_t   err_misc_9;
+	uint32_t   err_misc_10;
+	uint32_t   err_misc_11;
+	uint32_t   err_misc_12;
+	uint32_t   err_misc_13;
+	uint32_t   err_misc_14;
+	uint32_t   err_misc_15;
+	uint32_t   err_misc_16;
+	uint32_t   err_misc_17;
+	uint32_t   err_misc_18;
+	uint32_t   err_misc_19;
+	uint32_t   err_misc_20;
+	uint32_t   err_misc_21;
+	uint32_t   err_misc_22;
+	uint32_t   err_misc_23;
+	uint32_t   err_misc_24;
+	uint32_t   err_misc_25;
+	uint32_t   err_misc_26;
+	uint32_t   err_misc_27;
+	uint32_t   err_misc_28;
+	uint32_t   err_misc_29;
+	uint32_t   err_misc_30;
+	uint32_t   err_misc_31;
+	uint32_t   err_misc_32;
 };
 
 struct hisi_hip08_hw_error {
@@ -752,6 +848,185 @@ static char *oem_type2_sub_module_id(char *p, uint8_t module_id,
 	return p;
 }
 
+static char *pcie_local_sub_module_name(uint8_t id)
+{
+	switch (id) {
+	case PCIE_SUB_MODULE_ID_AP: return "AP Layer";
+	case PCIE_SUB_MODULE_ID_TL: return "TL Layer";
+	case PCIE_SUB_MODULE_ID_MAC: return "MAC Layer";
+	case PCIE_SUB_MODULE_ID_DL: return "DL Layer";
+	case PCIE_SUB_MODULE_ID_SDI: return "SDI Layer";
+	}
+	return "unknown";
+}
+
+static char *pcie_ap_err_type(int etype)
+{
+	switch (etype) {
+	case 0: return "AP: IOB_TX_INT_STATUS1: IOB tx cpl ram 2 bit error";
+	case 1: return "AP: IOB_TX_INT_STATUS1: IOB tx cpl ram 1 bit error";
+	case 2: return "AP: IOB_TX_INT_STATUS1: IOB tx addr not match ATU/ECAM";
+	case 3: return "AP: IOB_TX_INT_STATUS1: IOB tx non post request timeout";
+	case 4: return "AP: IOB_TX_INT_STATUS1: chi p2p pcpl traffic not match";
+	case 32: return "AP: IOB_TX_INT_STATUS2: chi cpu traffic ram 2 bit error";
+	case 33: return "AP: IOB_TX_INT_STATUS2: chi cpu traffic ram 1 bit error";
+	case 34: return "AP: IOB_TX_INT_STATUS2: chi p2p traffic ram 2 bit error";
+	case 35: return "AP: IOB_TX_INT_STATUS2: chi p2p traffic ram 1 bit error";
+	case 36: return "AP: IOB_TX_INT_STATUS2: IOB tx port request timeout";
+	case 64: return "AP: IOB_TX_INT_STATUS3: IOB tx completion timeout";
+	case 96: return "AP: IOB_TX_INT_STATUS4: IOB tx cfg retry";
+	case 128: return "AP: IOB_TX_INT_STATUS5: CPL timeout for NP";
+	case 160: return "AP: IOB_TX_CHI_UNEXP_REQ_RCVD: unexpected request received";
+	case 192: return "AP: IB_ODR_INT_SRC: axi b channel response error";
+	case 193: return "AP: IB_ODR_INT_SRC: axi r channel poison data";
+	case 194: return "AP: IB_ODR_INT_SRC: axi r channel response error";
+	case 195: return "AP: IB_ODR_INT_SRC: P/cpl sbm data buffer 2 bit error";
+	case 196: return "AP: IB_ODR_INT_SRC: P/cpl sbm data buffer 1 bit error";
+	case 197: return "AP: IB_ODR_INT_SRC: npq data buffer 2 bit error";
+	case 198: return "AP: IB_ODR_INT_SRC: npq data buffer 1 bit error";
+	case 224: return "AP: SDI_AXIM_INT_SRC : axi bresp error";
+	case 225: return "AP: SDI_AXIM_INT_SRC : axi r channel read data error";
+	case 226: return "AP: SDI_AXIM_INT_SRC : axi r channel read response error";
+	case 227: return "AP: SDI_AXIM_INT_SRC : write data buffer mbit ecc error";
+	case 228: return "AP: SDI_AXIM_INT_SRC : write data buffer 1bit ecc error";
+	case 229: return "AP: SDI_AXIM_INT_SRC : read data buffer mbit ecc error";
+	case 230: return "AP: SDI_AXIM_INT_SRC : read data buffer 1bit ecc error";
+	case 256: return "AP: DMA_QUEUE_INT_RO: link down";
+	case 257: return "AP: DMA_QUEUE_INT_RO: data poison in remote side";
+	case 258: return "AP: DMA_QUEUE_INT_RO: data poison when SQ read";
+	case 259: return "AP: DMA_QUEUE_INT_RO: CQ queue full status";
+	case 260: return "AP: DMA_QUEUE_INT_RO: CQ write back error";
+	case 261: return "AP: DMA_QUEUE_INT_RO: data poison in local side";
+	case 262: return "AP: DMA_QUEUE_INT_RO: axi master write response error";
+	case 263: return "AP: DMA_QUEUE_INT_RO: axi master read response error";
+	case 264: return "AP: DMA_QUEUE_INT_RO: read response error in remote side";
+	case 265: return "AP: DMA_QUEUE_INT_RO: write response error in remote side";
+	case 266: return "AP: DMA_QUEUE_INT_RO: drop occured";
+	case 267: return "AP: DMA_QUEUE_INT_RO: invalid length field occured";
+	case 268: return "AP: DMA_QUEUE_INT_RO: invalid opcode occured";
+	case 269: return "AP: DMA_QUEUE_INT_RO: submission descriptor read response";
+	case 288: return "AP: MCTP_INTRPT_STAT: mctp rx ram 2 bit ecc error";
+	case 289: return "AP: MCTP_INTRPT_STAT: mctp tx ram 2 bit ecc error";
+	case 290: return "AP: MCTP_INTRPT_STAT: axi bresponse error";
+	case 291: return "AP: MCTP_INTRPT_STAT: axi read response error";
+	case 292: return "AP: MCTP_INTRPT_STAT: mctp rx discards other vdm packets";
+	case 293: return "AP: MCTP_INTRPT_STAT: mctp rx discards received invalite and pri msg packets";
+	case 294: return "AP: MCTP_INTRPT_STAT: mctp rx discards received mctp packets";
+	case 295: return "AP: MCTP_INTRPT_STAT: mctp tx discards pkts read from ddr";
+	case 296: return "AP: MCTP_INTRPT_STAT: mctp rx discards packets, invalid pkt length";
+	case 297: return "AP: MCTP_INTRPT_STAT: mctp tx packet verification failed";
+	case 320: return "AP: MCTP_INTRPT_STAT: msix coal table 2 bit ecc error";
+	case 321: return "AP: MCTP_INTRPT_STAT: msix coal table 1bit ecc error";
+	case 322: return "AP: MCTP_INTRPT_STAT: msix table 2 bit ecc error";
+	case 323: return "AP: MCTP_INTRPT_STAT: msix table 1 bit ecc error";
+	}
+	return "unknown error";
+}
+
+static char *pcie_tl_err_type(int etype)
+{
+	switch (etype) {
+	case 321: return "TL: DPC_CAP_0X0C: mem request received CA completion";
+	case 322: return "TL: DPC_CAP_0X0C: mem request received UR completion";
+	case 323: return "TL: DPC_CAP_0X0C: I/O request completion timeout";
+	case 324: return "TL: DPC_CAP_0X0C: I/O request received CA completion";
+	case 325: return "TL: DPC_CAP_0X0C: I/O request received UR completion";
+	case 326: return "TL: DPC_CAP_0X0C: config request completion timeout";
+	case 327: return "TL: DPC_CAP_0X0C: config request received CA completion";
+	case 328: return "TL: DPC_CAP_0X0C: config request received UR completion";
+	case 329: return "TL: DPC_CAP_0X0C: DPC interrupt status";
+	case 330: return "TL: DPC_CAP_0X0C: DPC trigger status";
+	case 384: return "TL: TL_INT_STATUS0, TL_RX_ERR_STATUS: tl rx p/np/cpl/ccix write fifo full error";
+	case 385: return "TL: TL_INT_STATUS0, TL_RX_ERR_STATUS: tl rx ccix opt tlp length error";
+	case 386: return "TL: TL_INT_STATUS0: tl_tx_rp_pf_vf_err";
+	case 387: return "TL: TL_INT_STATUS0: tl_tx_ccix_vc_p_tc_map_err";
+	case 388: return "TL: TL_INT_STATUS0, TL_TX_TC_MAPPER_TC: tl_tx_vc0_cpl_tc_map_err";
+	case 389: return "TL: TL_INT_STATUS0, TL_TX_TC_MAPPER_TC: tl_tx_vc0_np_tc_map_err";
+	case 390: return "TL: TL_INT_STATUS0, TL_TX_TC_MAPPER_TC: tl_tx_vc0_p_tc_map_err";
+	case 391: return "TL: TL_INT_STATUS0: tl_tx_bus_master_en_err";
+	case 392: return "TL: TL_INT_STATUS0: tl_rx_pfx_mal_err";
+	case 393: return "TL: TL_INT_STATUS0: tl_rx_cpl_credit_overflow_err";
+	case 394: return "TL: TL_INT_STATUS0: tl_rx_aer_err";
+	case 395: return "TL: TL_INT_STATUS0: tl_ecc_2bit_err";
+	case 396: return "TL: TL_INT_STATUS0: tl_ecc_1bit_err";
+	case 416: return "TL: DPC_CAP_0X0C: mem request completion timeout";
+	}
+	return "unknown error";
+}
+
+static char *pcie_mac_err_type(int etype)
+{
+	switch (etype) {
+	case 352: return "MAC: MAC_REG_MAC_INT_STATUS: mac entry L1 timeout error";
+	case 353: return "MAC: MAC_REG_MAC_INT_STATUS: MACDESKEW fifo overflow error";
+	case 354: return "MAC: MAC_REG_MAC_INT_STATUS: PCS appear symbol unlock";
+	case 355: return "MAC: MAC_REG_MAC_INT_STATUS: MACDESKEW unlocked";
+	case 356: return "MAC: MAC_REG_MAC_INT_STATUS: pcie link down";
+	}
+	return "unknown error";
+}
+
+static char *pcie_dl_err_type(int etype)
+{
+	switch (etype) {
+	case 384: return "DL: DL_INT_STATUS: rx_fc_vc1_update_timeout_cpl_int";
+	case 385: return "DL: DL_INT_STATUS: rx_fc_vc1_update_timeout_np_int";
+	case 386: return "DL: DL_INT_STATUS: rx_fc_vc1_update_timeout_p_int";
+	case 387: return "DL: DL_INT_STATUS: rx_fc_vc0_update_timeout_cpl_int";
+	case 388: return "DL: DL_INT_STATUS: rx_fc_vc0_update_timeout_np_int";
+	case 389: return "DL: DL_INT_STATUS: rx_fc_vc0_update_timeout_p_int";
+	case 390: return "DL: DL_INT_STATUS: dl_corrected_err_cnt_timeout_int";
+	case 391: return "DL: DL_INT_STATUS: rx_fc_update_timeout_int";
+	case 392: return "DL: DL_INT_STATUS: dl_mac_retrain_cnt_overflow_int";
+	case 393: return "DL: DL_INT_STATUS: tl_dl_credit_null_timeout_int";
+	case 394: return "DL: DL_INT_STATUS: dl_nak_timer_timeout_int";
+	case 395: return "DL: DL_INT_STATUS: link_fail_dl_int";
+	case 396: return "DL: DL_INT_STATUS: retrain_dl_int";
+	case 397: return "DL: DL_INT_STATUS: ecc_2bit_err_dl_int";
+	case 398: return "DL: DL_INT_STATUS: ecc_1bit_err_dl_int";
+	case 399: return "DL: DL_INT_STATUS: init_timeout_dl_int";
+	case 400: return "DL: DL_INT_STATUS: dl flow control init timeout";
+	}
+	return "unknown error";
+}
+
+static char *pcie_sdi_err_type(int etype)
+{
+	switch (etype) {
+	case 352: return "SDI: ECC_INT_STATUS: virtio data structure table mbit ecc error";
+	case 353: return "SDI: ECC_INT_STATUS: virtio data structure table 1bit ecc error";
+	case 416: return "SDI: CQ_ERR_INT_CFG: CQ returned by DMA in a queue task is abnormal";
+	case 448: return "SDI: SQ_ERR_STS0: incorrect sqdb pointer delivered by the host";
+	case 449: return "SDI: SQ_ERR_STS0: incorrect hd pointer of the SQ queue";
+	case 480: return "SDI: SQ_SIZE_RAM_ECC_INJRCT: sq_size_ram_2bit_ecc_error";
+	case 481: return "SDI: SQ_BAL_RAM_ECC_INJRCT: sq_size_ram_1bit_ecc_error";
+	case 512: return "SDI: SQ_BAL_RAM_ECC_INJRCT: sq_low_order_base_addr_ram_2bit_ecc_error";
+	case 513: return "SDI: SQ_BAL_RAM_ECC_INJRCT: sq_low_order_base_addr_ram_1bit_ecc_error";
+	case 544: return "SDI: SQ_BAH_RAM_ECC_INJRCT: sq_high_order_base_addr_ram_2bit_ecc_error";
+	case 545: return "SDI: SQ_BAH_RAM_ECC_INJRCT: sq_high_order_base_addr_ram_1bit_ecc_error";
+	case 576: return "SDI: RD_PTR_RAM_ECC_INJRCT: rd_ptr_ram_2bit_ecc_error";
+	case 577: return "SDI: RD_PTR_RAM_ECC_INJRCT: rd_ptr_ram_1bit_ecc_error";
+	case 608: return "SDI: SQ_DES_RAM_ECC_INJRCT: sq_des_ram_2bit_ecc_error";
+	case 609: return "SDI: SQ_DES_RAM_ECC_INJRCT: sq_des_ram_1bit_ecc_error";
+	case 640: return "SDI: PREFETCH_FIFO_RAM_ECC_INJRCT: prefetch_fifo_ram_2bit_ecc_error";
+	case 641: return "SDI: PREFETCH_FIFO_RAM_ECC_INJRCT: prefetch_fifo_ram_1bit_ecc_error";
+	case 672: return "SDI: BRESP_ERR_INT: bresp_p_operation_abnormal";
+	case 704: return "SDI: ENGN_INT_STS: virtio_engine_local_read_pointer_data_ram_1bit_ecc_error";
+	case 705: return "SDI: ENGN_INT_STS: virtio_engine_local_write_pointer_data_ram_1bit_ecc_error";
+	case 706: return "SDI: ENGN_INT_STS: virtio_engine_local_avail_index_data_ram_1bit_ecc_error";
+	case 707: return "SDI: ENGN_INT_STS: virtio_engine_local_read_pointer_data_ram_multi_bit_ecc_error";
+	case 708: return "SDI: ENGN_INT_STS: virtio_engine_local_write_pointer_data_ram_multi_bit_ecc_error";
+	case 709: return "SDI: ENGN_INT_STS: virtio_engine_local_avail_idx_data_ram_multi_bit_ecc_error";
+	case 710: return "SDI: ENGN_INT_STS: error when virtio engine reads data from the avail ring";
+	case 711: return "SDI: ENGN_INT_STS: error when virtio engine reads avail index data";
+	case 712: return "SDI: ENGN_INT_STS: error when virtio engine sends write_operation to the axi bus";
+	case 713: return "SDI: ENGN_INT_STS: virtion engine - incorrect cq completion status";
+	case 714: return "SDI: ENGN_INT_STS: virtio engine - incorrect config parameter of the vq";
+	case 715: return "SDI: ENGN_INT_STS: virtio engine - incorrect local ring buffer base addr config parameter";
+	}
+	return "unknown error";
+}
+
 static void hisi_hip08_log_error(struct trace_seq *s, char *reg,
 				  const struct hisi_hip08_hw_error *err,
 				  uint32_t err_status)
@@ -1143,6 +1418,382 @@ static int decode_hip08_oem_type2_error(struct trace_seq *s, const void *error)
 	return 0;
 }
 
+static int decode_hip08_pcie_local_error(struct trace_seq *s, const void *error)
+{
+	const struct hisi_pcie_local_err_sec *err = error;
+	char buf[1024];
+	char *p = buf;
+
+	if (err->val_bits == 0) {
+		trace_seq_printf(s, "%s: no valid error information\n",
+				 __func__);
+		return -1;
+	}
+
+	p += sprintf(p, "[ ");
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_SOC_ID)
+		p += sprintf(p, "SOC ID=%d ", err->soc_id);
+
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_SOCKET_ID)
+		p += sprintf(p, "socket ID=%d ", err->socket_id);
+
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_NIMBUS_ID)
+		p += sprintf(p, "nimbus ID=%d ", err->nimbus_id);
+
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_SUB_MODULE_ID)
+		p += sprintf(p, "sub module=%s ",
+			     pcie_local_sub_module_name(err->sub_module_id));
+
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_CORE_ID)
+		p += sprintf(p, "core ID=core%d ", err->core_id);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_PORT_ID)
+		p += sprintf(p, "port ID=port%d ", err->port_id);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_SEVERITY)
+		p += sprintf(p, "error severity=%s ",
+			     err_severity(err->err_severity));
+	p += sprintf(p, "]");
+	trace_seq_printf(s, "\nHISI HIP08: PCIe local error\n");
+	trace_seq_printf(s, "%s\n", buf);
+
+	trace_seq_printf(s, "Reg Dump:\n");
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_0)
+		trace_seq_printf(s, "ERR_MISC_0=0x%x\n", err->err_misc_0);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_1)
+		trace_seq_printf(s, "ERR_MISC_1=0x%x\n", err->err_misc_1);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_2)
+		trace_seq_printf(s, "ERR_MISC_2=0x%x\n", err->err_misc_2);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_3)
+		trace_seq_printf(s, "ERR_MISC_3=0x%x\n", err->err_misc_3);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_4)
+		trace_seq_printf(s, "ERR_MISC_4=0x%x\n", err->err_misc_4);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_5)
+		trace_seq_printf(s, "ERR_MISC_5=0x%x\n", err->err_misc_5);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_6)
+		trace_seq_printf(s, "ERR_MISC_6=0x%x\n", err->err_misc_6);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_7)
+		trace_seq_printf(s, "ERR_MISC_7=0x%x\n", err->err_misc_7);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_8)
+		trace_seq_printf(s, "ERR_MISC_8=0x%x\n", err->err_misc_8);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_9)
+		trace_seq_printf(s, "ERR_MISC_9=0x%x\n", err->err_misc_9);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_10)
+		trace_seq_printf(s, "ERR_MISC_10=0x%x\n", err->err_misc_10);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_11)
+		trace_seq_printf(s, "ERR_MISC_11=0x%x\n", err->err_misc_11);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_12)
+		trace_seq_printf(s, "ERR_MISC_12=0x%x\n", err->err_misc_12);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_13)
+		trace_seq_printf(s, "ERR_MISC_13=0x%x\n", err->err_misc_13);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_14)
+		trace_seq_printf(s, "ERR_MISC_14=0x%x\n", err->err_misc_14);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_15)
+		trace_seq_printf(s, "ERR_MISC_15=0x%x\n", err->err_misc_15);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_16)
+		trace_seq_printf(s, "ERR_MISC_16=0x%x\n", err->err_misc_16);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_17)
+		trace_seq_printf(s, "ERR_MISC_17=0x%x\n", err->err_misc_17);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_18)
+		trace_seq_printf(s, "ERR_MISC_18=0x%x\n", err->err_misc_18);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_19)
+		trace_seq_printf(s, "ERR_MISC_19=0x%x\n", err->err_misc_19);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_20)
+		trace_seq_printf(s, "ERR_MISC_20=0x%x\n", err->err_misc_20);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_21)
+		trace_seq_printf(s, "ERR_MISC_21=0x%x\n", err->err_misc_21);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_22)
+		trace_seq_printf(s, "ERR_MISC_22=0x%x\n", err->err_misc_22);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_23)
+		trace_seq_printf(s, "ERR_MISC_23=0x%x\n", err->err_misc_23);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_24)
+		trace_seq_printf(s, "ERR_MISC_24=0x%x\n", err->err_misc_24);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_25)
+		trace_seq_printf(s, "ERR_MISC_25=0x%x\n", err->err_misc_25);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_26)
+		trace_seq_printf(s, "ERR_MISC_26=0x%x\n", err->err_misc_26);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_27)
+		trace_seq_printf(s, "ERR_MISC_27=0x%x\n", err->err_misc_27);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_28)
+		trace_seq_printf(s, "ERR_MISC_28=0x%x\n", err->err_misc_28);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_29)
+		trace_seq_printf(s, "ERR_MISC_29=0x%x\n", err->err_misc_29);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_30)
+		trace_seq_printf(s, "ERR_MISC_30=0x%x\n", err->err_misc_30);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_31)
+		trace_seq_printf(s, "ERR_MISC_31=0x%x\n", err->err_misc_31);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_32)
+		trace_seq_printf(s, "ERR_MISC_32=0x%x\n", err->err_misc_32);
+
+	trace_seq_printf(s, "Error Info:\n");
+	switch (err->sub_module_id) {
+	case PCIE_SUB_MODULE_ID_AP:
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE)
+			trace_seq_printf(s, "error type=%s\n",
+					 pcie_ap_err_type(err->err_type));
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_0)
+			trace_seq_printf(s,
+					 "PCIE_GLOBAL_REG_AP_TIMEOUT_NUM=0x%x\n",
+					 err->err_misc_0);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_1)
+			trace_seq_printf(s,
+					 "PCIE_GLOBAL_REG_APB_TIMEOUT_INFO=0x%x\n",
+					 err->err_misc_1);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_2)
+			trace_seq_printf(s,
+					 "AP_TX_REG_IOB_TX_INT_STATUS1=0x%x\n",
+					 err->err_misc_2);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_3)
+			trace_seq_printf(s, "AP_TX_REG_IOB_TX_CHI_P2P_UNMATCH_ADDR_L=0x%x\n",
+					 err->err_misc_3);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_4)
+			trace_seq_printf(s, "AP_TX_REG_IOB_TX_CHI_P2P_UNMATCH_ADDR_H=0x%x\n",
+					 err->err_misc_4);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_5)
+			trace_seq_printf(s, "AP_TX_REG_IOB_TX_CPL_RAM_ERR_INFO=0x%x\n",
+					 err->err_misc_5);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_6)
+			trace_seq_printf(s, "AP_TX_REG_IOB_TX_INT_STATUS2=0x%x\n",
+					 err->err_misc_6);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_7)
+			trace_seq_printf(s, "AP_TX_REG_IOB_TX_INT_STATUS3=0x%x\n",
+					 err->err_misc_7);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_8)
+			trace_seq_printf(s, "AP_TX_REG_IOB_TX_INT_STATUS4=0x%x\n",
+					 err->err_misc_8);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_9)
+			trace_seq_printf(s, "AP_TX_REG_IOB_TX_INT_STATUS5=0x%x\n",
+					 err->err_misc_9);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_10)
+			trace_seq_printf(s, "AP_TX_REG_IOB_TX_CHI_UNEXP_REQ_RCVD=0x%x\n",
+					 err->err_misc_10);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_11)
+			trace_seq_printf(s, "AP_RX_REG_IOB_ODR_INT_SRC=0x%x\n ",
+					 err->err_misc_11);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_12)
+			trace_seq_printf(s, "AP_RX_REG_IOB_ODR_SRAM_ECC_STS_1=0x%x\n",
+					 err->err_misc_12);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_13)
+			trace_seq_printf(s, "AP_RX_REG_IOB_ODR_SRAM_ECC_STS_0=0x%x\n",
+					 err->err_misc_13);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_14)
+			trace_seq_printf(s, "AP_REG_SDI_AXIM_INT_SRC=0x%x\n",
+					 err->err_misc_14);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_15)
+			trace_seq_printf(s, "AP_REG_DMA_QUEUE_INT_RO=0x%x\n",
+					 err->err_misc_15);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_16)
+			trace_seq_printf(s, "AP_REG_MCTP_INTRPT_STAT=0x%x\n",
+					 err->err_misc_16);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_17)
+			trace_seq_printf(s, "AP_REG_ECC_ERR_INT_STS=0x%x\n",
+					 err->err_misc_17);
+		break;
+
+	case PCIE_SUB_MODULE_ID_TL:
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE)
+			trace_seq_printf(s, "error type=%s\n",
+					 pcie_tl_err_type(err->err_type));
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_0)
+			trace_seq_printf(s, "TL_REG_TL_INT_STATUS0=0x%x\n",
+				     err->err_misc_0);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_1)
+			trace_seq_printf(s, "TL_REG_TL_RX_ERR_STATUS=0x%x\n",
+					 err->err_misc_1);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_2)
+			trace_seq_printf(s, "TL_REG_TL_RX_ECC_ERROR_STATUS=0x%x\n",
+					 err->err_misc_2);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_3)
+			trace_seq_printf(s, "TL_REG_TL_TX_ECC_ERROR_STATUS=0x%x\n",
+					 err->err_misc_3);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_4)
+			trace_seq_printf(s, "TL_REG_TL_TX_ECC_2BIT_ERR_CNT=0x%x\n",
+					 err->err_misc_4);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_5)
+			trace_seq_printf(s, "TL_REG_TL_ECC_2BIT_ERR_CNT=0x%x\n",
+					 err->err_misc_5);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_6)
+			trace_seq_printf(s, "TL_REG_TL_ECC_2BIT_ERR=0x%x\n",
+					 err->err_misc_6);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_7)
+			trace_seq_printf(s, "TL_REG_TL_TX_ECC_2BIT_ERR_ADDR=0x%x\n",
+					 err->err_misc_7);
+		break;
+
+	case PCIE_SUB_MODULE_ID_MAC:
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE) {
+			trace_seq_printf(s, "error type=%s\n",
+					 pcie_mac_err_type(err->err_type));
+		}
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_0)
+			trace_seq_printf(s, "MAC_REG_MAC_INT_STATUS=0x%x\n",
+					 err->err_misc_0);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_1)
+			trace_seq_printf(s, "MAC_REG_LINK_INFO=0x%x\n",
+					 err->err_misc_1);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_2)
+			trace_seq_printf(s, "MAC_REG_DEBUG_PIPE7=0x%x\n",
+					 err->err_misc_2);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_3)
+			trace_seq_printf(s, "MAC_REG_DEBUG_PIPE8=0x%x\n",
+					 err->err_misc_3);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_4)
+			trace_seq_printf(s, "MAC_REG_DEBUG_PIPE9=0x%x\n",
+					 err->err_misc_4);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_5)
+			trace_seq_printf(s, "MAC_REG_DEBUG_PIPE10=0x%x\n",
+					 err->err_misc_5);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_6)
+			trace_seq_printf(s, "MAC_REG_DEBUG_PIPE11=0x%x\n",
+					 err->err_misc_6);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_7)
+			trace_seq_printf(s, "MAC_REG_SYMBOL_UNLOCK_COUNTER=0x%x\n",
+					 err->err_misc_7);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_8)
+			trace_seq_printf(s, "MAC_REG_TEST_COUNTER=0x%x\n",
+					 err->err_misc_8);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_9)
+			trace_seq_printf(s, "MAC_REG_PCS_RX_ERR_CNT=0x%x\n",
+					 err->err_misc_9);
+		break;
+
+	case PCIE_SUB_MODULE_ID_DL:
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE)
+			trace_seq_printf(s, "error type=%s\n",
+					 pcie_dl_err_type(err->err_type));
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_0)
+			trace_seq_printf(s, "DL_REG_DL_INT_STATUS=0x%x\n",
+					 err->err_misc_0);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_1)
+			trace_seq_printf(s, "DL_REG_DL_RX_NAK_COUNT=0x%x\n",
+					 err->err_misc_1);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_2)
+			trace_seq_printf(s, "DL_REG_DFX_RX_BAD_DLLP_TYPE=0x%x\n",
+					 err->err_misc_2);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_3)
+			trace_seq_printf(s, "DL_REG_DFX_MAC_BP_TIMER=0x%x\n",
+					 err->err_misc_3);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_4)
+			trace_seq_printf(s, "DL_REG_DFX_RETRY_CNT=0x%x\n",
+					 err->err_misc_4);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_5)
+			trace_seq_printf(s, "DL_REG_DFX_LCRC_ERR_NUM=0x%x\n",
+					 err->err_misc_5);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_6)
+			trace_seq_printf(s, "DL_REG_DFX_DCRC_ERR_NUM=0x%x\n",
+					 err->err_misc_6);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_7)
+			trace_seq_printf(s, "DL_REG_DFX_FSM_STATE=0x%x\n",
+					 err->err_misc_7);
+		break;
+
+	case PCIE_SUB_MODULE_ID_SDI:
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE)
+			trace_seq_printf(s, "error type=%s\n",
+					 pcie_sdi_err_type(err->err_type));
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_0)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG0=0x%x\n",
+					 err->err_misc_0);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_1)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG1=0x%x\n",
+					 err->err_misc_1);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_2)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG2=0x%x\n",
+					 err->err_misc_2);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_3)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG3=0x%x\n",
+					 err->err_misc_3);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_4)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG4=0x%x\n",
+					 err->err_misc_4);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_5)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG5=0x%x\n",
+					 err->err_misc_5);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_6)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG6=0x%x\n",
+					 err->err_misc_6);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_7)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG7=0x%x\n",
+					 err->err_misc_7);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_8)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG8=0x%x\n",
+					 err->err_misc_8);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_9)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG9=0x%x\n",
+					 err->err_misc_9);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_10)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG10=0x%x\n",
+					 err->err_misc_10);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_11)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG11=0x%x\n",
+					 err->err_misc_11);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_12)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG12=0x%x\n",
+					 err->err_misc_12);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_13)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG13=0x%x\n",
+					 err->err_misc_13);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_14)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG14=0x%x\n",
+					 err->err_misc_14);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_15)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG15=0x%x\n",
+					 err->err_misc_15);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_16)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_SQ_ERR_STS0=0x%x\n",
+					 err->err_misc_16);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_17)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_SQ_SIZE_RAM_ECC_INJRCT=0x%x\n",
+					 err->err_misc_17);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_18)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_SQ_BAL_RAM_ECC_INJRCT=0x%x\n",
+					 err->err_misc_18);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_19)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_SQ_BAH_RAM_ECC_INJRCT=0x%x\n",
+					 err->err_misc_19);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_20)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_RD_PTR_RAM_ECC_INJRCT=0x%x\n",
+					 err->err_misc_20);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_21)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_SQ_DES_RAM_ECC_INJRCT=0x%x\n",
+					 err->err_misc_21);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_22)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_PREFETCH_FIFO_RAM_ECC_INJRCT=0x%x\n",
+					 err->err_misc_22);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_23)
+			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_BRESP_ERR_INT=0x%x\n",
+					 err->err_misc_23);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_24)
+			trace_seq_printf(s, "PCIE_VIRTIO_GLOBAL_REG_ECC_INT_STATUS=0x%x\n",
+					 err->err_misc_24);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_25)
+			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_ENGN_INT_STS=0x%x\n",
+					 err->err_misc_25);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_26)
+			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_LOC_RPTR_CSR_RAM_EC_ADDR=0x%x\n",
+					 err->err_misc_26);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_27)
+			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_LOC_WPTR_CSR_RAM_ECC_ADDR=0x%x\n",
+					 err->err_misc_27);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_28)
+			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_LOC_AV_IDX_CSR_RAM_ECC_ADDR=0x%x\n",
+					 err->err_misc_28);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_29)
+			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_FETCH_AV_CPL_ERR_VQ_NUM=0x%x\n",
+					 err->err_misc_29);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_30)
+			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_DMA_CQ_ERR_STS=0x%x\n",
+					 err->err_misc_30);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_31)
+			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_FETCH_AV_IDX_ERR_QN=0x%x\n",
+					 err->err_misc_31);
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_32)
+			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_ENGN_GET_DT_INF_BASE_ERR_PF=0x%x\n",
+					 err->err_misc_32);
+		break;
+	}
+
+	return 0;
+}
+
 struct ras_ns_dec_tab hip08_ns_oem_tab[] = {
 	{
 		.sec_type = "1f8161e155d641e6bd107afd1dc5f7c5",
@@ -1151,6 +1802,10 @@ struct ras_ns_dec_tab hip08_ns_oem_tab[] = {
 	{
 		.sec_type = "45534ea6ce2341158535e07ab3aef91d",
 		.decode = decode_hip08_oem_type2_error,
+	},
+	{
+		.sec_type = "b2889fc9e7d74f9da867af42e98be772",
+		.decode = decode_hip08_pcie_local_error,
 	},
 };
 
