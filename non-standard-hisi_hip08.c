@@ -25,6 +25,8 @@
 #define MODULE_ID_POE	5
 #define MODULE_ID_DISP	8
 #define MODULE_ID_LPC	9
+#define MODULE_ID_SAS	15
+#define MODULE_ID_SATA	16
 
 #define HISI_OEM_VALID_SOC_ID		BIT(0)
 #define HISI_OEM_VALID_SOCKET_ID	BIT(1)
@@ -301,6 +303,142 @@ static const struct hisi_hip08_hw_error lpc_sc_mem_ecc_st1[] = {
 	{ /* sentinel */ }
 };
 
+static const struct hisi_hip08_hw_error sas_ras_intr0[] = {
+	{ .msk = BIT(0), .msg = "RXM_CFG_MEM3_ECC1B_INTR" },
+	{ .msk = BIT(1), .msg = "RXM_CFG_MEM2_ECC1B_INTR" },
+	{ .msk = BIT(2), .msg = "RXM_CFG_MEM1_ECC1B_INTR" },
+	{ .msk = BIT(3), .msg = "RXM_CFG_MEM0_ECC1B_INTR" },
+	{ .msk = BIT(4), .msg = "HGC_CQE_ECC1B_INTR" },
+	{ .msk = BIT(5), .msg = "LM_CFG_IOSTL_ECC1B_INTR" },
+	{ .msk = BIT(6), .msg = "LM_CFG_ITCTL_ECC1B_INTR" },
+	{ .msk = BIT(7), .msg = "HGC_ITCT_ECC1B_INTR" },
+	{ .msk = BIT(8), .msg = "HGC_IOST_ECC1B_INTR" },
+	{ .msk = BIT(9), .msg = "HGC_DQE_ECC1B_INTR" },
+	{ .msk = BIT(10), .msg = "DMAC0_RAM_ECC1B_INTR" },
+	{ .msk = BIT(11), .msg = "DMAC1_RAM_ECC1B_INTR" },
+	{ .msk = BIT(12), .msg = "DMAC2_RAM_ECC1B_INTR" },
+	{ .msk = BIT(13), .msg = "DMAC3_RAM_ECC1B_INTR" },
+	{ .msk = BIT(14), .msg = "DMAC4_RAM_ECC1B_INTR" },
+	{ .msk = BIT(15), .msg = "DMAC5_RAM_ECC1B_INTR" },
+	{ .msk = BIT(16), .msg = "DMAC6_RAM_ECC1B_INTR" },
+	{ .msk = BIT(17), .msg = "DMAC7_RAM_ECC1B_INTR" },
+	{ .msk = BIT(18), .msg = "OOO_RAM_ECC1B_INTR" },
+	{ .msk = BIT(19), .msg = "HILINK_INT" },
+	{ .msk = BIT(20), .msg = "HILINK_PLL0_OUT_OF_LOCK" },
+	{ .msk = BIT(21), .msg = "HILINK_PLL1_OUT_OF_LOCK" },
+	{ .msk = BIT(22), .msg = "HILINK_LOSS_OF_REFCLK0" },
+	{ .msk = BIT(23), .msg = "HILINK_LOSS_OF_REFCLK1" },
+	{ .msk = BIT(24), .msg = "DMAC0_TX_POISON" },
+	{ .msk = BIT(25), .msg = "DMAC1_TX_POISON" },
+	{ .msk = BIT(26), .msg = "DMAC2_TX_POISON" },
+	{ .msk = BIT(27), .msg = "DMAC3_TX_POISON" },
+	{ .msk = BIT(28), .msg = "DMAC4_TX_POISON" },
+	{ .msk = BIT(29), .msg = "DMAC5_TX_POISON" },
+	{ .msk = BIT(30), .msg = "DMAC6_TX_POISON" },
+	{ .msk = BIT(31), .msg = "DMAC7_TX_POISON" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error sas_ras_intr1[] = {
+	{ .msk = BIT(0), .msg = "RXM_CFG_MEM3_ECC2B_INTR" },
+	{ .msk = BIT(1), .msg = "RXM_CFG_MEM2_ECC2B_INTR" },
+	{ .msk = BIT(2), .msg = "RXM_CFG_MEM1_ECC2B_INTR" },
+	{ .msk = BIT(3), .msg = "RXM_CFG_MEM0_ECC2B_INTR" },
+	{ .msk = BIT(4), .msg = "HGC_CQE_ECC2B_INTR" },
+	{ .msk = BIT(5), .msg = "LM_CFG_IOSTL_ECC2B_INTR" },
+	{ .msk = BIT(6), .msg = "LM_CFG_ITCTL_ECC2B_INTR" },
+	{ .msk = BIT(7), .msg = "HGC_ITCT_ECC2B_INTR" },
+	{ .msk = BIT(8), .msg = "HGC_IOST_ECC2B_INTR" },
+	{ .msk = BIT(9), .msg = "HGC_DQE_ECC2B_INTR" },
+	{ .msk = BIT(10), .msg = "DMAC0_RAM_ECC2B_INTR" },
+	{ .msk = BIT(11), .msg = "DMAC1_RAM_ECC2B_INTR" },
+	{ .msk = BIT(12), .msg = "DMAC2_RAM_ECC2B_INTR" },
+	{ .msk = BIT(13), .msg = "DMAC3_RAM_ECC2B_INTR" },
+	{ .msk = BIT(14), .msg = "DMAC4_RAM_ECC2B_INTR" },
+	{ .msk = BIT(15), .msg = "DMAC5_RAM_ECC2B_INTR" },
+	{ .msk = BIT(16), .msg = "DMAC6_RAM_ECC2B_INTR" },
+	{ .msk = BIT(17), .msg = "DMAC7_RAM_ECC2B_INTR" },
+	{ .msk = BIT(18), .msg = "OOO_RAM_ECC2B_INTR" },
+	{ .msk = BIT(20), .msg = "HGC_DQE_POISON_INTR" },
+	{ .msk = BIT(21), .msg = "HGC_IOST_POISON_INTR" },
+	{ .msk = BIT(22), .msg = "HGC_ITCT_POISON_INTR" },
+	{ .msk = BIT(23), .msg = "HGC_ITCT_NCQ_POISON_INTR" },
+	{ .msk = BIT(24), .msg = "DMAC0_RX_POISON" },
+	{ .msk = BIT(25), .msg = "DMAC1_RX_POISON" },
+	{ .msk = BIT(26), .msg = "DMAC2_RX_POISON" },
+	{ .msk = BIT(27), .msg = "DMAC3_RX_POISON" },
+	{ .msk = BIT(28), .msg = "DMAC4_RX_POISON" },
+	{ .msk = BIT(29), .msg = "DMAC5_RX_POISON" },
+	{ .msk = BIT(30), .msg = "DMAC6_RX_POISON" },
+	{ .msk = BIT(31), .msg = "DMAC7_RX_POISON" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error sas_ras_intr2[] = {
+	{ .msk = BIT(0), .msg = "DMAC0_AXI_BUS_ERR" },
+	{ .msk = BIT(1), .msg = "DMAC1_AXI_BUS_ERR" },
+	{ .msk = BIT(2), .msg = "DMAC2_AXI_BUS_ERR" },
+	{ .msk = BIT(3), .msg = "DMAC3_AXI_BUS_ERR" },
+	{ .msk = BIT(4), .msg = "DMAC4_AXI_BUS_ERR" },
+	{ .msk = BIT(5), .msg = "DMAC5_AXI_BUS_ERR" },
+	{ .msk = BIT(6), .msg = "DMAC6_AXI_BUS_ERR" },
+	{ .msk = BIT(7), .msg = "DMAC7_AXI_BUS_ERR" },
+	{ .msk = BIT(8), .msg = "DMAC0_FIFO_OMIT_ERR" },
+	{ .msk = BIT(9), .msg = "DMAC1_FIFO_OMIT_ERR" },
+	{ .msk = BIT(10), .msg = "DMAC2_FIFO_OMIT_ERR" },
+	{ .msk = BIT(11), .msg = "DMAC3_FIFO_OMIT_ERR" },
+	{ .msk = BIT(12), .msg = "DMAC4_FIFO_OMIT_ERR" },
+	{ .msk = BIT(13), .msg = "DMAC5_FIFO_OMIT_ERR" },
+	{ .msk = BIT(14), .msg = "DMAC6_FIFO_OMIT_ERR" },
+	{ .msk = BIT(15), .msg = "DMAC7_FIFO_OMIT_ERR" },
+	{ .msk = BIT(16), .msg = "HGC_RLSE_SLOT_UNMATCH" },
+	{ .msk = BIT(17), .msg = "HGC_LM_ADD_FCH_LIST_ERR" },
+	{ .msk = BIT(18), .msg = "HGC_AXI_BUS_ERR" },
+	{ .msk = BIT(19), .msg = "HGC_FIFO_OMIT_ERR" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error sata_ras_is[] = {
+	{ .msk = BIT(0), .msg = "SATA_RAS_FE" },
+	{ .msk = BIT(1), .msg = "SATA_RAS_CE" },
+	{ .msk = BIT(2), .msg = "SATA_RAS_NFE" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error sata_ras_serr[] = {
+	{ .msk = BIT(0), .msg = "p0_ecc_1b_rx_d_fifo" },
+	{ .msk = BIT(1), .msg = "p0_ecc_1b_tx_d_fifo" },
+	{ .msk = BIT(2), .msg = "p0_ecc_1b_cmd_sram" },
+	{ .msk = BIT(3), .msg = "p0_ecc_mb_rx_d_fifo" },
+	{ .msk = BIT(4), .msg = "p0_ecc_mb_tx_d_fifo" },
+	{ .msk = BIT(5), .msg = "p0_ecc_mb_cmd_sram" },
+	{ .msk = BIT(6), .msg = "p1_ecc_1b_rx_d_fifo" },
+	{ .msk = BIT(7), .msg = "p1_ecc_1b_tx_d_fifo" },
+	{ .msk = BIT(8), .msg = "p1_ecc_1b_cmd_sram" },
+	{ .msk = BIT(9), .msg = "p1_ecc_mb_rx_d_fifo" },
+	{ .msk = BIT(10), .msg = "p1_ecc_mb_tx_d_fifo" },
+	{ .msk = BIT(11), .msg = "p1_ecc_mb_cmd_sram" },
+	{ .msk = BIT(12), .msg = "p0_rx_berror" },
+	{ .msk = BIT(13), .msg = "p0_rx_rerror" },
+	{ .msk = BIT(14), .msg = "p0_tx_rerror" },
+	{ .msk = BIT(15), .msg = "p1_rx_berror" },
+	{ .msk = BIT(16), .msg = "p1_rx_rerror" },
+	{ .msk = BIT(17), .msg = "p1_tx_rerror" },
+	{ .msk = BIT(18), .msg = "dmac_poison_err" },
+	{ .msk = BIT(20), .msg = "p0_hl_prbs_err" },
+	{ .msk = BIT(21), .msg = "p0_hl_alos" },
+	{ .msk = BIT(22), .msg = "p0_hl_los" },
+	{ .msk = BIT(23), .msg = "p0_hl_cs_calib_done" },
+	{ .msk = BIT(24), .msg = "p0_hl_pll_outoflock" },
+	{ .msk = BIT(25), .msg = "p0_hl_loss_of_refclk" },
+	{ .msk = BIT(26), .msg = "p1_hl_prbs_err" },
+	{ .msk = BIT(27), .msg = "p1_hl_alos" },
+	{ .msk = BIT(28), .msg = "p1_hl_los" },
+	{ .msk = BIT(29), .msg = "p1_hl_cs_calib_done" },
+	{ .msk = BIT(30), .msg = "p1_hl_pll_outoflock" },
+	{ .msk = BIT(31), .msg = "p1_hl_loss_of_refclk" },
+	{ /* sentinel */ }
+};
 /* helper functions */
 static char *err_severity(uint8_t err_sev)
 {
@@ -324,6 +462,8 @@ static char *oem_type1_module_name(uint8_t module_id)
 	case MODULE_ID_POE: return "POE";
 	case MODULE_ID_DISP: return "DISP";
 	case MODULE_ID_LPC: return "LPC";
+	case MODULE_ID_SAS: return "SAS";
+	case MODULE_ID_SATA: return "SATA";
 	}
 	return "unknown";
 }
@@ -491,6 +631,35 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_3)
 			trace_seq_printf(s, "OP_STATUS=0x%x\n",
 					 err->err_misc_3);
+		break;
+
+	case MODULE_ID_SAS:
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
+			hisi_hip08_log_error(s, "SAS_RAS_INTR0",
+					     sas_ras_intr0,
+					     err->err_misc_0);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_1)
+			hisi_hip08_log_error(s, "SAS_RAS_INTR1",
+					     sas_ras_intr1,
+					     err->err_misc_1);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_2)
+			hisi_hip08_log_error(s, "SAS_RAS_INTR2",
+					     sas_ras_intr2,
+					     err->err_misc_2);
+		break;
+
+	case MODULE_ID_SATA:
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
+			hisi_hip08_log_error(s, "SATA_RAS_IS",
+					     sata_ras_is,
+					     err->err_misc_0);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_1)
+			hisi_hip08_log_error(s, "SATA_RAS_SERR",
+					     sata_ras_serr,
+					     err->err_misc_1);
 		break;
 	}
 }
