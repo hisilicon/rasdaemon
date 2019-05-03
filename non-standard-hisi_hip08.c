@@ -99,6 +99,16 @@ static const struct hisi_hip08_hw_error sllc_hw_intr1[] = {
 	{ /* sentinel */ }
 };
 
+static const struct hisi_hip08_hw_error aa_hw_intraw[] = {
+	{ .msk = BIT(0), .msg = "dec_miss_error" },
+	{ .msk = BIT(1), .msg = "daw_overlap_error" },
+	{ .msk = BIT(2), .msg = "msd_overlap_error" },
+	{ .msk = BIT(3), .msg = "dec_miss_ext_error" },
+	{ .msk = BIT(4), .msg = "daw_overlap_ext_error" },
+	{ .msk = BIT(5), .msg = "msd_overlap_ext_error" },
+	{ /* sentinel */ }
+};
+
 /* helper functions */
 static char *err_severity(uint8_t err_sev)
 {
@@ -169,6 +179,33 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 			hisi_hip08_log_error(s, "SLLC_INT1_SRC",
 					     sllc_hw_intr1,
 					     err->err_misc_1);
+		break;
+
+	case MODULE_ID_AA:
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
+			hisi_hip08_log_error(s, "AA_INTRAW",
+					     aa_hw_intraw,
+					     err->err_misc_0);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_1)
+			trace_seq_printf(s, "AA_DEC_ERR_OTHER=0x%x\n",
+					 err->err_misc_1);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_2)
+			trace_seq_printf(s, "AA_DEC_ERR_ADDRL_EXT=0x%x\n",
+					 err->err_misc_2);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_3)
+			trace_seq_printf(s, "AA_DEC_ERR_ADDRH_EXT=0x%x\n",
+					 err->err_misc_3);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_4)
+			trace_seq_printf(s, "AA_DEC_ERR_OTHER_EXT=0x%x\n",
+					 err->err_misc_4);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_ADDR)
+			trace_seq_printf(s, "AA_ERR_ADDR=0x%p\n",
+					 (void *)err->err_addr);
 		break;
 	}
 }
