@@ -124,6 +124,12 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 			hisi_hip08_log_error(s, "MN_INTS", mn_hw_intr,
 					     err->err_misc_1);
 		break;
+
+	case MODULE_ID_PLL:
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
+			trace_seq_printf(s, "SC_PLL_INT_STATUS=0x%x\n",
+					 err->err_misc_0);
+		break;
 	}
 }
 
