@@ -31,6 +31,7 @@
 #define MODULE_ID_SMMU	0
 #define MODULE_ID_HHA	1
 #define MODULE_ID_HLLC	2
+#define MODULE_ID_PA	3
 
 #define HISI_OEM_VALID_SOC_ID		BIT(0)
 #define HISI_OEM_VALID_SOCKET_ID	BIT(1)
@@ -587,6 +588,42 @@ static const struct hisi_hip08_hw_error_status hllc_ierr_status[] = {
 	{ /* sentinel */ }
 };
 
+static const struct hisi_hip08_hw_error pa_hw_err_misc1_l[] = {
+	{ .msk = BIT(24), .msg = "err_req_dec_miss_st" },
+	{ .msk = BIT(25), .msg = "err_req_daw_overlap" },
+	{ .msk = BIT(26), .msg = "err_req_msd_overlap" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error pa_hw_err_misc1_h[] = {
+	{ .msk = BIT(0), .msg = "h0_rx_req_daw_err" },
+	{ .msk = BIT(1), .msg = "h1_rx_req_daw_err" },
+	{ .msk = BIT(2), .msg = "h2_rx_req_daw_err" },
+	{ .msk = BIT(27), .msg = "err_comprsp_err" },
+	{ .msk = BIT(28), .msg = "err_compdat_err" },
+	{ .msk = BIT(29), .msg = "h0_tx_rsp_err" },
+	{ .msk = BIT(30), .msg = "h1_tx_rsp_err" },
+	{ .msk = BIT(31), .msg = "h2_tx_rsp_err" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error_status pa_serr_status[] = {
+	{ .val = 0x2, .msg = "memory_ecc_error" },
+	{ .val = 0xD, .msg = "daw_error" },
+	{ .val = 0x12, .msg = "rsp_error" },
+	{ .val = 0x14, .msg = "buffer_overflow_error" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error_status pa_ierr_status[] = {
+	{ .val = 0x1, .msg = "memory_2bit_ecc_error" },
+	{ .val = 0x2, .msg = "buffer_overflow_error" },
+	{ .val = 0x3, .msg = "rsp_error" },
+	{ .val = 0x4, .msg = "daw_error" },
+	{ .val = 0x5, .msg = "memory_1bit_ecc_error" },
+	{ /* sentinel */ }
+};
+
 /* helper functions */
 static char *err_severity(uint8_t err_sev)
 {
@@ -622,6 +659,7 @@ static char *oem_type2_module_name(uint8_t module_id)
 	case MODULE_ID_SMMU: return "SMMU";
 	case MODULE_ID_HHA: return "HHA";
 	case MODULE_ID_HLLC: return "HLLC";
+	case MODULE_ID_PA: return "PA";
 	}
 	return "unknown module";
 }
@@ -632,6 +670,7 @@ static char *oem_type2_sub_module_id(char *p, uint8_t module_id,
 	switch (module_id) {
 	case MODULE_ID_SMMU:
 	case MODULE_ID_HLLC:
+	case MODULE_ID_PA:
 		p += sprintf(p, "%d ", sub_module_id);
 		break;
 
@@ -893,6 +932,18 @@ static void dec_type2_err_info(struct trace_seq *s,
 				     hllc_hw_err_misc1_l, err->err_misc1_0);
 		hisi_hip08_log_error(s, "HLLC_ERR_MISC1H",
 				     hllc_hw_err_misc1_h, err->err_misc1_1);
+		break;
+
+	case MODULE_ID_PA:
+		hisi_hip08_log_error_status(s, "PA_ERR_STATUSL:SERR",
+					    pa_serr_status, serr_status);
+		hisi_hip08_log_error_status(s, "PA_ERR_STATUSL:IERR",
+					    pa_ierr_status, ierr_status);
+
+		hisi_hip08_log_error(s, "PA_ERR_MISC1L", pa_hw_err_misc1_l,
+				     err->err_misc1_0);
+		hisi_hip08_log_error(s, "PA_ERR_MISC1H", pa_hw_err_misc1_h,
+				     err->err_misc1_1);
 		break;
 	}
 }
