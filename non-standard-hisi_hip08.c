@@ -28,6 +28,8 @@
 #define MODULE_ID_SAS	15
 #define MODULE_ID_SATA	16
 
+#define MODULE_ID_SMMU	0
+
 #define HISI_OEM_VALID_SOC_ID		BIT(0)
 #define HISI_OEM_VALID_SOCKET_ID	BIT(1)
 #define HISI_OEM_VALID_NIMBUS_ID	BIT(2)
@@ -41,6 +43,13 @@
 #define HISI_OEM_TYPE1_VALID_ERR_MISC_3	BIT(9)
 #define HISI_OEM_TYPE1_VALID_ERR_MISC_4	BIT(10)
 #define HISI_OEM_TYPE1_VALID_ERR_ADDR	BIT(11)
+
+#define HISI_OEM_TYPE2_VALID_ERR_FR	BIT(6)
+#define HISI_OEM_TYPE2_VALID_ERR_CTRL	BIT(7)
+#define HISI_OEM_TYPE2_VALID_ERR_STATUS	BIT(8)
+#define HISI_OEM_TYPE2_VALID_ERR_ADDR	BIT(9)
+#define HISI_OEM_TYPE2_VALID_ERR_MISC_0	BIT(10)
+#define HISI_OEM_TYPE2_VALID_ERR_MISC_1	BIT(11)
 
 struct hisi_oem_type1_err_sec {
 	uint32_t   val_bits;
@@ -60,8 +69,37 @@ struct hisi_oem_type1_err_sec {
 	uint64_t   err_addr;
 };
 
+struct hisi_oem_type2_err_sec {
+	uint32_t   val_bits;
+	uint8_t    version;
+	uint8_t    soc_id;
+	uint8_t    socket_id;
+	uint8_t    nimbus_id;
+	uint8_t    module_id;
+	uint8_t    sub_module_id;
+	uint8_t    err_severity;
+	uint8_t    reserv;
+	uint32_t   err_fr_0;
+	uint32_t   err_fr_1;
+	uint32_t   err_ctrl_0;
+	uint32_t   err_ctrl_1;
+	uint32_t   err_status_0;
+	uint32_t   err_status_1;
+	uint32_t   err_addr_0;
+	uint32_t   err_addr_1;
+	uint32_t   err_misc0_0;
+	uint32_t   err_misc0_1;
+	uint32_t   err_misc1_0;
+	uint32_t   err_misc1_1;
+};
+
 struct hisi_hip08_hw_error {
 	uint32_t msk;
+	const char *msg;
+};
+
+struct hisi_hip08_hw_error_status {
+	uint32_t val;
 	const char *msg;
 };
 
@@ -439,6 +477,22 @@ static const struct hisi_hip08_hw_error sata_ras_serr[] = {
 	{ .msk = BIT(31), .msg = "p1_hl_loss_of_refclk" },
 	{ /* sentinel */ }
 };
+
+static const struct hisi_hip08_hw_error_status smmu_serr_status[] = {
+	{ .val = 0x6, .msg = "context_cache_ecc_error" },
+	{ .val = 0x8, .msg = "l2_tlb_ecc_error" },
+	{ .val = 0xA, .msg = "wrbuff_ecc_error" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error_status smmu_ierr_status[] = {
+	{ .val = 0x1, .msg = "ste_fetch_error" },
+	{ .val = 0x2, .msg = "cd_fetch_error" },
+	{ .val = 0x3, .msg = "walk_eabt_error" },
+	{ .val = 0x4, .msg = "cmdq_fetch_error" },
+	{ .val = 0x5, .msg = "write_eventq_abort_error" },
+	{ /* sentinel */ }
+};
 /* helper functions */
 static char *err_severity(uint8_t err_sev)
 {
@@ -468,6 +522,26 @@ static char *oem_type1_module_name(uint8_t module_id)
 	return "unknown";
 }
 
+static char *oem_type2_module_name(uint8_t module_id)
+{
+	switch (module_id) {
+	case MODULE_ID_SMMU: return "SMMU";
+	}
+	return "unknown module";
+}
+
+static char *oem_type2_sub_module_id(char *p, uint8_t module_id,
+				     uint8_t sub_module_id)
+{
+	switch (module_id) {
+	case MODULE_ID_SMMU:
+		p += sprintf(p, "%d ", sub_module_id);
+		break;
+	}
+
+	return p;
+}
+
 static void hisi_hip08_log_error(struct trace_seq *s, char *reg,
 				  const struct hisi_hip08_hw_error *err,
 				  uint32_t err_status)
@@ -476,6 +550,18 @@ static void hisi_hip08_log_error(struct trace_seq *s, char *reg,
 		if (err->msk & err_status)
 			trace_seq_printf(s, "%s: %s\n", reg, err->msg);
 		err++;
+	}
+}
+
+static void
+hisi_hip08_log_error_status(struct trace_seq *s, char *reg,
+			    const struct hisi_hip08_hw_error_status *err_status,
+			    uint32_t val)
+{
+	while (err_status->msg) {
+		if (err_status->val == val)
+			trace_seq_printf(s, "%s: %s\n", reg, err_status->msg);
+		err_status++;
 	}
 }
 
@@ -664,6 +750,26 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 	}
 }
 
+static void dec_type2_err_info(struct trace_seq *s,
+			       const struct hisi_oem_type2_err_sec *err)
+{
+	uint16_t ierr_status;
+	uint16_t serr_status;
+
+	serr_status = err->err_status_0 & 0xFF;
+	ierr_status = (err->err_status_0 >> 8) & 0xFF;
+	trace_seq_printf(s, "Error Info:\n");
+
+	switch (err->module_id) {
+	case MODULE_ID_SMMU:
+		hisi_hip08_log_error_status(s, "SMMU_ERR_STATUS_0:SERR",
+					    smmu_serr_status, serr_status);
+		hisi_hip08_log_error_status(s, "SMMU_ERR_STATUS_0:IERR",
+					    smmu_ierr_status, ierr_status);
+		break;
+	}
+}
+
 static int decode_hip08_oem_type1_error(struct trace_seq *s, const void *error)
 {
 	const struct hisi_oem_type1_err_sec *err = error;
@@ -717,10 +823,88 @@ static int decode_hip08_oem_type1_error(struct trace_seq *s, const void *error)
 	return 0;
 }
 
+static int decode_hip08_oem_type2_error(struct trace_seq *s, const void *error)
+{
+	const struct hisi_oem_type2_err_sec *err = error;
+	char buf[1024];
+	char *p = buf;
+
+	if (err->val_bits == 0) {
+		trace_seq_printf(s, "%s: no valid error information\n",
+				 __func__);
+		return -1;
+	}
+
+	p += sprintf(p, "[ ");
+	if (err->val_bits & HISI_OEM_VALID_SOC_ID)
+		p += sprintf(p, "SOC ID=%d ", err->soc_id);
+
+	if (err->val_bits & HISI_OEM_VALID_SOCKET_ID)
+		p += sprintf(p, "socket ID=%d ", err->socket_id);
+
+	if (err->val_bits & HISI_OEM_VALID_NIMBUS_ID)
+		p += sprintf(p, "nimbus ID=%d ", err->nimbus_id);
+
+	if (err->val_bits & HISI_OEM_VALID_MODULE_ID) {
+		p += sprintf(p, "module=%s ",
+			     oem_type2_module_name(err->module_id));
+	}
+
+	if (err->val_bits & HISI_OEM_VALID_SUB_MODULE_ID)
+		p =  oem_type2_sub_module_id(p, err->module_id,
+					     err->sub_module_id);
+
+	if (err->val_bits & HISI_OEM_VALID_ERR_SEVERITY)
+		p += sprintf(p, "error severity=%s ",
+			     err_severity(err->err_severity));
+	p += sprintf(p, "]");
+	trace_seq_printf(s, "\nHISI HIP08: OEM Type-2 Error\n");
+	trace_seq_printf(s, "%s\n", buf);
+
+	trace_seq_printf(s, "Reg Dump:\n");
+	if (err->val_bits & HISI_OEM_TYPE2_VALID_ERR_FR) {
+		trace_seq_printf(s, "ERR_FR_0=0x%x\n", err->err_fr_0);
+		trace_seq_printf(s, "ERR_FR_1=0x%x\n", err->err_fr_1);
+	}
+
+	if (err->val_bits & HISI_OEM_TYPE2_VALID_ERR_CTRL) {
+		trace_seq_printf(s, "ERR_CTRL_0=0x%x\n", err->err_ctrl_0);
+		trace_seq_printf(s, "ERR_CTRL_1=0x%x\n", err->err_ctrl_1);
+	}
+
+	if (err->val_bits & HISI_OEM_TYPE2_VALID_ERR_STATUS) {
+		trace_seq_printf(s, "ERR_STATUS_0=0x%x\n", err->err_status_0);
+		trace_seq_printf(s, "ERR_STATUS_1=0x%x\n", err->err_status_1);
+	}
+
+	if (err->val_bits & HISI_OEM_TYPE2_VALID_ERR_ADDR) {
+		trace_seq_printf(s, "ERR_ADDR_0=0x%x\n", err->err_addr_0);
+		trace_seq_printf(s, "ERR_ADDR_1=0x%x\n", err->err_addr_1);
+	}
+
+	if (err->val_bits & HISI_OEM_TYPE2_VALID_ERR_MISC_0) {
+		trace_seq_printf(s, "ERR_MISC0_0=0x%x\n", err->err_misc0_0);
+		trace_seq_printf(s, "ERR_MISC0_1=0x%x\n", err->err_misc0_1);
+	}
+
+	if (err->val_bits & HISI_OEM_TYPE2_VALID_ERR_MISC_1) {
+		trace_seq_printf(s, "ERR_MISC1_0=0x%x\n", err->err_misc1_0);
+		trace_seq_printf(s, "ERR_MISC1_1=0x%x\n", err->err_misc1_1);
+	}
+
+	dec_type2_err_info(s, err);
+
+	return 0;
+}
+
 struct ras_ns_dec_tab hip08_ns_oem_tab[] = {
 	{
 		.sec_type = "1f8161e155d641e6bd107afd1dc5f7c5",
 		.decode = decode_hip08_oem_type1_error,
+	},
+	{
+		.sec_type = "45534ea6ce2341158535e07ab3aef91d",
+		.decode = decode_hip08_oem_type2_error,
 	},
 };
 
