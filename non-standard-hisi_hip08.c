@@ -109,6 +109,22 @@ static const struct hisi_hip08_hw_error aa_hw_intraw[] = {
 	{ /* sentinel */ }
 };
 
+static const struct hisi_hip08_hw_error sio_hw_int[] = {
+	{ .msk = BIT(0), .msg = "tx_int_sts_train_overtime" },
+	{ .msk = BIT(1), .msg = "tx_int_sts_freqch_dll_overtime" },
+	{ .msk = BIT(2), .msg = "tx_int_sts_freqch_vldon_overtime" },
+	{ .msk = BIT(3), .msg = "tx_int_sts_freqch_vldoff_overtime" },
+	{ .msk = BIT(4), .msg = "tx_int_sts_deskew_vldon_overtime" },
+	{ .msk = BIT(5), .msg = "tx_int_sts_deskew_vldoff_overtime" },
+	{ .msk = BIT(6), .msg = "tx_int_sts_deskew_wait_sllc_overtime" },
+	{ .msk = BIT(16), .msg = "rx_int_sts_train_err_phy0" },
+	{ .msk = BIT(17), .msg = "rx_int_sts_train_err_phy1" },
+	{ .msk = BIT(18), .msg = "rx_int_sts_train_err_phy2" },
+	{ .msk = BIT(19), .msg = "rx_int_sts_train_err_phy3" },
+	{ .msk = BIT(20), .msg = "rx_int_sts_dll_lock" },
+	{ /* sentinel */ }
+};
+
 /* helper functions */
 static char *err_severity(uint8_t err_sev)
 {
@@ -207,6 +223,14 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 			trace_seq_printf(s, "AA_ERR_ADDR=0x%p\n",
 					 (void *)err->err_addr);
 		break;
+
+	case MODULE_ID_SIOE:
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
+			hisi_hip08_log_error(s, "SIOE_INT_STS",
+					     sio_hw_int,
+					     err->err_misc_0);
+		break;
+
 	}
 }
 
