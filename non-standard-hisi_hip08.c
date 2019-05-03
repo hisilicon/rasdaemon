@@ -32,6 +32,7 @@
 #define MODULE_ID_HHA	1
 #define MODULE_ID_HLLC	2
 #define MODULE_ID_PA	3
+#define MODULE_ID_DDRC	4
 
 #define HISI_OEM_VALID_SOC_ID		BIT(0)
 #define HISI_OEM_VALID_SOCKET_ID	BIT(1)
@@ -624,6 +625,48 @@ static const struct hisi_hip08_hw_error_status pa_ierr_status[] = {
 	{ /* sentinel */ }
 };
 
+static const struct hisi_hip08_hw_error_status ddrc_ierr_status[] = {
+	{ .val = 0x0B, .msg = "ha_alarm_int" },
+	{ .val = 0x0C, .msg = "vls_correctable_int" },
+	{ .val = 0x0D, .msg = "rvls_correctable_error" },
+	{ .val = 0x0E, .msg = "ebram_serr_int" },
+	{ .val = 0x47, .msg = "pa_correctable_error" },
+	{ .val = 0x48, .msg = "vls_int" },
+	{ .val = 0x49, .msg = "sp_dev_int" },
+	{ .val = 0x4A, .msg = "sp_rnk_int" },
+	{ .val = 0x60, .msg = "ha_uncorrected_error" },
+	{ .val = 0x61, .msg = "pa_uncorrected_error" },
+	{ .val = 0x62, .msg = "sp_uncorrected_error" },
+	{ .val = 0x63, .msg = "sp_rb_uncorrected_error" },
+	{ .val = 0x64, .msg = "vls_uncorrected_error" },
+	{ .val = 0x65, .msg = "rvls_uncorrected_error" },
+	{ .val = 0x66, .msg = "ebram_merr_int" },
+	{ .val = 0x91, .msg = "ext_mem_serr_int" },
+	{ .val = 0x92, .msg = "wsram_serr_int" },
+	{ .val = 0x93, .msg = "sbram_serr_int" },
+	{ .val = 0x94, .msg = "recram_serr_int" },
+	{ .val = 0x95, .msg = "rpram_serr_int" },
+	{ .val = 0x96, .msg = "fwdram_serr_int" },
+	{ .val = 0xA0, .msg = "rdtimeout_int" },
+	{ .val = 0xA1, .msg = "aref_alarm_int" },
+	{ .val = 0xA2, .msg = "sbram_merr_int" },
+	{ .val = 0xA3, .msg = "recram_merr_int" },
+	{ .val = 0xA4, .msg = "rpram_merr_int" },
+	{ .val = 0xA5, .msg = "fwdram_merr_int" },
+	{ .val = 0xA6, .msg = "rec_err_int" },
+	{ .val = 0xCB, .msg = "rec_int" },
+	{ .val = 0xCC, .msg = "stadat_max_int" },
+	{ .val = 0xCD, .msg = "stadat_min_int" },
+	{ .val = 0xCE, .msg = "stacmd_max_int" },
+	{ .val = 0xCF, .msg = "stacmd_min_int" },
+	{ .val = 0xD0, .msg = "flux_int" },
+	{ .val = 0xE7, .msg = "sref_err_int " },
+	{ .val = 0xE8, .msg = "dimm_parity_err_int" },
+	{ .val = 0xE9, .msg = "ext_mem_merr_int" },
+	{ .val = 0xEA, .msg = "wsram_merr_int" },
+	{ /* sentinel */ }
+};
+
 /* helper functions */
 static char *err_severity(uint8_t err_sev)
 {
@@ -660,6 +703,7 @@ static char *oem_type2_module_name(uint8_t module_id)
 	case MODULE_ID_HHA: return "HHA";
 	case MODULE_ID_HLLC: return "HLLC";
 	case MODULE_ID_PA: return "PA";
+	case MODULE_ID_DDRC: return "DDRC";
 	}
 	return "unknown module";
 }
@@ -683,6 +727,25 @@ static char *oem_type2_sub_module_id(char *p, uint8_t module_id,
 			p += sprintf(p, "TB HHA0 ");
 		else if (sub_module_id == 3)
 			p += sprintf(p, "TB HHA1 ");
+		break;
+
+	case MODULE_ID_DDRC:
+		if (sub_module_id == 0)
+			p += sprintf(p, "TA DDRC0 ");
+		else if (sub_module_id == 1)
+			p += sprintf(p, "TA DDRC1 ");
+		else if (sub_module_id == 2)
+			p += sprintf(p, "TA DDRC2 ");
+		else if (sub_module_id == 3)
+			p += sprintf(p, "TA DDRC3 ");
+		else if (sub_module_id == 4)
+			p += sprintf(p, "TB DDRC0 ");
+		else if (sub_module_id == 5)
+			p += sprintf(p, "TB DDRC1 ");
+		else if (sub_module_id == 6)
+			p += sprintf(p, "TB DDRC2 ");
+		else if (sub_module_id == 7)
+			p += sprintf(p, "TB DDRC3 ");
 		break;
 	}
 
@@ -944,6 +1007,11 @@ static void dec_type2_err_info(struct trace_seq *s,
 				     err->err_misc1_0);
 		hisi_hip08_log_error(s, "PA_ERR_MISC1H", pa_hw_err_misc1_h,
 				     err->err_misc1_1);
+		break;
+
+	case MODULE_ID_DDRC:
+		hisi_hip08_log_error_status(s, "ARER_ERR_STATUS_L:IERR",
+					    ddrc_ierr_status, ierr_status);
 		break;
 	}
 }
