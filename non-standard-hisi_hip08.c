@@ -240,6 +240,25 @@ static const struct hisi_hip08_hw_error poe_ecc_2bit_info_1[] = {
 	{ /* sentinel */ }
 };
 
+static const struct hisi_hip08_hw_error disp_intraw0[] = {
+	{ .msk = BIT(0), .msg = "intraw_err_abnormal_cmd" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error disp_intraw1[] = {
+	{ .msk = BIT(0), .msg = "intraw_trap_cmd" },
+	{ .msk = BIT(1), .msg = "intraw_trap_rsp" },
+	{ .msk = BIT(8), .msg = "intraw_rcv_err_rsp_port0" },
+	{ .msk = BIT(9), .msg = "intraw_rcv_err_rsp_port1" },
+	{ .msk = BIT(10), .msg = "intraw_rcv_err_rsp_port2" },
+	{ .msk = BIT(11), .msg = "intraw_rcv_err_rsp_port3" },
+	{ .msk = BIT(12), .msg = "intraw_rcv_err_rsp_port4" },
+	{ .msk = BIT(13), .msg = "intraw_rcv_err_rsp_port5" },
+	{ .msk = BIT(14), .msg = "intraw_rcv_err_rsp_port6" },
+	{ .msk = BIT(15), .msg = "intraw_rcv_err_rsp_port7" },
+	{ /* sentinel */ }
+};
+
 /* helper functions */
 static char *err_severity(uint8_t err_sev)
 {
@@ -366,6 +385,49 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 			hisi_hip08_log_error(s, "POE_ECC_2BIT_ERR_INFO_0",
 					     poe_ecc_2bit_info_0,
 					     err->err_misc_3);
+		break;
+
+	case MODULE_ID_DISP:
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0) {
+			trace_seq_printf(s, "DISP_ERR_INFO_0=0x%x\n",
+					 err->err_misc_0);
+			trace_seq_printf(s, "err_opcode=0x%x\n",
+					 err->err_misc_0 & 0x3F);
+			trace_seq_printf(s, "err_lp_id=0x%x\n",
+					 (err->err_misc_0 >> 8) & 0x7);
+			trace_seq_printf(s, "err_src_id=0x%x\n",
+					 (err->err_misc_0 >> 12) & 0x1FF);
+		}
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_1) {
+			trace_seq_printf(s, "DISP_ERR_INFO_1=0x%x\n",
+					 err->err_misc_1);
+			trace_seq_printf(s, "err_daw_overlap_info=0x%x\n",
+					 err->err_misc_1  & 0xFF);
+			trace_seq_printf(s, "err_cmd_pcrdtype=0x%x\n",
+					 (err->err_misc_1 >> 8) & 0xFF);
+			if (err->err_misc_1 & 10000)
+				trace_seq_printf(s, "err_cmd_static_req_ind\n");
+		}
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_2)
+			hisi_hip08_log_error(s, "DISP_INTRAW0",
+					     disp_intraw0,
+					     err->err_misc_2);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_3)
+			hisi_hip08_log_error(s, "DISP_INTRAW1",
+					     disp_intraw1,
+					     err->err_misc_3);
+
+		if ((err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_4) &&
+		    (err->err_misc_4 & 0x1))
+			trace_seq_printf(s, "%s:%s", "DISP_ERR_ACCESS_RST_PORT",
+					 "slave port is in the reset state\n");
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_ADDR)
+			trace_seq_printf(s, "DISP_ERR_ADDR=0x%p\n",
+					 (void *)err->err_addr);
 		break;
 	}
 }
