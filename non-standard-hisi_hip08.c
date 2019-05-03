@@ -30,6 +30,7 @@
 
 #define MODULE_ID_SMMU	0
 #define MODULE_ID_HHA	1
+#define MODULE_ID_HLLC	2
 
 #define HISI_OEM_VALID_SOC_ID		BIT(0)
 #define HISI_OEM_VALID_SOCKET_ID	BIT(1)
@@ -526,6 +527,66 @@ static const struct hisi_hip08_hw_error_status hha_ierr_status[] = {
 	{ /* sentinel */ }
 };
 
+static const struct hisi_hip08_hw_error hllc_hw_err_misc1_l[] = {
+	{ .msk = BIT(0), .msg = "hydra_tx_ch0_2bit_ecc_err" },
+	{ .msk = BIT(1), .msg = "hydra_tx_ch1_2bit_ecc_err " },
+	{ .msk = BIT(2), .msg = "hydra_tx_ch2_2bit_ecc_err" },
+	{ .msk = BIT(3), .msg = "hydra_tx_retry_2bit_ecc_err" },
+	{ .msk = BIT(4), .msg = "hydra_rx_ch0_2bit_ecc_err" },
+	{ .msk = BIT(5), .msg = "hydra_rx_ch1_2bit_ecc_err" },
+	{ .msk = BIT(6), .msg = "hydra_rx_ch2_2bit_ecc_err" },
+	{ .msk = BIT(8), .msg = "phy_rx_retry_ptr_err" },
+	{ .msk = BIT(9), .msg = "phy_tx_retry_buf_ptr_err" },
+	{ .msk = BIT(10), .msg = "phy_tx_retry_ptr_err" },
+	{ .msk = BIT(16), .msg = "hydra_tx_ch0_ovf" },
+	{ .msk = BIT(17), .msg = "hydra_tx_ch1_ovf" },
+	{ .msk = BIT(18), .msg = "hydra_tx_ch2_ovf" },
+	{ .msk = BIT(19), .msg = "phy_tx_retry_buf_ovf" },
+	{ .msk = BIT(20), .msg = "hydra_rx_ch0_ovf" },
+	{ .msk = BIT(21), .msg = "hydra_rx_ch1_ovf" },
+	{ .msk = BIT(22), .msg = "hydra_rx_ch2_ovf" },
+	{ .msk = BIT(24),
+	   .msg = "hydra_pcs_err0_hlink_cs_pll_out_of_lock_intr" },
+	{ .msk = BIT(25), .msg = "hydra_pcs_err1_hlink_ds_alos_intr" },
+	{ .msk = BIT(26), .msg = "hydra_pcs_err2_hlink_prbs_error_intr" },
+	{ .msk = BIT(27),
+	  .msg = "hydra_pcs_err3_hlink_cs_loss_of_ref_clk_intr" },
+	{ .msk = BIT(28), .msg = "hydra_pcs_err4_hlink_ds_los_intr" },
+	{ .msk = BIT(29), .msg = "hydra_pcs_err5_hlink_intr" },
+	{ .msk = BIT(30),
+	  .msg = "hydra_pcs_err6_hydra_pcs_rx_sync_header_err_intr" },
+	{ .msk = BIT(31),
+	  .msg = "hydra_pcs_err7_hydra_pcs_training_timeout_intr" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error hllc_hw_err_misc1_h[] = {
+	{ .msk = BIT(0), .msg = "hydra_tx_ch0_1bit_ecc_err" },
+	{ .msk = BIT(1), .msg = "hydra_tx_ch1_1bit_ecc_err" },
+	{ .msk = BIT(2), .msg = "hydra_tx_ch2_1bit_ecc_err" },
+	{ .msk = BIT(3), .msg = "phy_tx_retry_1bit_ecc_err" },
+	{ .msk = BIT(4), .msg = "hydra_rx_ch0_1bit_ecc_err" },
+	{ .msk = BIT(5), .msg = "hydra_rx_ch1_1bit_ecc_err" },
+	{ .msk = BIT(6), .msg = "hydra_rx_ch2_1bit_ecc_err" },
+	{ .msk = BIT(8), .msg = "phy_rx_flit_crc_err" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error_status hllc_serr_status[] = {
+	{ .val = 0x01, .msg = "hllc_1bit_meme_ecc_error" },
+	{ .val = 0x02, .msg = "hllc_crc_error" },
+	{ .val = 0x81, .msg = "hllc_fatal_error" },
+	{ .val = 0x82, .msg = "hydra_pcs_fatal_error" },
+	{ .val = 0x83, .msg = "hydra_pcs_non_fatal_error" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error_status hllc_ierr_status[] = {
+	{ .val = 0x1, .msg = "non_mem_ecc_error" },
+	{ .val = 0x2, .msg = "mem_ecc_error " },
+	{ /* sentinel */ }
+};
+
 /* helper functions */
 static char *err_severity(uint8_t err_sev)
 {
@@ -560,6 +621,7 @@ static char *oem_type2_module_name(uint8_t module_id)
 	switch (module_id) {
 	case MODULE_ID_SMMU: return "SMMU";
 	case MODULE_ID_HHA: return "HHA";
+	case MODULE_ID_HLLC: return "HLLC";
 	}
 	return "unknown module";
 }
@@ -569,6 +631,7 @@ static char *oem_type2_sub_module_id(char *p, uint8_t module_id,
 {
 	switch (module_id) {
 	case MODULE_ID_SMMU:
+	case MODULE_ID_HLLC:
 		p += sprintf(p, "%d ", sub_module_id);
 		break;
 
@@ -818,6 +881,18 @@ static void dec_type2_err_info(struct trace_seq *s,
 					    hha_serr_status, serr_status);
 		hisi_hip08_log_error_status(s, "HHA_ERR_STATUSL:IERR",
 					    hha_ierr_status, ierr_status);
+		break;
+
+	case MODULE_ID_HLLC:
+		hisi_hip08_log_error_status(s, "HLLC_ERR_STATUSL:SERR",
+					    hllc_serr_status, serr_status);
+		hisi_hip08_log_error_status(s, "HLLC_ERR_STATUSL:IERR",
+					    hllc_ierr_status, ierr_status);
+
+		hisi_hip08_log_error(s, "HLLC_ERR_MISC1L",
+				     hllc_hw_err_misc1_l, err->err_misc1_0);
+		hisi_hip08_log_error(s, "HLLC_ERR_MISC1H",
+				     hllc_hw_err_misc1_h, err->err_misc1_1);
 		break;
 	}
 }
