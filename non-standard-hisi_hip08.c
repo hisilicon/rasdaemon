@@ -259,6 +259,48 @@ static const struct hisi_hip08_hw_error disp_intraw1[] = {
 	{ /* sentinel */ }
 };
 
+static const struct hisi_hip08_hw_error lpc_mem_access_st[] = {
+	{ .msk = BIT(0), .msg = "lpc_mem_decoder_err" },
+	{ .msk = BIT(1), .msg = "lpc_mem_read_error" },
+	{ .msk = BIT(2), .msg = "lpc_mem_write_error" },
+	{ .msk = BIT(3), .msg = "lpc_mem_error" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error lpc_sc_mem_ecc_st0[] = {
+	{ .msk = BIT(0), .msg = "rfifo_ecc_mbit_err" },
+	{ .msk = BIT(1), .msg = "rfifo_ecc_1bit_err" },
+	{ .msk = BIT(2), .msg = "wfifo_ecc_mbit_err" },
+	{ .msk = BIT(3), .msg = "wfifo_ecc_1bit_err" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error lpc_sc_mem_ecc_st1[] = {
+	{ .msk = BIT(0), .msg = "wfifo_err_addr_1bit_err" },
+	{ .msk = BIT(1), .msg = "wfifo_err_addr_1bit_err" },
+	{ .msk = BIT(2), .msg = "wfifo_err_addr_1bit_err" },
+	{ .msk = BIT(3), .msg = "wfifo_err_addr_1bit_err" },
+	{ .msk = BIT(4), .msg = "wfifo_ecc_err_syn_1bit_err" },
+	{ .msk = BIT(5), .msg = "wfifo_ecc_err_syn_1bit_err" },
+	{ .msk = BIT(6), .msg = "wfifo_ecc_err_syn_1bit_err" },
+	{ .msk = BIT(7), .msg = "wfifo_ecc_err_syn_1bit_err" },
+	{ .msk = BIT(8), .msg = "wfifo_ecc_err_syn_1bit_err" },
+	{ .msk = BIT(9), .msg = "wfifo_ecc_err_syn_1bit_err" },
+	{ .msk = BIT(10), .msg = "wfifo_ecc_err_syn_1bit_err" },
+	{ .msk = BIT(11), .msg = "wfifo_err_addr_mbit_err" },
+	{ .msk = BIT(12), .msg = "wfifo_err_addr_mbit_err" },
+	{ .msk = BIT(13), .msg = "wfifo_err_addr_mbit_err" },
+	{ .msk = BIT(14), .msg = "wfifo_err_addr_mbit_err" },
+	{ .msk = BIT(15), .msg = "wfifo_ecc_err_syn_mbit_err" },
+	{ .msk = BIT(16), .msg = "wfifo_ecc_err_syn_mbit_err" },
+	{ .msk = BIT(17), .msg = "wfifo_ecc_err_syn_mbit_err" },
+	{ .msk = BIT(18), .msg = "wfifo_ecc_err_syn_mbit_err" },
+	{ .msk = BIT(19), .msg = "wfifo_ecc_err_syn_mbit_err" },
+	{ .msk = BIT(20), .msg = "wfifo_ecc_err_syn_mbit_err" },
+	{ .msk = BIT(21), .msg = "wfifo_ecc_err_syn_mbit_err" },
+	{ /* sentinel */ }
+};
+
 /* helper functions */
 static char *err_severity(uint8_t err_sev)
 {
@@ -428,6 +470,27 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_ADDR)
 			trace_seq_printf(s, "DISP_ERR_ADDR=0x%p\n",
 					 (void *)err->err_addr);
+		break;
+
+	case MODULE_ID_LPC:
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
+			hisi_hip08_log_error(s, "LPC_MEM_ACCESS_ST",
+					     lpc_mem_access_st,
+					     err->err_misc_0);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_1)
+			hisi_hip08_log_error(s, "SC_MEM_ECC_ST0",
+					     lpc_sc_mem_ecc_st0,
+					     err->err_misc_1);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_2)
+			hisi_hip08_log_error(s, "SC_MEM_ECC_ST1",
+					     lpc_sc_mem_ecc_st1,
+					     err->err_misc_2);
+
+		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_3)
+			trace_seq_printf(s, "OP_STATUS=0x%x\n",
+					 err->err_misc_3);
 		break;
 	}
 }
