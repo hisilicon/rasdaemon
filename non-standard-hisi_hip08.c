@@ -29,6 +29,7 @@
 #define MODULE_ID_SATA	16
 
 #define MODULE_ID_SMMU	0
+#define MODULE_ID_HHA	1
 
 #define HISI_OEM_VALID_SOC_ID		BIT(0)
 #define HISI_OEM_VALID_SOCKET_ID	BIT(1)
@@ -493,6 +494,38 @@ static const struct hisi_hip08_hw_error_status smmu_ierr_status[] = {
 	{ .val = 0x5, .msg = "write_eventq_abort_error" },
 	{ /* sentinel */ }
 };
+
+static const struct hisi_hip08_hw_error_status hha_serr_status[] = {
+	{ .val = 0x01, .msg = "1bit_corrected_ecc_error" },
+	{ .val = 0x02, .msg = "buffer_mem_ecc_error" },
+	{ .val = 0x07, .msg = "directory_mem_ecc_error" },
+	{ .val = 0x0D, .msg = "address_error" },
+	{ .val = 0x0E, .msg = "illegal_request" },
+	{ .val = 0x12, .msg = "ddrc_response_error" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error_status hha_ierr_status[] = {
+	{ .val = 0x01, .msg = "unsupported_illegal_request" },
+	{ .val = 0x02, .msg = "cmd_buffer_mbit_ecc_error" },
+	{ .val = 0x03, .msg = "sdir_mbit_ecc_error" },
+	{ .val = 0x04, .msg = "edir_mbit_ecc_error" },
+	{ .val = 0x05, .msg = "default_slave_error" },
+	{ .val = 0x06, .msg = "access_security_zone_from_non_sec_request" },
+	{ .val = 0x07, .msg = "data_buffer_mbit_ecc_error" },
+	{ .val = 0x08, .msg = "ddrc_response_error" },
+	{ .val = 0x09, .msg = "msd_miss_from_software" },
+	{ .val = 0x0A, .msg = "msd_overlap_from_software" },
+	{ .val = 0x0B, .msg = "msd_invert_from_software" },
+	{ .val = 0x0C, .msg = "access_non_security_zone_from_sec_request" },
+	{ .val = 0x0D, .msg = "1bit_ecc_err_counter_overflow" },
+	{ .val = 0x0E, .msg = "cmd_buffer_1bit_ecc_error" },
+	{ .val = 0x0F, .msg = "data_buffer_1bit_ecc_error" },
+	{ .val = 0x10, .msg = "sdir_1bit_ecc_error" },
+	{ .val = 0x11, .msg = "edir_1bit_ecc_error" },
+	{ /* sentinel */ }
+};
+
 /* helper functions */
 static char *err_severity(uint8_t err_sev)
 {
@@ -526,6 +559,7 @@ static char *oem_type2_module_name(uint8_t module_id)
 {
 	switch (module_id) {
 	case MODULE_ID_SMMU: return "SMMU";
+	case MODULE_ID_HHA: return "HHA";
 	}
 	return "unknown module";
 }
@@ -536,6 +570,17 @@ static char *oem_type2_sub_module_id(char *p, uint8_t module_id,
 	switch (module_id) {
 	case MODULE_ID_SMMU:
 		p += sprintf(p, "%d ", sub_module_id);
+		break;
+
+	case MODULE_ID_HHA:
+		if (sub_module_id == 0)
+			p += sprintf(p, "TA HHA0 ");
+		else if (sub_module_id == 1)
+			p += sprintf(p, "TA HHA1 ");
+		else if (sub_module_id == 2)
+			p += sprintf(p, "TB HHA0 ");
+		else if (sub_module_id == 3)
+			p += sprintf(p, "TB HHA1 ");
 		break;
 	}
 
@@ -766,6 +811,13 @@ static void dec_type2_err_info(struct trace_seq *s,
 					    smmu_serr_status, serr_status);
 		hisi_hip08_log_error_status(s, "SMMU_ERR_STATUS_0:IERR",
 					    smmu_ierr_status, ierr_status);
+		break;
+
+	case MODULE_ID_HHA:
+		hisi_hip08_log_error_status(s, "HHA_ERR_STATUSL:SERR",
+					    hha_serr_status, serr_status);
+		hisi_hip08_log_error_status(s, "HHA_ERR_STATUSL:IERR",
+					    hha_ierr_status, ierr_status);
 		break;
 	}
 }
