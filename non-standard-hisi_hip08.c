@@ -17,22 +17,17 @@
 #include "ras-non-standard-handler.h"
 
 /* HISI OEM error definitions */
-#define MODULE_ID_MN	0
-#define MODULE_ID_PLL	1
-#define MODULE_ID_SLLC	2
-#define MODULE_ID_AA	3
-#define MODULE_ID_SIOE	4
-#define MODULE_ID_POE	5
-#define MODULE_ID_DISP	8
-#define MODULE_ID_LPC	9
-#define MODULE_ID_SAS	15
-#define MODULE_ID_SATA	16
-
-#define MODULE_ID_SMMU	0
-#define MODULE_ID_HHA	1
-#define MODULE_ID_HLLC	2
-#define MODULE_ID_PA	3
-#define MODULE_ID_DDRC	4
+/* HISI OEM format1 error definitions */
+#define HISI_OEM_MODULE_ID_MN	0
+#define HISI_OEM_MODULE_ID_PLL	1
+#define HISI_OEM_MODULE_ID_SLLC	2
+#define HISI_OEM_MODULE_ID_AA	3
+#define HISI_OEM_MODULE_ID_SIOE	4
+#define HISI_OEM_MODULE_ID_POE	5
+#define HISI_OEM_MODULE_ID_DISP	8
+#define HISI_OEM_MODULE_ID_LPC	9
+#define HISI_OEM_MODULE_ID_SAS	15
+#define HISI_OEM_MODULE_ID_SATA	16
 
 #define HISI_OEM_VALID_SOC_ID		BIT(0)
 #define HISI_OEM_VALID_SOCKET_ID	BIT(1)
@@ -48,6 +43,13 @@
 #define HISI_OEM_TYPE1_VALID_ERR_MISC_4	BIT(10)
 #define HISI_OEM_TYPE1_VALID_ERR_ADDR	BIT(11)
 
+/* HISI OEM format2 error definitions */
+#define HISI_OEM_MODULE_ID_SMMU	0
+#define HISI_OEM_MODULE_ID_HHA	1
+#define HISI_OEM_MODULE_ID_HLLC	2
+#define HISI_OEM_MODULE_ID_PA	3
+#define HISI_OEM_MODULE_ID_DDRC	4
+
 #define HISI_OEM_TYPE2_VALID_ERR_FR	BIT(6)
 #define HISI_OEM_TYPE2_VALID_ERR_CTRL	BIT(7)
 #define HISI_OEM_TYPE2_VALID_ERR_STATUS	BIT(8)
@@ -55,11 +57,12 @@
 #define HISI_OEM_TYPE2_VALID_ERR_MISC_0	BIT(10)
 #define HISI_OEM_TYPE2_VALID_ERR_MISC_1	BIT(11)
 
-#define PCIE_SUB_MODULE_ID_AP	0
-#define PCIE_SUB_MODULE_ID_TL	1
-#define PCIE_SUB_MODULE_ID_MAC	2
-#define PCIE_SUB_MODULE_ID_DL	3
-#define PCIE_SUB_MODULE_ID_SDI	4
+/* HISI PCIe Local error definitions */
+#define HISI_PCIE_SUB_MODULE_ID_AP	0
+#define HISI_PCIE_SUB_MODULE_ID_TL	1
+#define HISI_PCIE_SUB_MODULE_ID_MAC	2
+#define HISI_PCIE_SUB_MODULE_ID_DL	3
+#define HISI_PCIE_SUB_MODULE_ID_SDI	4
 
 #define HISI_PCIE_LOCAL_VALID_VERSION		BIT(0)
 #define HISI_PCIE_LOCAL_VALID_SOC_ID		BIT(1)
@@ -778,16 +781,16 @@ static char *err_severity(uint8_t err_sev)
 static char *oem_type1_module_name(uint8_t module_id)
 {
 	switch (module_id) {
-	case MODULE_ID_MN: return "MN";
-	case MODULE_ID_PLL: return "PLL";
-	case MODULE_ID_SLLC: return "SLLC";
-	case MODULE_ID_AA: return "AA";
-	case MODULE_ID_SIOE: return "SIOE";
-	case MODULE_ID_POE: return "POE";
-	case MODULE_ID_DISP: return "DISP";
-	case MODULE_ID_LPC: return "LPC";
-	case MODULE_ID_SAS: return "SAS";
-	case MODULE_ID_SATA: return "SATA";
+	case HISI_OEM_MODULE_ID_MN: return "MN";
+	case HISI_OEM_MODULE_ID_PLL: return "PLL";
+	case HISI_OEM_MODULE_ID_SLLC: return "SLLC";
+	case HISI_OEM_MODULE_ID_AA: return "AA";
+	case HISI_OEM_MODULE_ID_SIOE: return "SIOE";
+	case HISI_OEM_MODULE_ID_POE: return "POE";
+	case HISI_OEM_MODULE_ID_DISP: return "DISP";
+	case HISI_OEM_MODULE_ID_LPC: return "LPC";
+	case HISI_OEM_MODULE_ID_SAS: return "SAS";
+	case HISI_OEM_MODULE_ID_SATA: return "SATA";
 	}
 	return "unknown";
 }
@@ -795,11 +798,11 @@ static char *oem_type1_module_name(uint8_t module_id)
 static char *oem_type2_module_name(uint8_t module_id)
 {
 	switch (module_id) {
-	case MODULE_ID_SMMU: return "SMMU";
-	case MODULE_ID_HHA: return "HHA";
-	case MODULE_ID_HLLC: return "HLLC";
-	case MODULE_ID_PA: return "PA";
-	case MODULE_ID_DDRC: return "DDRC";
+	case HISI_OEM_MODULE_ID_SMMU: return "SMMU";
+	case HISI_OEM_MODULE_ID_HHA: return "HHA";
+	case HISI_OEM_MODULE_ID_HLLC: return "HLLC";
+	case HISI_OEM_MODULE_ID_PA: return "PA";
+	case HISI_OEM_MODULE_ID_DDRC: return "DDRC";
 	}
 	return "unknown module";
 }
@@ -808,13 +811,13 @@ static char *oem_type2_sub_module_id(char *p, uint8_t module_id,
 				     uint8_t sub_module_id)
 {
 	switch (module_id) {
-	case MODULE_ID_SMMU:
-	case MODULE_ID_HLLC:
-	case MODULE_ID_PA:
+	case HISI_OEM_MODULE_ID_SMMU:
+	case HISI_OEM_MODULE_ID_HLLC:
+	case HISI_OEM_MODULE_ID_PA:
 		p += sprintf(p, "%d ", sub_module_id);
 		break;
 
-	case MODULE_ID_HHA:
+	case HISI_OEM_MODULE_ID_HHA:
 		if (sub_module_id == 0)
 			p += sprintf(p, "TA HHA0 ");
 		else if (sub_module_id == 1)
@@ -825,7 +828,7 @@ static char *oem_type2_sub_module_id(char *p, uint8_t module_id,
 			p += sprintf(p, "TB HHA1 ");
 		break;
 
-	case MODULE_ID_DDRC:
+	case HISI_OEM_MODULE_ID_DDRC:
 		if (sub_module_id == 0)
 			p += sprintf(p, "TA DDRC0 ");
 		else if (sub_module_id == 1)
@@ -851,11 +854,11 @@ static char *oem_type2_sub_module_id(char *p, uint8_t module_id,
 static char *pcie_local_sub_module_name(uint8_t id)
 {
 	switch (id) {
-	case PCIE_SUB_MODULE_ID_AP: return "AP Layer";
-	case PCIE_SUB_MODULE_ID_TL: return "TL Layer";
-	case PCIE_SUB_MODULE_ID_MAC: return "MAC Layer";
-	case PCIE_SUB_MODULE_ID_DL: return "DL Layer";
-	case PCIE_SUB_MODULE_ID_SDI: return "SDI Layer";
+	case HISI_PCIE_SUB_MODULE_ID_AP: return "AP Layer";
+	case HISI_PCIE_SUB_MODULE_ID_TL: return "TL Layer";
+	case HISI_PCIE_SUB_MODULE_ID_MAC: return "MAC Layer";
+	case HISI_PCIE_SUB_MODULE_ID_DL: return "DL Layer";
+	case HISI_PCIE_SUB_MODULE_ID_SDI: return "SDI Layer";
 	}
 	return "unknown";
 }
@@ -1056,7 +1059,7 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 {
 	trace_seq_printf(s, "Error Info:\n");
 	switch (err->module_id) {
-	case MODULE_ID_MN:
+	case HISI_OEM_MODULE_ID_MN:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
 			hisi_hip08_log_error(s, "MN_RINT", mn_hw_intr,
 					     err->err_misc_0);
@@ -1066,13 +1069,13 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 					     err->err_misc_1);
 		break;
 
-	case MODULE_ID_PLL:
+	case HISI_OEM_MODULE_ID_PLL:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
 			trace_seq_printf(s, "SC_PLL_INT_STATUS=0x%x\n",
 					 err->err_misc_0);
 		break;
 
-	case MODULE_ID_SLLC:
+	case HISI_OEM_MODULE_ID_SLLC:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
 			hisi_hip08_log_error(s, "SLLC_INT0_SRC",
 					     sllc_hw_intr0,
@@ -1084,7 +1087,7 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 					     err->err_misc_1);
 		break;
 
-	case MODULE_ID_AA:
+	case HISI_OEM_MODULE_ID_AA:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
 			hisi_hip08_log_error(s, "AA_INTRAW",
 					     aa_hw_intraw,
@@ -1111,14 +1114,14 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 					 (void *)err->err_addr);
 		break;
 
-	case MODULE_ID_SIOE:
+	case HISI_OEM_MODULE_ID_SIOE:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
 			hisi_hip08_log_error(s, "SIOE_INT_STS",
 					     sio_hw_int,
 					     err->err_misc_0);
 		break;
 
-	case MODULE_ID_POE:
+	case HISI_OEM_MODULE_ID_POE:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
 			hisi_hip08_log_error(s, "POE_ECC_1BIT_ERR_INFO_1",
 					     poe_ecc_1bit_info_1,
@@ -1140,7 +1143,7 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 					     err->err_misc_3);
 		break;
 
-	case MODULE_ID_DISP:
+	case HISI_OEM_MODULE_ID_DISP:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0) {
 			trace_seq_printf(s, "DISP_ERR_INFO_0=0x%x\n",
 					 err->err_misc_0);
@@ -1183,7 +1186,7 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 					 (void *)err->err_addr);
 		break;
 
-	case MODULE_ID_LPC:
+	case HISI_OEM_MODULE_ID_LPC:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
 			hisi_hip08_log_error(s, "LPC_MEM_ACCESS_ST",
 					     lpc_mem_access_st,
@@ -1204,7 +1207,7 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 					 err->err_misc_3);
 		break;
 
-	case MODULE_ID_SAS:
+	case HISI_OEM_MODULE_ID_SAS:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
 			hisi_hip08_log_error(s, "SAS_RAS_INTR0",
 					     sas_ras_intr0,
@@ -1221,7 +1224,7 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 					     err->err_misc_2);
 		break;
 
-	case MODULE_ID_SATA:
+	case HISI_OEM_MODULE_ID_SATA:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
 			hisi_hip08_log_error(s, "SATA_RAS_IS",
 					     sata_ras_is,
@@ -1246,21 +1249,21 @@ static void dec_type2_err_info(struct trace_seq *s,
 	trace_seq_printf(s, "Error Info:\n");
 
 	switch (err->module_id) {
-	case MODULE_ID_SMMU:
+	case HISI_OEM_MODULE_ID_SMMU:
 		hisi_hip08_log_error_status(s, "SMMU_ERR_STATUS_0:SERR",
 					    smmu_serr_status, serr_status);
 		hisi_hip08_log_error_status(s, "SMMU_ERR_STATUS_0:IERR",
 					    smmu_ierr_status, ierr_status);
 		break;
 
-	case MODULE_ID_HHA:
+	case HISI_OEM_MODULE_ID_HHA:
 		hisi_hip08_log_error_status(s, "HHA_ERR_STATUSL:SERR",
 					    hha_serr_status, serr_status);
 		hisi_hip08_log_error_status(s, "HHA_ERR_STATUSL:IERR",
 					    hha_ierr_status, ierr_status);
 		break;
 
-	case MODULE_ID_HLLC:
+	case HISI_OEM_MODULE_ID_HLLC:
 		hisi_hip08_log_error_status(s, "HLLC_ERR_STATUSL:SERR",
 					    hllc_serr_status, serr_status);
 		hisi_hip08_log_error_status(s, "HLLC_ERR_STATUSL:IERR",
@@ -1272,7 +1275,7 @@ static void dec_type2_err_info(struct trace_seq *s,
 				     hllc_hw_err_misc1_h, err->err_misc1_1);
 		break;
 
-	case MODULE_ID_PA:
+	case HISI_OEM_MODULE_ID_PA:
 		hisi_hip08_log_error_status(s, "PA_ERR_STATUSL:SERR",
 					    pa_serr_status, serr_status);
 		hisi_hip08_log_error_status(s, "PA_ERR_STATUSL:IERR",
@@ -1284,7 +1287,7 @@ static void dec_type2_err_info(struct trace_seq *s,
 				     err->err_misc1_1);
 		break;
 
-	case MODULE_ID_DDRC:
+	case HISI_OEM_MODULE_ID_DDRC:
 		hisi_hip08_log_error_status(s, "ARER_ERR_STATUS_L:IERR",
 					    ddrc_ierr_status, ierr_status);
 		break;
@@ -1525,7 +1528,7 @@ static int decode_hip08_pcie_local_error(struct trace_seq *s, const void *error)
 
 	trace_seq_printf(s, "Error Info:\n");
 	switch (err->sub_module_id) {
-	case PCIE_SUB_MODULE_ID_AP:
+	case HISI_PCIE_SUB_MODULE_ID_AP:
 		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE)
 			trace_seq_printf(s, "error type=%s\n",
 					 pcie_ap_err_type(err->err_type));
@@ -1588,7 +1591,7 @@ static int decode_hip08_pcie_local_error(struct trace_seq *s, const void *error)
 					 err->err_misc_17);
 		break;
 
-	case PCIE_SUB_MODULE_ID_TL:
+	case HISI_PCIE_SUB_MODULE_ID_TL:
 		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE)
 			trace_seq_printf(s, "error type=%s\n",
 					 pcie_tl_err_type(err->err_type));
@@ -1618,7 +1621,7 @@ static int decode_hip08_pcie_local_error(struct trace_seq *s, const void *error)
 					 err->err_misc_7);
 		break;
 
-	case PCIE_SUB_MODULE_ID_MAC:
+	case HISI_PCIE_SUB_MODULE_ID_MAC:
 		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE) {
 			trace_seq_printf(s, "error type=%s\n",
 					 pcie_mac_err_type(err->err_type));
@@ -1655,7 +1658,7 @@ static int decode_hip08_pcie_local_error(struct trace_seq *s, const void *error)
 					 err->err_misc_9);
 		break;
 
-	case PCIE_SUB_MODULE_ID_DL:
+	case HISI_PCIE_SUB_MODULE_ID_DL:
 		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE)
 			trace_seq_printf(s, "error type=%s\n",
 					 pcie_dl_err_type(err->err_type));
@@ -1685,7 +1688,7 @@ static int decode_hip08_pcie_local_error(struct trace_seq *s, const void *error)
 					 err->err_misc_7);
 		break;
 
-	case PCIE_SUB_MODULE_ID_SDI:
+	case HISI_PCIE_SUB_MODULE_ID_SDI:
 		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE)
 			trace_seq_printf(s, "error type=%s\n",
 					 pcie_sdi_err_type(err->err_type));
