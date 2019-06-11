@@ -1186,16 +1186,6 @@ static char *pcie_ap_err_type(int etype)
 static char *pcie_tl_err_type(int etype)
 {
 	switch (etype) {
-	case 321: return "TL: DPC_CAP_0X0C: mem request received CA completion";
-	case 322: return "TL: DPC_CAP_0X0C: mem request received UR completion";
-	case 323: return "TL: DPC_CAP_0X0C: I/O request completion timeout";
-	case 324: return "TL: DPC_CAP_0X0C: I/O request received CA completion";
-	case 325: return "TL: DPC_CAP_0X0C: I/O request received UR completion";
-	case 326: return "TL: DPC_CAP_0X0C: config request completion timeout";
-	case 327: return "TL: DPC_CAP_0X0C: config request received CA completion";
-	case 328: return "TL: DPC_CAP_0X0C: config request received UR completion";
-	case 329: return "TL: DPC_CAP_0X0C: DPC interrupt status";
-	case 330: return "TL: DPC_CAP_0X0C: DPC trigger status";
 	case 384: return "TL: TL_INT_STATUS0, TL_RX_ERR_STATUS: tl rx p/np/cpl/ccix write fifo full error";
 	case 385: return "TL: TL_INT_STATUS0, TL_RX_ERR_STATUS: tl rx ccix opt tlp length error";
 	case 386: return "TL: TL_INT_STATUS0: tl_tx_rp_pf_vf_err";
@@ -1210,6 +1200,17 @@ static char *pcie_tl_err_type(int etype)
 	case 395: return "TL: TL_INT_STATUS0: tl_ecc_2bit_err";
 	case 396: return "TL: TL_INT_STATUS0: tl_ecc_1bit_err";
 	case 416: return "TL: DPC_CAP_0X0C: mem request completion timeout";
+	case 417: return "TL: DPC_CAP_0X0C: mem request received CA completion";
+	case 418: return "TL: DPC_CAP_0X0C: mem request received UR completion";
+	case 419: return "TL: DPC_CAP_0X0C: I/O request completion timeout";
+	case 420: return "TL: DPC_CAP_0X0C: I/O request received CA completion";
+	case 421: return "TL: DPC_CAP_0X0C: I/O request received UR completion";
+	case 422: return "TL: DPC_CAP_0X0C: config request completion timeout";
+	case 423: return "TL: DPC_CAP_0X0C: config request received CA completion";
+	case 424: return "TL: DPC_CAP_0X0C: config request received UR completion";
+	case 425: return "TL: DPC_CAP_0X0C: DPC interrupt status";
+	case 426: return "TL: DPC_CAP_0X0C: DPC trigger status";
+
 	}
 	return "unknown error";
 }
@@ -1217,11 +1218,11 @@ static char *pcie_tl_err_type(int etype)
 static char *pcie_mac_err_type(int etype)
 {
 	switch (etype) {
-	case 352: return "MAC: MAC_REG_MAC_INT_STATUS: mac entry L1 timeout error";
-	case 353: return "MAC: MAC_REG_MAC_INT_STATUS: MACDESKEW fifo overflow error";
-	case 354: return "MAC: MAC_REG_MAC_INT_STATUS: PCS appear symbol unlock";
-	case 355: return "MAC: MAC_REG_MAC_INT_STATUS: MACDESKEW unlocked";
-	case 356: return "MAC: MAC_REG_MAC_INT_STATUS: pcie link down";
+	case 448: return "MAC: MAC_REG_MAC_INT_STATUS: mac entry L1 timeout error";
+	case 449: return "MAC: MAC_REG_MAC_INT_STATUS: MACDESKEW fifo overflow error";
+	case 450: return "MAC: MAC_REG_MAC_INT_STATUS: PCS appear symbol unlock";
+	case 451: return "MAC: MAC_REG_MAC_INT_STATUS: MACDESKEW unlocked";
+	case 452: return "MAC: MAC_REG_MAC_INT_STATUS: pcie link down";
 	}
 	return "unknown error";
 }
@@ -1229,60 +1230,60 @@ static char *pcie_mac_err_type(int etype)
 static char *pcie_dl_err_type(int etype)
 {
 	switch (etype) {
-	case 384: return "DL: DL_INT_STATUS: rx_fc_vc1_update_timeout_cpl_int";
-	case 385: return "DL: DL_INT_STATUS: rx_fc_vc1_update_timeout_np_int";
-	case 386: return "DL: DL_INT_STATUS: rx_fc_vc1_update_timeout_p_int";
-	case 387: return "DL: DL_INT_STATUS: rx_fc_vc0_update_timeout_cpl_int";
-	case 388: return "DL: DL_INT_STATUS: rx_fc_vc0_update_timeout_np_int";
-	case 389: return "DL: DL_INT_STATUS: rx_fc_vc0_update_timeout_p_int";
-	case 390: return "DL: DL_INT_STATUS: dl_corrected_err_cnt_timeout_int";
-	case 391: return "DL: DL_INT_STATUS: rx_fc_update_timeout_int";
-	case 392: return "DL: DL_INT_STATUS: dl_mac_retrain_cnt_overflow_int";
-	case 393: return "DL: DL_INT_STATUS: tl_dl_credit_null_timeout_int";
-	case 394: return "DL: DL_INT_STATUS: dl_nak_timer_timeout_int";
-	case 395: return "DL: DL_INT_STATUS: link_fail_dl_int";
-	case 396: return "DL: DL_INT_STATUS: retrain_dl_int";
-	case 397: return "DL: DL_INT_STATUS: ecc_2bit_err_dl_int";
-	case 398: return "DL: DL_INT_STATUS: ecc_1bit_err_dl_int";
-	case 399: return "DL: DL_INT_STATUS: init_timeout_dl_int";
-	case 400: return "DL: DL_INT_STATUS: dl flow control init timeout";
+	case 480: return "DL: DL_INT_STATUS: rx_fc_vc1_update_timeout_cpl_int";
+	case 481: return "DL: DL_INT_STATUS: rx_fc_vc1_update_timeout_np_int";
+	case 482: return "DL: DL_INT_STATUS: rx_fc_vc1_update_timeout_p_int";
+	case 483: return "DL: DL_INT_STATUS: rx_fc_vc0_update_timeout_cpl_int";
+	case 484: return "DL: DL_INT_STATUS: rx_fc_vc0_update_timeout_np_int";
+	case 485: return "DL: DL_INT_STATUS: rx_fc_vc0_update_timeout_p_int";
+	case 486: return "DL: DL_INT_STATUS: dl_corrected_err_cnt_timeout_int";
+	case 487: return "DL: DL_INT_STATUS: rx_fc_update_timeout_int";
+	case 488: return "DL: DL_INT_STATUS: dl_mac_retrain_cnt_overflow_int";
+	case 489: return "DL: DL_INT_STATUS: tl_dl_credit_null_timeout_int";
+	case 490: return "DL: DL_INT_STATUS: dl_nak_timer_timeout_int";
+	case 491: return "DL: DL_INT_STATUS: dl_dup_tlp_ack_cnt_rollover_int";
+	case 492: return "DL: DL_INT_STATUS: link_fail_dl_int";
+	case 493: return "DL: DL_INT_STATUS: retrain_dl_int";
+	case 494: return "DL: DL_INT_STATUS: ecc_2bit_err_dl_int";
+	case 495: return "DL: DL_INT_STATUS: ecc_1bit_err_dl_int";
+	case 496: return "DL: DL_INT_STATUS: init_timeout_dl_int";
 	}
 	return "unknown error";
 }
 
 static char *pcie_sdi_err_type(int etype)
 {
+	if (etype >= 512 && etype <= 543)
+		return "SDI: CQ_ERR_INT_CFG: cq ret by dma in a queue task is abnormal";
+
 	switch (etype) {
-	case 352: return "SDI: ECC_INT_STATUS: virtio data structure table mbit ecc error";
-	case 353: return "SDI: ECC_INT_STATUS: virtio data structure table 1bit ecc error";
-	case 416: return "SDI: CQ_ERR_INT_CFG: CQ returned by DMA in a queue task is abnormal";
-	case 448: return "SDI: SQ_ERR_STS0: incorrect sqdb pointer delivered by the host";
-	case 449: return "SDI: SQ_ERR_STS0: incorrect hd pointer of the SQ queue";
-	case 480: return "SDI: SQ_SIZE_RAM_ECC_INJRCT: sq_size_ram_2bit_ecc_error";
-	case 481: return "SDI: SQ_BAL_RAM_ECC_INJRCT: sq_size_ram_1bit_ecc_error";
-	case 512: return "SDI: SQ_BAL_RAM_ECC_INJRCT: sq_low_order_base_addr_ram_2bit_ecc_error";
-	case 513: return "SDI: SQ_BAL_RAM_ECC_INJRCT: sq_low_order_base_addr_ram_1bit_ecc_error";
-	case 544: return "SDI: SQ_BAH_RAM_ECC_INJRCT: sq_high_order_base_addr_ram_2bit_ecc_error";
-	case 545: return "SDI: SQ_BAH_RAM_ECC_INJRCT: sq_high_order_base_addr_ram_1bit_ecc_error";
-	case 576: return "SDI: RD_PTR_RAM_ECC_INJRCT: rd_ptr_ram_2bit_ecc_error";
-	case 577: return "SDI: RD_PTR_RAM_ECC_INJRCT: rd_ptr_ram_1bit_ecc_error";
-	case 608: return "SDI: SQ_DES_RAM_ECC_INJRCT: sq_des_ram_2bit_ecc_error";
-	case 609: return "SDI: SQ_DES_RAM_ECC_INJRCT: sq_des_ram_1bit_ecc_error";
-	case 640: return "SDI: PREFETCH_FIFO_RAM_ECC_INJRCT: prefetch_fifo_ram_2bit_ecc_error";
-	case 641: return "SDI: PREFETCH_FIFO_RAM_ECC_INJRCT: prefetch_fifo_ram_1bit_ecc_error";
-	case 672: return "SDI: BRESP_ERR_INT: bresp_p_operation_abnormal";
-	case 704: return "SDI: ENGN_INT_STS: virtio_engine_local_read_pointer_data_ram_1bit_ecc_error";
-	case 705: return "SDI: ENGN_INT_STS: virtio_engine_local_write_pointer_data_ram_1bit_ecc_error";
-	case 706: return "SDI: ENGN_INT_STS: virtio_engine_local_avail_index_data_ram_1bit_ecc_error";
-	case 707: return "SDI: ENGN_INT_STS: virtio_engine_local_read_pointer_data_ram_multi_bit_ecc_error";
-	case 708: return "SDI: ENGN_INT_STS: virtio_engine_local_write_pointer_data_ram_multi_bit_ecc_error";
-	case 709: return "SDI: ENGN_INT_STS: virtio_engine_local_avail_idx_data_ram_multi_bit_ecc_error";
-	case 710: return "SDI: ENGN_INT_STS: error when virtio engine reads data from the avail ring";
-	case 711: return "SDI: ENGN_INT_STS: error when virtio engine reads avail index data";
-	case 712: return "SDI: ENGN_INT_STS: error when virtio engine sends write_operation to the axi bus";
-	case 713: return "SDI: ENGN_INT_STS: virtion engine - incorrect cq completion status";
-	case 714: return "SDI: ENGN_INT_STS: virtio engine - incorrect config parameter of the vq";
-	case 715: return "SDI: ENGN_INT_STS: virtio engine - incorrect local ring buffer base addr config parameter";
+	case 544: return "SDI: SQ_ERR_STS0: incorrect sqdb pointer delivered by the host";
+	case 545: return "SDI: SQ_ERR_STS0: incorrect hd pointer of the SQ queue";
+	case 576: return "SDI: SQ_SIZE_RAM_ECC_INJECT: sq_size_ram_2bit_ecc_error";
+	case 577: return "SDI: SQ_SIZE_RAM_ECC_INJECT: sq_size_ram_1bit_ecc_error";
+	case 608: return "SDI: SQ_BAL_RAM_ECC_INJECT: sq_bal_ram_2bit_ecc_error";
+	case 609: return "SDI: SQ_BAL_RAM_ECC_INJECT: sq_bal_ram_1bit_ecc_error";
+	case 640: return "SDI: SQ_BAH_RAM_ECC_INJECT: sq_bah_ram_2bit_ecc_error";
+	case 641: return "SDI: SQ_BAH_RAM_ECC_INJECT: sq_bah_ram_1bit_ecc_error";
+	case 672: return "SDI: RD_PTR_RAM_ECC_INJECT: rd_ptr_ram_2bit_ecc_error";
+	case 673: return "SDI: RD_PTR_RAM_ECC_INJECT: rd_ptr_ram_1bit_ecc_error";
+	case 704: return "SDI: SQ_DES_RAM_ECC_INJECT: sq_des_ram_2bit_ecc_error";
+	case 705: return "SDI: SQ_DES_RAM_ECC_INJECT: sq_des_ram_1bit_ecc_error";
+	case 736: return "SDI: PREFETCH_FIFO_RAM_ECC_INJECT: prefetch_fifo_ram_2bit_ecc_error";
+	case 737: return "SDI: PREFETCH_FIFO_RAM_ECC_INJECT: prefetch_fifo_ram_1bit_ecc_error";
+	case 768: return "SDI: BRESP_ERR_INT: bresp_p_operation_abnormal";
+	case 800: return "SDI: ENGN_INT_STS: virtio_engine_local_read_pointer_data_ram_1bit_ecc_error";
+	case 801: return "SDI: ENGN_INT_STS: virtio_engine_local_write_pointer_data_ram_1bit_ecc_error";
+	case 802: return "SDI: ENGN_INT_STS: virtio_engine_local_avail_index_data_ram_1bit_ecc_error";
+	case 803: return "SDI: ENGN_INT_STS: virtio_engine_local_read_pointer_data_ram_multi_bit_ecc_error";
+	case 804: return "SDI: ENGN_INT_STS: virtio_engine_local_write_pointer_data_ram_multi_bit_ecc_error";
+	case 805: return "SDI: ENGN_INT_STS: virtio_engine_local_avail_idx_data_ram_multi_bit_ecc_error";
+	case 806: return "SDI: ENGN_INT_STS: error when virtio engine reads data from the avail ring";
+	case 807: return "SDI: ENGN_INT_STS: error when virtio engine reads avail index data";
+	case 808: return "SDI: ENGN_INT_STS: error when virtio engine sends write_operation to the axi bus";
+	case 809: return "SDI: ENGN_INT_STS: virtion engine - incorrect cq completion status";
+	case 810: return "SDI: ENGN_INT_STS: virtio engine - incorrect config parameter of the vq";
+	case 811: return "SDI: ENGN_INT_STS: virtio engine - incorrect local ring buffer base addr config parameter";
 	}
 	return "unknown error";
 }
