@@ -2118,11 +2118,11 @@ struct ras_ns_dec_tab hip08_ns_oem_tab[] = {
 		.sec_type = "b2889fc9e7d74f9da867af42e98be772",
 		.decode = decode_hip08_pcie_local_error,
 	},
+	{ /* sentinel */ }
 };
 
 __attribute__((constructor))
 static void hip08_init(void)
 {
-	hip08_ns_oem_tab[0].len = ARRAY_SIZE(hip08_ns_oem_tab);
 	register_ns_dec_tab(hip08_ns_oem_tab);
 }
