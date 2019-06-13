@@ -106,6 +106,17 @@ struct sqlite3_priv {
 #endif
 };
 
+struct db_fields {
+	char *name;
+	char *type;
+};
+
+struct db_table_descriptor {
+	char                    *name;
+	const struct db_fields  *fields;
+	size_t                  num_fields;
+};
+
 int ras_mc_event_opendb(unsigned cpu, struct ras_events *ras);
 int ras_store_mc_event(struct ras_events *ras, struct ras_mc_event *ev);
 int ras_store_aer_event(struct ras_events *ras, struct ras_aer_event *ev);
@@ -113,7 +124,8 @@ int ras_store_mce_record(struct ras_events *ras, struct mce_event *ev);
 int ras_store_extlog_mem_record(struct ras_events *ras, struct ras_extlog_event *ev);
 int ras_store_non_standard_record(struct ras_events *ras, struct ras_non_standard_event *ev);
 int ras_store_arm_record(struct ras_events *ras, struct ras_arm_event *ev);
-
+int ras_mc_add_vendor_table(struct ras_events *ras, sqlite3_stmt **stmt,
+			    const struct db_table_descriptor *db_tab);
 #else
 static inline int ras_mc_event_opendb(unsigned cpu, struct ras_events *ras) { return 0; };
 static inline int ras_store_mc_event(struct ras_events *ras, struct ras_mc_event *ev) { return 0; };

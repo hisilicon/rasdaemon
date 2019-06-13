@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Hisilicon Limited.
+ * Copyright (c) 2019 Hisilicon Limited.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -73,39 +73,7 @@
 #define HISI_PCIE_LOCAL_VALID_PORT_ID		BIT(6)
 #define HISI_PCIE_LOCAL_VALID_ERR_TYPE		BIT(7)
 #define HISI_PCIE_LOCAL_VALID_ERR_SEVERITY	BIT(8)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_0	BIT(9)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_1	BIT(10)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_2	BIT(11)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_3	BIT(12)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_4	BIT(13)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_5	BIT(14)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_6	BIT(15)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_7	BIT(16)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_8	BIT(17)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_9	BIT(18)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_10	BIT(19)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_11	BIT(20)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_12	BIT(21)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_13	BIT(22)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_14	BIT(23)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_15	BIT(24)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_16	BIT(25)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_17	BIT(26)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_18	BIT(27)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_19	BIT(28)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_20	BIT(29)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_21	BIT(30)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_22	BIT(31)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_23	BIT(32)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_24	BIT(33)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_25	BIT(34)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_26	BIT(35)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_27	BIT(36)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_28	BIT(37)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_29	BIT(38)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_30	BIT(39)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_31	BIT(40)
-#define HISI_PCIE_LOCAL_VALID_ERR_MISC_32	BIT(41)
+#define HISI_PCIE_LOCAL_VALID_ERR_MISC		9
 
 struct hisi_oem_type1_err_sec {
 	uint32_t   val_bits;
@@ -161,43 +129,73 @@ struct hisi_pcie_local_err_sec {
 	uint8_t    err_severity;
 	uint16_t   err_type;
 	uint8_t    reserv[2];
-	uint32_t   err_misc_0;
-	uint32_t   err_misc_1;
-	uint32_t   err_misc_2;
-	uint32_t   err_misc_3;
-	uint32_t   err_misc_4;
-	uint32_t   err_misc_5;
-	uint32_t   err_misc_6;
-	uint32_t   err_misc_7;
-	uint32_t   err_misc_8;
-	uint32_t   err_misc_9;
-	uint32_t   err_misc_10;
-	uint32_t   err_misc_11;
-	uint32_t   err_misc_12;
-	uint32_t   err_misc_13;
-	uint32_t   err_misc_14;
-	uint32_t   err_misc_15;
-	uint32_t   err_misc_16;
-	uint32_t   err_misc_17;
-	uint32_t   err_misc_18;
-	uint32_t   err_misc_19;
-	uint32_t   err_misc_20;
-	uint32_t   err_misc_21;
-	uint32_t   err_misc_22;
-	uint32_t   err_misc_23;
-	uint32_t   err_misc_24;
-	uint32_t   err_misc_25;
-	uint32_t   err_misc_26;
-	uint32_t   err_misc_27;
-	uint32_t   err_misc_28;
-	uint32_t   err_misc_29;
-	uint32_t   err_misc_30;
-	uint32_t   err_misc_31;
-	uint32_t   err_misc_32;
+	uint32_t   err_misc[33];
+};
+
+enum hisi_oem_data_type {
+	hisi_oem_data_type_int,
+	hisi_oem_data_type_int64,
+	hisi_oem_data_type_text,
+};
+
+enum {
+	hip08_oem_type1_field_id,
+	hip08_oem_type1_field_version,
+	hip08_oem_type1_field_soc_id,
+	hip08_oem_type1_field_socket_id,
+	hip08_oem_type1_field_nimbus_id,
+	hip08_oem_type1_field_module_id,
+	hip08_oem_type1_field_sub_module_id,
+	hip08_oem_type1_field_err_sev,
+	hip08_oem_type1_field_err_misc_0,
+	hip08_oem_type1_field_err_misc_1,
+	hip08_oem_type1_field_err_misc_2,
+	hip08_oem_type1_field_err_misc_3,
+	hip08_oem_type1_field_err_misc_4,
+	hip08_oem_type1_field_err_addr,
+	hip08_oem_type1_field_err_info,
+};
+
+enum {
+	hip08_oem_type2_field_id,
+	hip08_oem_type2_field_version,
+	hip08_oem_type2_field_soc_id,
+	hip08_oem_type2_field_socket_id,
+	hip08_oem_type2_field_nimbus_id,
+	hip08_oem_type2_field_module_id,
+	hip08_oem_type2_field_sub_module_id,
+	hip08_oem_type2_field_err_sev,
+	hip08_oem_type2_field_err_fr_0,
+	hip08_oem_type2_field_err_fr_1,
+	hip08_oem_type2_field_err_ctrl_0,
+	hip08_oem_type2_field_err_ctrl_1,
+	hip08_oem_type2_field_err_status_0,
+	hip08_oem_type2_field_err_status_1,
+	hip08_oem_type2_field_err_addr_0,
+	hip08_oem_type2_field_err_addr_1,
+	hip08_oem_type2_field_err_misc0_0,
+	hip08_oem_type2_field_err_misc0_1,
+	hip08_oem_type2_field_err_misc1_0,
+	hip08_oem_type2_field_err_misc1_1,
+	hip08_oem_type2_field_err_info,
+};
+
+enum {
+	hip08_pcie_local_field_id,
+	hip08_pcie_local_field_version,
+	hip08_pcie_local_field_soc_id,
+	hip08_pcie_local_field_socket_id,
+	hip08_pcie_local_field_nimbus_id,
+	hip08_pcie_local_field_sub_module_id,
+	hip08_pcie_local_field_core_id,
+	hip08_pcie_local_field_port_id,
+	hip08_pcie_local_field_err_sev,
+	hip08_pcie_local_field_err_type,
+	hip08_pcie_local_field_err_misc,
 };
 
 struct hisi_hip08_hw_error {
-	uint32_t msk;
+	uint64_t msk;
 	const char *msg;
 };
 
@@ -766,6 +764,265 @@ static const struct hisi_hip08_hw_error_status ddrc_ierr_status[] = {
 	{ /* sentinel */ }
 };
 
+static const struct hisi_hip08_hw_error hisi_pcie_ap_err_misc[] = {
+	{ .msk = BIT(9), .msg = "PCIE_GLOBAL_REG_AP_TIMEOUT_NUM" },
+	{ .msk = BIT(10), .msg = "PCIE_GLOBAL_REG_APB_TIMEOUT_INFO" },
+	{ .msk = BIT(11), .msg = "AP_TX_REG_IOB_TX_INT_STATUS1" },
+	{ .msk = BIT(12), .msg = "AP_TX_REG_IOB_TX_CHI_P2P_UNMATCH_ADDR_L" },
+	{ .msk = BIT(13), .msg = "AP_TX_REG_IOB_TX_CHI_P2P_UNMATCH_ADDR_H" },
+	{ .msk = BIT(14), .msg = "AP_TX_REG_IOB_TX_CPL_RAM_ERR_INFO" },
+	{ .msk = BIT(15), .msg = "AP_TX_REG_IOB_TX_INT_STATUS2" },
+	{ .msk = BIT(16), .msg = "AP_TX_REG_IOB_TX_INT_STATUS3" },
+	{ .msk = BIT(17), .msg = "AP_TX_REG_IOB_TX_INT_STATUS4" },
+	{ .msk = BIT(18), .msg = "AP_TX_REG_IOB_TX_INT_STATUS5" },
+	{ .msk = BIT(19), .msg = "AP_TX_REG_IOB_TX_CHI_UNEXP_REQ_RCVD" },
+	{ .msk = BIT(20), .msg = "AP_RX_REG_IOB_ODR_INT_SRC" },
+	{ .msk = BIT(21), .msg = "AP_RX_REG_IOB_ODR_SRAM_ECC_STS_1" },
+	{ .msk = BIT(22), .msg = "AP_RX_REG_IOB_ODR_SRAM_ECC_STS_0" },
+	{ .msk = BIT(23), .msg = "AP_REG_SDI_AXIM_INT_SRC" },
+	{ .msk = BIT(24), .msg = "AP_REG_DMA_QUEUE_INT_RO" },
+	{ .msk = BIT(25), .msg = "AP_REG_MCTP_INTRPT_STAT" },
+	{ .msk = BIT(26), .msg = "AP_REG_ECC_ERR_INT_STS" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error hisi_pcie_tl_err_misc[] = {
+	{ .msk = BIT(9), .msg = "TL_REG_TL_INT_STATUS0" },
+	{ .msk = BIT(10), .msg = "TL_REG_TL_RX_ERR_STATUS" },
+	{ .msk = BIT(11), .msg = "TL_REG_TL_RX_ECC_ERROR_STATUS" },
+	{ .msk = BIT(12), .msg = "TL_REG_TL_TX_ECC_ERROR_STATUS" },
+	{ .msk = BIT(13), .msg = "TL_REG_TL_TX_ECC_2BIT_ERR_CNT" },
+	{ .msk = BIT(14), .msg = "TL_REG_TL_ECC_2BIT_ERR_CNT" },
+	{ .msk = BIT(15), .msg = "TL_REG_TL_ECC_2BIT_ERR" },
+	{ .msk = BIT(16), .msg = "TL_REG_TL_TX_ECC_2BIT_ERR_ADDR" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error hisi_pcie_mac_err_misc[] = {
+	{ .msk = BIT(9), .msg = "MAC_REG_MAC_INT_STATUS" },
+	{ .msk = BIT(10), .msg = "MAC_REG_LINK_INFO" },
+	{ .msk = BIT(11), .msg = "MAC_REG_DEBUG_PIPE7" },
+	{ .msk = BIT(12), .msg = "MAC_REG_DEBUG_PIPE8" },
+	{ .msk = BIT(13), .msg = "MAC_REG_DEBUG_PIPE9" },
+	{ .msk = BIT(14), .msg = "MAC_REG_DEBUG_PIPE10" },
+	{ .msk = BIT(15), .msg = "MAC_REG_DEBUG_PIPE11" },
+	{ .msk = BIT(16), .msg = "MAC_REG_SYMBOL_UNLOCK_COUNTER" },
+	{ .msk = BIT(17), .msg = "MAC_REG_TEST_COUNTER" },
+	{ .msk = BIT(18), .msg = "MAC_REG_PCS_RX_ERR_CNT" },
+	{ /* sentinel */ }
+};
+
+
+static const struct hisi_hip08_hw_error hisi_pcie_dl_err_misc[] = {
+	{ .msk = BIT(9), .msg = "DL_REG_DL_INT_STATUS" },
+	{ .msk = BIT(10), .msg = "DL_REG_DL_RX_NAK_COUNT" },
+	{ .msk = BIT(11), .msg = "DL_REG_DFX_RX_BAD_DLLP_TYPE" },
+	{ .msk = BIT(12), .msg = "DL_REG_DFX_MAC_BP_TIMER" },
+	{ .msk = BIT(13), .msg = "DL_REG_DFX_RETRY_CNT" },
+	{ .msk = BIT(14), .msg = "DL_REG_DFX_LCRC_ERR_NUM" },
+	{ .msk = BIT(15), .msg = "DL_REG_DFX_DCRC_ERR_NUM" },
+	{ .msk = BIT(16), .msg = "DL_REG_DFX_FSM_STATE" },
+	{ /* sentinel */ }
+};
+
+static const struct hisi_hip08_hw_error hisi_pcie_sdi_err_misc[] = {
+	{ .msk = BIT(9), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG0" },
+	{ .msk = BIT(10), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG1" },
+	{ .msk = BIT(11), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG2" },
+	{ .msk = BIT(12), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG3" },
+	{ .msk = BIT(13), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG4" },
+	{ .msk = BIT(14), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG5" },
+	{ .msk = BIT(15), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG6" },
+	{ .msk = BIT(16), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG7" },
+	{ .msk = BIT(17), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG8" },
+	{ .msk = BIT(18), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG9" },
+	{ .msk = BIT(19), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG10" },
+	{ .msk = BIT(20), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG11" },
+	{ .msk = BIT(21), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG12" },
+	{ .msk = BIT(22), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG13" },
+	{ .msk = BIT(23), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG14" },
+	{ .msk = BIT(24), .msg = "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG15" },
+	{ .msk = BIT(25), .msg = "PCIE_NVME_GLOBAL_REG_SQ_ERR_STS0" },
+	{ .msk = BIT(26), .msg = "PCIE_NVME_GLOBAL_REG_SQ_SIZE_RAM_ECC_INJECT" },
+	{ .msk = BIT(27), .msg = "PCIE_NVME_GLOBAL_REG_SQ_BAL_RAM_ECC_INJECT" },
+	{ .msk = BIT(28), .msg = "PCIE_NVME_GLOBAL_REG_SQ_BAH_RAM_ECC_INJECT" },
+	{ .msk = BIT(29), .msg = "PCIE_NVME_GLOBAL_REG_RD_PTR_RAM_ECC_INJECT" },
+	{ .msk = BIT(30), .msg = "PCIE_NVME_GLOBAL_REG_SQ_DES_RAM_ECC_INJECT" },
+	{ .msk = BIT(31), .msg = "PCIE_NVME_GLOBAL_REG_PREFETCH_FIFO_RAM_ECC_INJECT" },
+	{ .msk = BIT(32), .msg = "PCIE_NVME_GLOBAL_REG_BRESP_ERR_INT" },
+	{ .msk = BIT(33), .msg = "PCIE_VIRTIO_GLOBAL_REG_ECC_INT_STATUS" },
+	{ .msk = BIT(34), .msg = "PCIE_VIRTIO_QUEUE_REG_ENGN_INT_STS" },
+	{ .msk = BIT(35), .msg = "PCIE_VIRTIO_QUEUE_REG_LOC_RPTR_CSR_RAM_EC_ADDR" },
+	{ .msk = BIT(36), .msg = "PCIE_VIRTIO_QUEUE_REG_LOC_WPTR_CSR_RAM_ECC_ADDR" },
+	{ .msk = BIT(37), .msg = "PCIE_VIRTIO_QUEUE_REG_LOC_AV_IDX_CSR_RAM_ECC_ADDR" },
+	{ .msk = BIT(38), .msg = "PCIE_VIRTIO_QUEUE_REG_FETCH_AV_CPL_ERR_VQ_NUM" },
+	{ .msk = BIT(39), .msg = "PCIE_VIRTIO_QUEUE_REG_DMA_CQ_ERR_STS" },
+	{ .msk = BIT(40), .msg = "PCIE_VIRTIO_QUEUE_REG_FETCH_AV_IDX_ERR_QN" },
+	{ .msk = BIT(41), .msg = "PCIE_VIRTIO_QUEUE_REG_ENGN_GET_DT_INF_BASE_ERR_PF" },
+	{ /* sentinel */ }
+};
+
+#ifdef HAVE_SQLITE3
+static const struct db_fields hip08_oem_type1_event_fields[] = {
+	{ .name = "id",			.type = "INTEGER PRIMARY KEY" },
+	{ .name = "version",		.type = "INTEGER" },
+	{ .name = "soc_id",		.type = "INTEGER" },
+	{ .name = "socket_id",		.type = "INTEGER" },
+	{ .name = "nimbus_id",		.type = "INTEGER" },
+	{ .name = "module_id",		.type = "TEXT" },
+	{ .name = "sub_module_id",	.type = "INTEGER" },
+	{ .name = "err_severity",	.type = "TEXT" },
+	{ .name = "err_misc_0",		.type = "INTEGER" },
+	{ .name = "err_misc_1",		.type = "INTEGER" },
+	{ .name = "err_misc_2",		.type = "INTEGER" },
+	{ .name = "err_misc_3",		.type = "INTEGER" },
+	{ .name = "err_misc_4",		.type = "INTEGER" },
+	{ .name = "err_addr",		.type = "INTEGER" },
+	{ .name = "err_info",		.type = "TEXT" },
+};
+
+static const struct db_table_descriptor hip08_oem_type1_event_tab = {
+	.name = "hip08_oem_type1_event",
+	.fields = hip08_oem_type1_event_fields,
+	.num_fields = ARRAY_SIZE(hip08_oem_type1_event_fields),
+};
+
+static const struct db_fields hip08_oem_type2_event_fields[] = {
+	{ .name = "id",                 .type = "INTEGER PRIMARY KEY" },
+	{ .name = "version",            .type = "INTEGER" },
+	{ .name = "soc_id",             .type = "INTEGER" },
+	{ .name = "socket_id",          .type = "INTEGER" },
+	{ .name = "nimbus_id",          .type = "INTEGER" },
+	{ .name = "module_id",          .type = "TEXT" },
+	{ .name = "sub_module_id",      .type = "INTEGER" },
+	{ .name = "err_severity",       .type = "TEXT" },
+	{ .name = "err_fr_0",		.type = "INTEGER" },
+	{ .name = "err_fr_1",		.type = "INTEGER" },
+	{ .name = "err_ctrl_0",		.type = "INTEGER" },
+	{ .name = "err_ctrl_1",		.type = "INTEGER" },
+	{ .name = "err_status_0",	.type = "INTEGER" },
+	{ .name = "err_status_1",	.type = "INTEGER" },
+	{ .name = "err_addr_0",         .type = "INTEGER" },
+	{ .name = "err_addr_1",         .type = "INTEGER" },
+	{ .name = "err_misc0_0",	.type = "INTEGER" },
+	{ .name = "err_misc0_1",	.type = "INTEGER" },
+	{ .name = "err_misc1_0",	.type = "INTEGER" },
+	{ .name = "err_misc1_1",	.type = "INTEGER" },
+	{ .name = "err_info",		.type = "TEXT" },
+};
+
+static const struct db_table_descriptor hip08_oem_type2_event_tab = {
+	.name = "hip08_oem_type2_event",
+	.fields = hip08_oem_type2_event_fields,
+	.num_fields = ARRAY_SIZE(hip08_oem_type2_event_fields),
+};
+
+static const struct db_fields hip08_pcie_local_event_fields[] = {
+	{ .name = "id",                 .type = "INTEGER PRIMARY KEY" },
+	{ .name = "version",            .type = "INTEGER" },
+	{ .name = "soc_id",             .type = "INTEGER" },
+	{ .name = "socket_id",          .type = "INTEGER" },
+	{ .name = "nimbus_id",          .type = "INTEGER" },
+	{ .name = "sub_module_id",      .type = "TEXT" },
+	{ .name = "core_id",		.type = "INTEGER" },
+	{ .name = "port_id",		.type = "INTEGER" },
+	{ .name = "err_severity",       .type = "TEXT" },
+	{ .name = "err_type",		.type = "TEXT" },
+	{ .name = "err_misc0",		.type = "INTEGER" },
+	{ .name = "err_misc1",		.type = "INTEGER" },
+	{ .name = "err_misc2",		.type = "INTEGER" },
+	{ .name = "err_misc3",		.type = "INTEGER" },
+	{ .name = "err_misc4",		.type = "INTEGER" },
+	{ .name = "err_misc5",		.type = "INTEGER" },
+	{ .name = "err_misc6",		.type = "INTEGER" },
+	{ .name = "err_misc7",		.type = "INTEGER" },
+	{ .name = "err_misc8",		.type = "INTEGER" },
+	{ .name = "err_misc9",		.type = "INTEGER" },
+	{ .name = "err_misc10",		.type = "INTEGER" },
+	{ .name = "err_misc11",		.type = "INTEGER" },
+	{ .name = "err_misc12",		.type = "INTEGER" },
+	{ .name = "err_misc13",		.type = "INTEGER" },
+	{ .name = "err_misc14",		.type = "INTEGER" },
+	{ .name = "err_misc15",		.type = "INTEGER" },
+	{ .name = "err_misc16",		.type = "INTEGER" },
+	{ .name = "err_misc17",		.type = "INTEGER" },
+	{ .name = "err_misc18",		.type = "INTEGER" },
+	{ .name = "err_misc19",		.type = "INTEGER" },
+	{ .name = "err_misc20",		.type = "INTEGER" },
+	{ .name = "err_misc21",		.type = "INTEGER" },
+	{ .name = "err_misc22",		.type = "INTEGER" },
+	{ .name = "err_misc23",		.type = "INTEGER" },
+	{ .name = "err_misc24",		.type = "INTEGER" },
+	{ .name = "err_misc25",		.type = "INTEGER" },
+	{ .name = "err_misc26",		.type = "INTEGER" },
+	{ .name = "err_misc27",		.type = "INTEGER" },
+	{ .name = "err_misc28",		.type = "INTEGER" },
+	{ .name = "err_misc29",		.type = "INTEGER" },
+	{ .name = "err_misc30",		.type = "INTEGER" },
+	{ .name = "err_misc31",		.type = "INTEGER" },
+	{ .name = "err_misc32",		.type = "INTEGER" },
+};
+
+static const struct db_table_descriptor hip08_pcie_local_event_tab = {
+	.name = "hip08_pcie_local_event",
+	.fields = hip08_pcie_local_event_fields,
+	.num_fields = ARRAY_SIZE(hip08_pcie_local_event_fields),
+};
+
+static void record_vendor_data(struct ras_ns_dec_tab *dec_tab,
+			       enum hisi_oem_data_type data_type,
+			       int id, int64_t data, const char *text)
+{
+	switch (data_type) {
+	case hisi_oem_data_type_int:
+		sqlite3_bind_int(dec_tab->stmt_dec_record, id, data);
+		break;
+	case hisi_oem_data_type_int64:
+		sqlite3_bind_int64(dec_tab->stmt_dec_record, id, data);
+		break;
+	case hisi_oem_data_type_text:
+		sqlite3_bind_text(dec_tab->stmt_dec_record, id, text, -1, NULL);
+		break;
+	default:
+		break;
+	}
+}
+
+static int step_vendor_data_tab(struct ras_ns_dec_tab *dec_tab, char *name)
+{
+	int rc;
+
+	rc = sqlite3_step(dec_tab->stmt_dec_record);
+	if (rc != SQLITE_OK && rc != SQLITE_DONE)
+		log(TERM, LOG_ERR,
+		    "Failed to do %s step on sqlite: error = %d\n", name, rc);
+
+	rc = sqlite3_reset(dec_tab->stmt_dec_record);
+	if (rc != SQLITE_OK && rc != SQLITE_DONE)
+		log(TERM, LOG_ERR,
+		    "Failed reset %s on sqlite: error = %d\n", name, rc);
+
+	rc = sqlite3_clear_bindings(dec_tab->stmt_dec_record);
+	if (rc != SQLITE_OK && rc != SQLITE_DONE)
+		log(TERM, LOG_ERR,
+		    "Failed to clear bindings %s on sqlite: error = %d\n", name, rc);
+
+	return rc;
+}
+
+#else
+
+static void record_vendor_data(struct ras_ns_dec_tab *dec_tab,
+			       enum hisi_oem_data_type data_type,
+			       int id, int64_t data, const char *text)
+{ }
+
+static int step_vendor_data_tab(struct ras_ns_dec_tab *dec_tab, char *name)
+{
+	return 0;
+}
+#endif
+
 /* helper functions */
 static char *err_severity(uint8_t err_sev)
 {
@@ -1030,42 +1287,63 @@ static char *pcie_sdi_err_type(int etype)
 	return "unknown error";
 }
 
-static void hisi_hip08_log_error(struct trace_seq *s, char *reg,
-				  const struct hisi_hip08_hw_error *err,
-				  uint32_t err_status)
+static void hisi_hip08_log_error(struct ras_ns_dec_tab *dec_tab, int pidx,
+				 char *tab_name, struct trace_seq *s, char *reg,
+				 const struct hisi_hip08_hw_error *err,
+				 uint32_t err_status)
 {
+	char buf[512];
+
 	while (err->msg) {
-		if (err->msk & err_status)
+		if (err->msk & err_status) {
 			trace_seq_printf(s, "%s: %s\n", reg, err->msg);
+			sprintf(buf, "%s: %s", reg, err->msg);
+			record_vendor_data(dec_tab, hisi_oem_data_type_text,
+					   pidx, 0, buf);
+			step_vendor_data_tab(dec_tab, tab_name);
+		}
 		err++;
 	}
 }
 
 static void
-hisi_hip08_log_error_status(struct trace_seq *s, char *reg,
+hisi_hip08_log_error_status(struct ras_ns_dec_tab *dec_tab, int pidx,
+			    char *tab_name, struct trace_seq *s, char *reg,
 			    const struct hisi_hip08_hw_error_status *err_status,
 			    uint32_t val)
 {
+	char buf[512];
+
 	while (err_status->msg) {
-		if (err_status->val == val)
+		if (err_status->val == val) {
 			trace_seq_printf(s, "%s: %s\n", reg, err_status->msg);
+			sprintf(buf, "%s: %s", reg, err_status->msg);
+			record_vendor_data(dec_tab, hisi_oem_data_type_text,
+					   pidx, 0, buf);
+			step_vendor_data_tab(dec_tab, tab_name);
+		}
 		err_status++;
 	}
 }
 
 /* error data decoding functions */
-static void dec_type1_misc_err_data(struct trace_seq *s,
+static void dec_type1_misc_err_data(struct ras_ns_dec_tab *dec_tab,
+				    struct trace_seq *s,
 				    const struct hisi_oem_type1_err_sec *err)
 {
 	trace_seq_printf(s, "Error Info:\n");
 	switch (err->module_id) {
 	case HISI_OEM_MODULE_ID_MN:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
-			hisi_hip08_log_error(s, "MN_RINT", mn_hw_intr,
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "MN_RINT", mn_hw_intr,
 					     err->err_misc_0);
 
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_1)
-			hisi_hip08_log_error(s, "MN_INTS", mn_hw_intr,
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "MN_INTS", mn_hw_intr,
 					     err->err_misc_1);
 		break;
 
@@ -1077,19 +1355,25 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 
 	case HISI_OEM_MODULE_ID_SLLC:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
-			hisi_hip08_log_error(s, "SLLC_INT0_SRC",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "SLLC_INT0_SRC",
 					     sllc_hw_intr0,
 					     err->err_misc_0);
 
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_1)
-			hisi_hip08_log_error(s, "SLLC_INT1_SRC",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "SLLC_INT1_SRC",
 					     sllc_hw_intr1,
 					     err->err_misc_1);
 		break;
 
 	case HISI_OEM_MODULE_ID_AA:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
-			hisi_hip08_log_error(s, "AA_INTRAW",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "AA_INTRAW",
 					     aa_hw_intraw,
 					     err->err_misc_0);
 
@@ -1116,29 +1400,39 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 
 	case HISI_OEM_MODULE_ID_SIOE:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
-			hisi_hip08_log_error(s, "SIOE_INT_STS",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "SIOE_INT_STS",
 					     sio_hw_int,
 					     err->err_misc_0);
 		break;
 
 	case HISI_OEM_MODULE_ID_POE:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
-			hisi_hip08_log_error(s, "POE_ECC_1BIT_ERR_INFO_1",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "POE_ECC_1BIT_ERR_INFO_1",
 					     poe_ecc_1bit_info_1,
 					     err->err_misc_0);
 
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_1)
-			hisi_hip08_log_error(s, "POE_ECC_1BIT_ERR_INFO_0",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "POE_ECC_1BIT_ERR_INFO_0",
 					     poe_ecc_1bit_info_0,
 					     err->err_misc_1);
 
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_2)
-			hisi_hip08_log_error(s, "POE_ECC_2BIT_ERR_INFO_1",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "POE_ECC_2BIT_ERR_INFO_1",
 					     poe_ecc_2bit_info_1,
 					     err->err_misc_2);
 
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_3)
-			hisi_hip08_log_error(s, "POE_ECC_2BIT_ERR_INFO_0",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "POE_ECC_2BIT_ERR_INFO_0",
 					     poe_ecc_2bit_info_0,
 					     err->err_misc_3);
 		break;
@@ -1167,12 +1461,16 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 		}
 
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_2)
-			hisi_hip08_log_error(s, "DISP_INTRAW0",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "DISP_INTRAW0",
 					     disp_intraw0,
 					     err->err_misc_2);
 
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_3)
-			hisi_hip08_log_error(s, "DISP_INTRAW1",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "DISP_INTRAW1",
 					     disp_intraw1,
 					     err->err_misc_3);
 
@@ -1188,17 +1486,23 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 
 	case HISI_OEM_MODULE_ID_LPC:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
-			hisi_hip08_log_error(s, "LPC_MEM_ACCESS_ST",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "LPC_MEM_ACCESS_ST",
 					     lpc_mem_access_st,
 					     err->err_misc_0);
 
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_1)
-			hisi_hip08_log_error(s, "SC_MEM_ECC_ST0",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "SC_MEM_ECC_ST0",
 					     lpc_sc_mem_ecc_st0,
 					     err->err_misc_1);
 
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_2)
-			hisi_hip08_log_error(s, "SC_MEM_ECC_ST1",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "SC_MEM_ECC_ST1",
 					     lpc_sc_mem_ecc_st1,
 					     err->err_misc_2);
 
@@ -1209,36 +1513,47 @@ static void dec_type1_misc_err_data(struct trace_seq *s,
 
 	case HISI_OEM_MODULE_ID_SAS:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
-			hisi_hip08_log_error(s, "SAS_RAS_INTR0",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "SAS_RAS_INTR0",
 					     sas_ras_intr0,
 					     err->err_misc_0);
 
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_1)
-			hisi_hip08_log_error(s, "SAS_RAS_INTR1",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "SAS_RAS_INTR1",
 					     sas_ras_intr1,
 					     err->err_misc_1);
 
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_2)
-			hisi_hip08_log_error(s, "SAS_RAS_INTR2",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "SAS_RAS_INTR2",
 					     sas_ras_intr2,
 					     err->err_misc_2);
 		break;
 
 	case HISI_OEM_MODULE_ID_SATA:
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
-			hisi_hip08_log_error(s, "SATA_RAS_IS",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "SATA_RAS_IS",
 					     sata_ras_is,
 					     err->err_misc_0);
 
 		if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_1)
-			hisi_hip08_log_error(s, "SATA_RAS_SERR",
+			hisi_hip08_log_error(dec_tab, hip08_oem_type1_field_err_info,
+					     "hip08_oem_type1_event_tab",
+					     s, "SATA_RAS_SERR",
 					     sata_ras_serr,
 					     err->err_misc_1);
 		break;
 	}
 }
 
-static void dec_type2_err_info(struct trace_seq *s,
+static void dec_type2_err_info(struct ras_ns_dec_tab *dec_tab,
+			       struct trace_seq *s,
 			       const struct hisi_oem_type2_err_sec *err)
 {
 	uint16_t ierr_status;
@@ -1250,51 +1565,80 @@ static void dec_type2_err_info(struct trace_seq *s,
 
 	switch (err->module_id) {
 	case HISI_OEM_MODULE_ID_SMMU:
-		hisi_hip08_log_error_status(s, "SMMU_ERR_STATUS_0:SERR",
+		hisi_hip08_log_error_status(dec_tab, hip08_oem_type2_field_err_info,
+					    "hip08_oem_type2_event_tab",
+					    s, "SMMU_ERR_STATUS_0:SERR",
 					    smmu_serr_status, serr_status);
-		hisi_hip08_log_error_status(s, "SMMU_ERR_STATUS_0:IERR",
+		hisi_hip08_log_error_status(dec_tab, hip08_oem_type2_field_err_info,
+					    "hip08_oem_type2_event_tab",
+					    s, "SMMU_ERR_STATUS_0:IERR",
 					    smmu_ierr_status, ierr_status);
 		break;
 
 	case HISI_OEM_MODULE_ID_HHA:
-		hisi_hip08_log_error_status(s, "HHA_ERR_STATUSL:SERR",
+		hisi_hip08_log_error_status(dec_tab, hip08_oem_type2_field_err_info,
+					    "hip08_oem_type2_event_tab",
+					    s, "HHA_ERR_STATUSL:SERR",
 					    hha_serr_status, serr_status);
-		hisi_hip08_log_error_status(s, "HHA_ERR_STATUSL:IERR",
+		hisi_hip08_log_error_status(dec_tab, hip08_oem_type2_field_err_info,
+					    "hip08_oem_type2_event_tab",
+					    s, "HHA_ERR_STATUSL:IERR",
 					    hha_ierr_status, ierr_status);
 		break;
 
 	case HISI_OEM_MODULE_ID_HLLC:
-		hisi_hip08_log_error_status(s, "HLLC_ERR_STATUSL:SERR",
+		hisi_hip08_log_error_status(dec_tab, hip08_oem_type2_field_err_info,
+					    "hip08_oem_type2_event_tab",
+					    s, "HLLC_ERR_STATUSL:SERR",
 					    hllc_serr_status, serr_status);
-		hisi_hip08_log_error_status(s, "HLLC_ERR_STATUSL:IERR",
+		hisi_hip08_log_error_status(dec_tab, hip08_oem_type2_field_err_info,
+					    "hip08_oem_type2_event_tab",
+					    s, "HLLC_ERR_STATUSL:IERR",
 					    hllc_ierr_status, ierr_status);
 
-		hisi_hip08_log_error(s, "HLLC_ERR_MISC1L",
+		hisi_hip08_log_error(dec_tab, hip08_oem_type2_field_err_info,
+				     "hip08_oem_type2_event_tab",
+				     s, "HLLC_ERR_MISC1L",
 				     hllc_hw_err_misc1_l, err->err_misc1_0);
-		hisi_hip08_log_error(s, "HLLC_ERR_MISC1H",
+		hisi_hip08_log_error(dec_tab, hip08_oem_type2_field_err_info,
+				     "hip08_oem_type2_event_tab",
+				     s, "HLLC_ERR_MISC1H",
 				     hllc_hw_err_misc1_h, err->err_misc1_1);
 		break;
 
 	case HISI_OEM_MODULE_ID_PA:
-		hisi_hip08_log_error_status(s, "PA_ERR_STATUSL:SERR",
+		hisi_hip08_log_error_status(dec_tab, hip08_oem_type2_field_err_info,
+					    "hip08_oem_type2_event_tab",
+					    s, "PA_ERR_STATUSL:SERR",
 					    pa_serr_status, serr_status);
-		hisi_hip08_log_error_status(s, "PA_ERR_STATUSL:IERR",
+		hisi_hip08_log_error_status(dec_tab, hip08_oem_type2_field_err_info,
+					    "hip08_oem_type2_event_tab",
+					    s, "PA_ERR_STATUSL:IERR",
 					    pa_ierr_status, ierr_status);
 
-		hisi_hip08_log_error(s, "PA_ERR_MISC1L", pa_hw_err_misc1_l,
+		hisi_hip08_log_error(dec_tab, hip08_oem_type2_field_err_info,
+				     "hip08_oem_type2_event_tab",
+				     s, "PA_ERR_MISC1L", pa_hw_err_misc1_l,
 				     err->err_misc1_0);
-		hisi_hip08_log_error(s, "PA_ERR_MISC1H", pa_hw_err_misc1_h,
+		hisi_hip08_log_error(dec_tab, hip08_oem_type2_field_err_info,
+				     "hip08_oem_type2_event_tab",
+				     s, "PA_ERR_MISC1H", pa_hw_err_misc1_h,
 				     err->err_misc1_1);
 		break;
 
 	case HISI_OEM_MODULE_ID_DDRC:
-		hisi_hip08_log_error_status(s, "ARER_ERR_STATUS_L:IERR",
+		hisi_hip08_log_error_status(dec_tab, hip08_oem_type2_field_err_info,
+					    "hip08_oem_type2_event_tab",
+					    s, "ARER_ERR_STATUS_L:IERR",
 					    ddrc_ierr_status, ierr_status);
 		break;
 	}
 }
 
-static int decode_hip08_oem_type1_error(struct trace_seq *s, const void *error)
+/* error data decoding functions */
+static int decode_hip08_oem_type1_error(struct ras_events *ras,
+					struct ras_ns_dec_tab *dec_tab,
+					struct trace_seq *s, const void *error)
 {
 	const struct hisi_oem_type1_err_sec *err = error;
 	char buf[1024];
@@ -1305,49 +1649,124 @@ static int decode_hip08_oem_type1_error(struct trace_seq *s, const void *error)
 				 __func__);
 		return -1;
 	}
-	p += sprintf(p, "[ ");
-	if (err->val_bits & HISI_OEM_VALID_SOC_ID)
-		p += sprintf(p, "SOC ID=%d ", err->soc_id);
-	if (err->val_bits & HISI_OEM_VALID_SOCKET_ID)
-		p += sprintf(p, "socket ID=%d ", err->socket_id);
 
-	if (err->val_bits & HISI_OEM_VALID_NIMBUS_ID)
+#ifdef HAVE_SQLITE3
+	if (!dec_tab->stmt_dec_record) {
+		if (ras_mc_add_vendor_table(ras, &dec_tab->stmt_dec_record,
+					    &hip08_oem_type1_event_tab)
+			!= SQLITE_OK) {
+			trace_seq_printf(s,
+					"create sql hip08_oem_type1_event_tab fail\n");
+			return -1;
+		}
+	}
+#endif
+
+	p += sprintf(p, "[ ");
+	p += sprintf(p, "Table version=%d ", err->version);
+	record_vendor_data(dec_tab, hisi_oem_data_type_int,
+			   hip08_oem_type1_field_version, err->version, NULL);
+
+	if (err->val_bits & HISI_OEM_VALID_SOC_ID) {
+		p += sprintf(p, "SOC ID=%d ", err->soc_id);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type1_field_soc_id,
+				   err->soc_id, NULL);
+	}
+
+	if (err->val_bits & HISI_OEM_VALID_SOCKET_ID) {
+		p += sprintf(p, "socket ID=%d ", err->socket_id);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type1_field_socket_id,
+				   err->socket_id, NULL);
+	}
+
+	if (err->val_bits & HISI_OEM_VALID_NIMBUS_ID) {
 		p += sprintf(p, "nimbus ID=%d ", err->nimbus_id);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type1_field_nimbus_id,
+				   err->nimbus_id, NULL);
+	}
 
 	if (err->val_bits & HISI_OEM_VALID_MODULE_ID) {
 		p += sprintf(p, "module=%s-",
 			     oem_type1_module_name(err->module_id));
-		if (err->val_bits & HISI_OEM_VALID_SUB_MODULE_ID)
+		record_vendor_data(dec_tab, hisi_oem_data_type_text,
+				   hip08_oem_type1_field_module_id,
+				   0, oem_type1_module_name(err->module_id));
+		if (err->val_bits & HISI_OEM_VALID_SUB_MODULE_ID) {
 			p += sprintf(p, "%d ", err->sub_module_id);
+			record_vendor_data(dec_tab, hisi_oem_data_type_int,
+					   hip08_oem_type1_field_sub_module_id,
+					   err->sub_module_id, NULL);
+		}
 	}
 
-	if (err->val_bits & HISI_OEM_VALID_ERR_SEVERITY)
+	if (err->val_bits & HISI_OEM_VALID_ERR_SEVERITY) {
 		p += sprintf(p, "error severity=%s ",
 			     err_severity(err->err_severity));
+		record_vendor_data(dec_tab, hisi_oem_data_type_text,
+				   hip08_oem_type1_field_err_sev,
+				   0, err_severity(err->err_severity));
+	}
+
 	p += sprintf(p, "]");
 	trace_seq_printf(s, "\nHISI HIP08: OEM Type-1 Error\n");
 	trace_seq_printf(s, "%s\n", buf);
 
 	trace_seq_printf(s, "Reg Dump:\n");
-	if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0)
+	if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_0) {
 		trace_seq_printf(s, "ERR_MISC0=0x%x\n", err->err_misc_0);
-	if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_1)
-		trace_seq_printf(s, "ERR_MISC1=0x%x\n", err->err_misc_1);
-	if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_2)
-		trace_seq_printf(s, "ERR_MISC2=0x%x\n", err->err_misc_2);
-	if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_3)
-		trace_seq_printf(s, "ERR_MISC3=0x%x\n", err->err_misc_3);
-	if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_4)
-		trace_seq_printf(s, "ERR_MISC4=0x%x\n", err->err_misc_4);
-	if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_ADDR)
-		trace_seq_printf(s, "ERR_ADDR=0x%p\n", (void *)err->err_addr);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type1_field_err_misc_0,
+				   err->err_misc_0, NULL);
+	}
 
-	dec_type1_misc_err_data(s, err);
+	if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_1) {
+		trace_seq_printf(s, "ERR_MISC1=0x%x\n", err->err_misc_1);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type1_field_err_misc_1,
+				   err->err_misc_1, NULL);
+	}
+
+	if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_2) {
+		trace_seq_printf(s, "ERR_MISC2=0x%x\n", err->err_misc_2);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type1_field_err_misc_2,
+				   err->err_misc_2, NULL);
+	}
+
+	if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_3) {
+		trace_seq_printf(s, "ERR_MISC3=0x%x\n", err->err_misc_3);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type1_field_err_misc_3,
+				   err->err_misc_3, NULL);
+	}
+
+	if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_MISC_4) {
+		trace_seq_printf(s, "ERR_MISC4=0x%x\n", err->err_misc_4);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type1_field_err_misc_4,
+				   err->err_misc_4, NULL);
+	}
+
+	if (err->val_bits & HISI_OEM_TYPE1_VALID_ERR_ADDR) {
+		trace_seq_printf(s, "ERR_ADDR=0x%p\n", (void *)err->err_addr);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int64,
+				   hip08_oem_type1_field_err_addr,
+				   err->err_addr, NULL);
+	}
+	step_vendor_data_tab(dec_tab, "hip08_oem_type1_event_tab");
+
+	dec_type1_misc_err_data(dec_tab, s, err);
+
 
 	return 0;
 }
 
-static int decode_hip08_oem_type2_error(struct trace_seq *s, const void *error)
+static int decode_hip08_oem_type2_error(struct ras_events *ras,
+					struct ras_ns_dec_tab *dec_tab,
+					struct trace_seq *s, const void *error)
 {
 	const struct hisi_oem_type2_err_sec *err = error;
 	char buf[1024];
@@ -1359,28 +1778,66 @@ static int decode_hip08_oem_type2_error(struct trace_seq *s, const void *error)
 		return -1;
 	}
 
+#ifdef HAVE_SQLITE3
+	if (!dec_tab->stmt_dec_record) {
+		if (ras_mc_add_vendor_table(ras, &dec_tab->stmt_dec_record,
+			&hip08_oem_type2_event_tab) != SQLITE_OK) {
+			trace_seq_printf(s,
+				"create sql hip08_oem_type2_event_tab fail\n");
+			return -1;
+		}
+	}
+#endif
 	p += sprintf(p, "[ ");
-	if (err->val_bits & HISI_OEM_VALID_SOC_ID)
+	p += sprintf(p, "Table version=%d ", err->version);
+	record_vendor_data(dec_tab, hisi_oem_data_type_int,
+			   hip08_oem_type2_field_version,
+			   err->version, NULL);
+	if (err->val_bits & HISI_OEM_VALID_SOC_ID) {
 		p += sprintf(p, "SOC ID=%d ", err->soc_id);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_soc_id,
+				   err->soc_id, NULL);
+	}
 
-	if (err->val_bits & HISI_OEM_VALID_SOCKET_ID)
+	if (err->val_bits & HISI_OEM_VALID_SOCKET_ID) {
 		p += sprintf(p, "socket ID=%d ", err->socket_id);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_socket_id,
+				   err->socket_id, NULL);
+	}
 
-	if (err->val_bits & HISI_OEM_VALID_NIMBUS_ID)
+	if (err->val_bits & HISI_OEM_VALID_NIMBUS_ID) {
 		p += sprintf(p, "nimbus ID=%d ", err->nimbus_id);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_nimbus_id,
+				   err->nimbus_id, NULL);
+	}
 
 	if (err->val_bits & HISI_OEM_VALID_MODULE_ID) {
 		p += sprintf(p, "module=%s ",
 			     oem_type2_module_name(err->module_id));
+		record_vendor_data(dec_tab, hisi_oem_data_type_text,
+				   hip08_oem_type2_field_module_id,
+				   0, oem_type2_module_name(err->module_id));
 	}
 
-	if (err->val_bits & HISI_OEM_VALID_SUB_MODULE_ID)
+	if (err->val_bits & HISI_OEM_VALID_SUB_MODULE_ID) {
 		p =  oem_type2_sub_module_id(p, err->module_id,
 					     err->sub_module_id);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_sub_module_id,
+				   err->sub_module_id, NULL);
+	}
 
-	if (err->val_bits & HISI_OEM_VALID_ERR_SEVERITY)
+	if (err->val_bits & HISI_OEM_VALID_ERR_SEVERITY) {
 		p += sprintf(p, "error severity=%s ",
 			     err_severity(err->err_severity));
+		record_vendor_data(dec_tab, hisi_oem_data_type_text,
+				   hip08_oem_type2_field_err_sev,
+				   0, err_severity(err->err_severity));
+	}
+
 	p += sprintf(p, "]");
 	trace_seq_printf(s, "\nHISI HIP08: OEM Type-2 Error\n");
 	trace_seq_printf(s, "%s\n", buf);
@@ -1389,43 +1846,83 @@ static int decode_hip08_oem_type2_error(struct trace_seq *s, const void *error)
 	if (err->val_bits & HISI_OEM_TYPE2_VALID_ERR_FR) {
 		trace_seq_printf(s, "ERR_FR_0=0x%x\n", err->err_fr_0);
 		trace_seq_printf(s, "ERR_FR_1=0x%x\n", err->err_fr_1);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_err_fr_0,
+				   err->err_fr_0, NULL);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_err_fr_1,
+				   err->err_fr_1, NULL);
 	}
 
 	if (err->val_bits & HISI_OEM_TYPE2_VALID_ERR_CTRL) {
 		trace_seq_printf(s, "ERR_CTRL_0=0x%x\n", err->err_ctrl_0);
 		trace_seq_printf(s, "ERR_CTRL_1=0x%x\n", err->err_ctrl_1);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_err_ctrl_0,
+				   err->err_ctrl_0, NULL);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_err_ctrl_1,
+				   err->err_ctrl_1, NULL);
 	}
 
 	if (err->val_bits & HISI_OEM_TYPE2_VALID_ERR_STATUS) {
 		trace_seq_printf(s, "ERR_STATUS_0=0x%x\n", err->err_status_0);
 		trace_seq_printf(s, "ERR_STATUS_1=0x%x\n", err->err_status_1);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_err_status_0,
+				   err->err_status_0, NULL);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_err_status_1,
+				   err->err_status_1, NULL);
 	}
 
 	if (err->val_bits & HISI_OEM_TYPE2_VALID_ERR_ADDR) {
 		trace_seq_printf(s, "ERR_ADDR_0=0x%x\n", err->err_addr_0);
 		trace_seq_printf(s, "ERR_ADDR_1=0x%x\n", err->err_addr_1);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_err_addr_0,
+				   err->err_addr_0, NULL);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_err_addr_1,
+				   err->err_addr_1, NULL);
 	}
 
 	if (err->val_bits & HISI_OEM_TYPE2_VALID_ERR_MISC_0) {
 		trace_seq_printf(s, "ERR_MISC0_0=0x%x\n", err->err_misc0_0);
 		trace_seq_printf(s, "ERR_MISC0_1=0x%x\n", err->err_misc0_1);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_err_misc0_0,
+				   err->err_misc0_0, NULL);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_err_misc0_1,
+				   err->err_misc0_1, NULL);
 	}
 
 	if (err->val_bits & HISI_OEM_TYPE2_VALID_ERR_MISC_1) {
 		trace_seq_printf(s, "ERR_MISC1_0=0x%x\n", err->err_misc1_0);
 		trace_seq_printf(s, "ERR_MISC1_1=0x%x\n", err->err_misc1_1);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_err_misc1_0,
+				   err->err_misc1_0, NULL);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_oem_type2_field_err_misc1_1,
+				   err->err_misc1_1, NULL);
 	}
+	step_vendor_data_tab(dec_tab, "hip08_oem_type2_event_tab");
 
-	dec_type2_err_info(s, err);
+	dec_type2_err_info(dec_tab, s, err);
 
 	return 0;
 }
 
-static int decode_hip08_pcie_local_error(struct trace_seq *s, const void *error)
+static int decode_hip08_pcie_local_error(struct ras_events *ras,
+					 struct ras_ns_dec_tab *dec_tab,
+					 struct trace_seq *s, const void *error)
 {
 	const struct hisi_pcie_local_err_sec *err = error;
 	char buf[1024];
 	char *p = buf;
+	uint32_t i;
 
 	if (err->val_bits == 0) {
 		trace_seq_printf(s, "%s: no valid error information\n",
@@ -1433,366 +1930,176 @@ static int decode_hip08_pcie_local_error(struct trace_seq *s, const void *error)
 		return -1;
 	}
 
+#ifdef HAVE_SQLITE3
+	if (!dec_tab->stmt_dec_record) {
+		if (ras_mc_add_vendor_table(ras, &dec_tab->stmt_dec_record,
+				&hip08_pcie_local_event_tab) != SQLITE_OK) {
+			trace_seq_printf(s,
+				"create sql hip08_pcie_local_event_tab fail\n");
+			return -1;
+		}
+	}
+#endif
 	p += sprintf(p, "[ ");
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_SOC_ID)
+	p += sprintf(p, "Table version=%d ", err->version);
+	record_vendor_data(dec_tab, hisi_oem_data_type_int,
+			   hip08_pcie_local_field_version,
+			   err->version, NULL);
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_SOC_ID) {
 		p += sprintf(p, "SOC ID=%d ", err->soc_id);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_pcie_local_field_soc_id,
+				   err->soc_id, NULL);
+	}
 
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_SOCKET_ID)
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_SOCKET_ID) {
 		p += sprintf(p, "socket ID=%d ", err->socket_id);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_pcie_local_field_socket_id,
+				   err->socket_id, NULL);
+	}
 
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_NIMBUS_ID)
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_NIMBUS_ID) {
 		p += sprintf(p, "nimbus ID=%d ", err->nimbus_id);
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_pcie_local_field_nimbus_id,
+				   err->nimbus_id, NULL);
+	}
 
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_SUB_MODULE_ID)
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_SUB_MODULE_ID) {
 		p += sprintf(p, "sub module=%s ",
 			     pcie_local_sub_module_name(err->sub_module_id));
+		record_vendor_data(dec_tab, hisi_oem_data_type_text,
+				   hip08_pcie_local_field_sub_module_id,
+				   0, pcie_local_sub_module_name(err->sub_module_id));
+	}
 
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_CORE_ID)
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_CORE_ID) {
 		p += sprintf(p, "core ID=core%d ", err->core_id);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_PORT_ID)
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_pcie_local_field_core_id,
+				   err->core_id, NULL);
+	}
+
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_PORT_ID) {
 		p += sprintf(p, "port ID=port%d ", err->port_id);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_SEVERITY)
+		record_vendor_data(dec_tab, hisi_oem_data_type_int,
+				   hip08_pcie_local_field_port_id,
+				   err->port_id, NULL);
+	}
+
+	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_SEVERITY) {
 		p += sprintf(p, "error severity=%s ",
 			     err_severity(err->err_severity));
+		record_vendor_data(dec_tab, hisi_oem_data_type_text,
+				   hip08_pcie_local_field_err_sev,
+				   0, err_severity(err->err_severity));
+	}
 	p += sprintf(p, "]");
+
 	trace_seq_printf(s, "\nHISI HIP08: PCIe local error\n");
 	trace_seq_printf(s, "%s\n", buf);
 
 	trace_seq_printf(s, "Reg Dump:\n");
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_0)
-		trace_seq_printf(s, "ERR_MISC_0=0x%x\n", err->err_misc_0);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_1)
-		trace_seq_printf(s, "ERR_MISC_1=0x%x\n", err->err_misc_1);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_2)
-		trace_seq_printf(s, "ERR_MISC_2=0x%x\n", err->err_misc_2);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_3)
-		trace_seq_printf(s, "ERR_MISC_3=0x%x\n", err->err_misc_3);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_4)
-		trace_seq_printf(s, "ERR_MISC_4=0x%x\n", err->err_misc_4);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_5)
-		trace_seq_printf(s, "ERR_MISC_5=0x%x\n", err->err_misc_5);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_6)
-		trace_seq_printf(s, "ERR_MISC_6=0x%x\n", err->err_misc_6);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_7)
-		trace_seq_printf(s, "ERR_MISC_7=0x%x\n", err->err_misc_7);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_8)
-		trace_seq_printf(s, "ERR_MISC_8=0x%x\n", err->err_misc_8);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_9)
-		trace_seq_printf(s, "ERR_MISC_9=0x%x\n", err->err_misc_9);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_10)
-		trace_seq_printf(s, "ERR_MISC_10=0x%x\n", err->err_misc_10);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_11)
-		trace_seq_printf(s, "ERR_MISC_11=0x%x\n", err->err_misc_11);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_12)
-		trace_seq_printf(s, "ERR_MISC_12=0x%x\n", err->err_misc_12);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_13)
-		trace_seq_printf(s, "ERR_MISC_13=0x%x\n", err->err_misc_13);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_14)
-		trace_seq_printf(s, "ERR_MISC_14=0x%x\n", err->err_misc_14);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_15)
-		trace_seq_printf(s, "ERR_MISC_15=0x%x\n", err->err_misc_15);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_16)
-		trace_seq_printf(s, "ERR_MISC_16=0x%x\n", err->err_misc_16);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_17)
-		trace_seq_printf(s, "ERR_MISC_17=0x%x\n", err->err_misc_17);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_18)
-		trace_seq_printf(s, "ERR_MISC_18=0x%x\n", err->err_misc_18);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_19)
-		trace_seq_printf(s, "ERR_MISC_19=0x%x\n", err->err_misc_19);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_20)
-		trace_seq_printf(s, "ERR_MISC_20=0x%x\n", err->err_misc_20);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_21)
-		trace_seq_printf(s, "ERR_MISC_21=0x%x\n", err->err_misc_21);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_22)
-		trace_seq_printf(s, "ERR_MISC_22=0x%x\n", err->err_misc_22);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_23)
-		trace_seq_printf(s, "ERR_MISC_23=0x%x\n", err->err_misc_23);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_24)
-		trace_seq_printf(s, "ERR_MISC_24=0x%x\n", err->err_misc_24);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_25)
-		trace_seq_printf(s, "ERR_MISC_25=0x%x\n", err->err_misc_25);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_26)
-		trace_seq_printf(s, "ERR_MISC_26=0x%x\n", err->err_misc_26);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_27)
-		trace_seq_printf(s, "ERR_MISC_27=0x%x\n", err->err_misc_27);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_28)
-		trace_seq_printf(s, "ERR_MISC_28=0x%x\n", err->err_misc_28);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_29)
-		trace_seq_printf(s, "ERR_MISC_29=0x%x\n", err->err_misc_29);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_30)
-		trace_seq_printf(s, "ERR_MISC_30=0x%x\n", err->err_misc_30);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_31)
-		trace_seq_printf(s, "ERR_MISC_31=0x%x\n", err->err_misc_31);
-	if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_32)
-		trace_seq_printf(s, "ERR_MISC_32=0x%x\n", err->err_misc_32);
+	for (i = 0; i < 33; i++) {
+		if (err->val_bits & BIT(HISI_PCIE_LOCAL_VALID_ERR_MISC + i)) {
+			trace_seq_printf(s, "ERR_MISC_%d=0x%x\n", i,
+					 err->err_misc[i]);
+			record_vendor_data(dec_tab, hisi_oem_data_type_int,
+					   (hip08_pcie_local_field_err_misc + i),
+					   err->err_misc[i], NULL);
+		}
+	}
 
 	trace_seq_printf(s, "Error Info:\n");
 	switch (err->sub_module_id) {
 	case HISI_PCIE_SUB_MODULE_ID_AP:
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE)
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE) {
 			trace_seq_printf(s, "error type=%s\n",
 					 pcie_ap_err_type(err->err_type));
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_0)
-			trace_seq_printf(s,
-					 "PCIE_GLOBAL_REG_AP_TIMEOUT_NUM=0x%x\n",
-					 err->err_misc_0);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_1)
-			trace_seq_printf(s,
-					 "PCIE_GLOBAL_REG_APB_TIMEOUT_INFO=0x%x\n",
-					 err->err_misc_1);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_2)
-			trace_seq_printf(s,
-					 "AP_TX_REG_IOB_TX_INT_STATUS1=0x%x\n",
-					 err->err_misc_2);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_3)
-			trace_seq_printf(s, "AP_TX_REG_IOB_TX_CHI_P2P_UNMATCH_ADDR_L=0x%x\n",
-					 err->err_misc_3);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_4)
-			trace_seq_printf(s, "AP_TX_REG_IOB_TX_CHI_P2P_UNMATCH_ADDR_H=0x%x\n",
-					 err->err_misc_4);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_5)
-			trace_seq_printf(s, "AP_TX_REG_IOB_TX_CPL_RAM_ERR_INFO=0x%x\n",
-					 err->err_misc_5);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_6)
-			trace_seq_printf(s, "AP_TX_REG_IOB_TX_INT_STATUS2=0x%x\n",
-					 err->err_misc_6);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_7)
-			trace_seq_printf(s, "AP_TX_REG_IOB_TX_INT_STATUS3=0x%x\n",
-					 err->err_misc_7);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_8)
-			trace_seq_printf(s, "AP_TX_REG_IOB_TX_INT_STATUS4=0x%x\n",
-					 err->err_misc_8);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_9)
-			trace_seq_printf(s, "AP_TX_REG_IOB_TX_INT_STATUS5=0x%x\n",
-					 err->err_misc_9);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_10)
-			trace_seq_printf(s, "AP_TX_REG_IOB_TX_CHI_UNEXP_REQ_RCVD=0x%x\n",
-					 err->err_misc_10);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_11)
-			trace_seq_printf(s, "AP_RX_REG_IOB_ODR_INT_SRC=0x%x\n ",
-					 err->err_misc_11);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_12)
-			trace_seq_printf(s, "AP_RX_REG_IOB_ODR_SRAM_ECC_STS_1=0x%x\n",
-					 err->err_misc_12);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_13)
-			trace_seq_printf(s, "AP_RX_REG_IOB_ODR_SRAM_ECC_STS_0=0x%x\n",
-					 err->err_misc_13);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_14)
-			trace_seq_printf(s, "AP_REG_SDI_AXIM_INT_SRC=0x%x\n",
-					 err->err_misc_14);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_15)
-			trace_seq_printf(s, "AP_REG_DMA_QUEUE_INT_RO=0x%x\n",
-					 err->err_misc_15);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_16)
-			trace_seq_printf(s, "AP_REG_MCTP_INTRPT_STAT=0x%x\n",
-					 err->err_misc_16);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_17)
-			trace_seq_printf(s, "AP_REG_ECC_ERR_INT_STS=0x%x\n",
-					 err->err_misc_17);
+			record_vendor_data(dec_tab, hisi_oem_data_type_text,
+					   hip08_pcie_local_field_err_type,
+					   0, pcie_ap_err_type(err->err_type));
+		}
+
+		for (i = 0; hisi_pcie_ap_err_misc[i].msg; i++) {
+			if (err->val_bits & hisi_pcie_ap_err_misc[i].msk)
+				trace_seq_printf(s, "%s=0x%x\n",
+						 hisi_pcie_ap_err_misc[i].msg,
+						 err->err_misc[i]);
+		}
 		break;
 
 	case HISI_PCIE_SUB_MODULE_ID_TL:
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE)
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE) {
 			trace_seq_printf(s, "error type=%s\n",
 					 pcie_tl_err_type(err->err_type));
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_0)
-			trace_seq_printf(s, "TL_REG_TL_INT_STATUS0=0x%x\n",
-				     err->err_misc_0);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_1)
-			trace_seq_printf(s, "TL_REG_TL_RX_ERR_STATUS=0x%x\n",
-					 err->err_misc_1);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_2)
-			trace_seq_printf(s, "TL_REG_TL_RX_ECC_ERROR_STATUS=0x%x\n",
-					 err->err_misc_2);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_3)
-			trace_seq_printf(s, "TL_REG_TL_TX_ECC_ERROR_STATUS=0x%x\n",
-					 err->err_misc_3);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_4)
-			trace_seq_printf(s, "TL_REG_TL_TX_ECC_2BIT_ERR_CNT=0x%x\n",
-					 err->err_misc_4);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_5)
-			trace_seq_printf(s, "TL_REG_TL_ECC_2BIT_ERR_CNT=0x%x\n",
-					 err->err_misc_5);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_6)
-			trace_seq_printf(s, "TL_REG_TL_ECC_2BIT_ERR=0x%x\n",
-					 err->err_misc_6);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_7)
-			trace_seq_printf(s, "TL_REG_TL_TX_ECC_2BIT_ERR_ADDR=0x%x\n",
-					 err->err_misc_7);
+			record_vendor_data(dec_tab, hisi_oem_data_type_text,
+					   hip08_pcie_local_field_err_type,
+					   0, pcie_tl_err_type(err->err_type));
+		}
+
+		for (i = 0; hisi_pcie_tl_err_misc[i].msg; i++) {
+			if (err->val_bits & hisi_pcie_tl_err_misc[i].msk)
+				trace_seq_printf(s, "%s=0x%x\n",
+						 hisi_pcie_tl_err_misc[i].msg,
+						 err->err_misc[i]);
+		}
 		break;
 
 	case HISI_PCIE_SUB_MODULE_ID_MAC:
 		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE) {
 			trace_seq_printf(s, "error type=%s\n",
 					 pcie_mac_err_type(err->err_type));
+			record_vendor_data(dec_tab, hisi_oem_data_type_text,
+					   hip08_pcie_local_field_err_type,
+					   0, pcie_mac_err_type(err->err_type));
 		}
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_0)
-			trace_seq_printf(s, "MAC_REG_MAC_INT_STATUS=0x%x\n",
-					 err->err_misc_0);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_1)
-			trace_seq_printf(s, "MAC_REG_LINK_INFO=0x%x\n",
-					 err->err_misc_1);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_2)
-			trace_seq_printf(s, "MAC_REG_DEBUG_PIPE7=0x%x\n",
-					 err->err_misc_2);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_3)
-			trace_seq_printf(s, "MAC_REG_DEBUG_PIPE8=0x%x\n",
-					 err->err_misc_3);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_4)
-			trace_seq_printf(s, "MAC_REG_DEBUG_PIPE9=0x%x\n",
-					 err->err_misc_4);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_5)
-			trace_seq_printf(s, "MAC_REG_DEBUG_PIPE10=0x%x\n",
-					 err->err_misc_5);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_6)
-			trace_seq_printf(s, "MAC_REG_DEBUG_PIPE11=0x%x\n",
-					 err->err_misc_6);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_7)
-			trace_seq_printf(s, "MAC_REG_SYMBOL_UNLOCK_COUNTER=0x%x\n",
-					 err->err_misc_7);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_8)
-			trace_seq_printf(s, "MAC_REG_TEST_COUNTER=0x%x\n",
-					 err->err_misc_8);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_9)
-			trace_seq_printf(s, "MAC_REG_PCS_RX_ERR_CNT=0x%x\n",
-					 err->err_misc_9);
+
+		for (i = 0; hisi_pcie_mac_err_misc[i].msg; i++) {
+			if (err->val_bits & hisi_pcie_mac_err_misc[i].msk)
+				trace_seq_printf(s, "%s=0x%x\n",
+						 hisi_pcie_mac_err_misc[i].msg,
+						 err->err_misc[i]);
+		}
 		break;
 
 	case HISI_PCIE_SUB_MODULE_ID_DL:
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE)
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE) {
 			trace_seq_printf(s, "error type=%s\n",
 					 pcie_dl_err_type(err->err_type));
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_0)
-			trace_seq_printf(s, "DL_REG_DL_INT_STATUS=0x%x\n",
-					 err->err_misc_0);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_1)
-			trace_seq_printf(s, "DL_REG_DL_RX_NAK_COUNT=0x%x\n",
-					 err->err_misc_1);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_2)
-			trace_seq_printf(s, "DL_REG_DFX_RX_BAD_DLLP_TYPE=0x%x\n",
-					 err->err_misc_2);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_3)
-			trace_seq_printf(s, "DL_REG_DFX_MAC_BP_TIMER=0x%x\n",
-					 err->err_misc_3);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_4)
-			trace_seq_printf(s, "DL_REG_DFX_RETRY_CNT=0x%x\n",
-					 err->err_misc_4);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_5)
-			trace_seq_printf(s, "DL_REG_DFX_LCRC_ERR_NUM=0x%x\n",
-					 err->err_misc_5);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_6)
-			trace_seq_printf(s, "DL_REG_DFX_DCRC_ERR_NUM=0x%x\n",
-					 err->err_misc_6);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_7)
-			trace_seq_printf(s, "DL_REG_DFX_FSM_STATE=0x%x\n",
-					 err->err_misc_7);
+			record_vendor_data(dec_tab, hisi_oem_data_type_text,
+					   hip08_pcie_local_field_err_type,
+					   0, pcie_dl_err_type(err->err_type));
+		}
+
+		for (i = 0; hisi_pcie_dl_err_misc[i].msg; i++) {
+			if (err->val_bits & hisi_pcie_dl_err_misc[i].msk)
+				trace_seq_printf(s, "%s=0x%x\n",
+						 hisi_pcie_dl_err_misc[i].msg,
+						 err->err_misc[i]);
+		}
 		break;
 
 	case HISI_PCIE_SUB_MODULE_ID_SDI:
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE)
+		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_TYPE) {
 			trace_seq_printf(s, "error type=%s\n",
 					 pcie_sdi_err_type(err->err_type));
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_0)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG0=0x%x\n",
-					 err->err_misc_0);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_1)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG1=0x%x\n",
-					 err->err_misc_1);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_2)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG2=0x%x\n",
-					 err->err_misc_2);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_3)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG3=0x%x\n",
-					 err->err_misc_3);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_4)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG4=0x%x\n",
-					 err->err_misc_4);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_5)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG5=0x%x\n",
-					 err->err_misc_5);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_6)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG6=0x%x\n",
-					 err->err_misc_6);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_7)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG7=0x%x\n",
-					 err->err_misc_7);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_8)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG8=0x%x\n",
-					 err->err_misc_8);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_9)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG9=0x%x\n",
-					 err->err_misc_9);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_10)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG10=0x%x\n",
-					 err->err_misc_10);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_11)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG11=0x%x\n",
-					 err->err_misc_11);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_12)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG12=0x%x\n",
-					 err->err_misc_12);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_13)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG13=0x%x\n",
-					 err->err_misc_13);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_14)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG14=0x%x\n",
-					 err->err_misc_14);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_15)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_CQ_ERR_INT_CFG15=0x%x\n",
-					 err->err_misc_15);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_16)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_SQ_ERR_STS0=0x%x\n",
-					 err->err_misc_16);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_17)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_SQ_SIZE_RAM_ECC_INJRCT=0x%x\n",
-					 err->err_misc_17);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_18)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_SQ_BAL_RAM_ECC_INJRCT=0x%x\n",
-					 err->err_misc_18);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_19)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_SQ_BAH_RAM_ECC_INJRCT=0x%x\n",
-					 err->err_misc_19);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_20)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_RD_PTR_RAM_ECC_INJRCT=0x%x\n",
-					 err->err_misc_20);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_21)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_SQ_DES_RAM_ECC_INJRCT=0x%x\n",
-					 err->err_misc_21);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_22)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_PREFETCH_FIFO_RAM_ECC_INJRCT=0x%x\n",
-					 err->err_misc_22);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_23)
-			trace_seq_printf(s, "PCIE_NVME_GLOBAL_REG_BRESP_ERR_INT=0x%x\n",
-					 err->err_misc_23);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_24)
-			trace_seq_printf(s, "PCIE_VIRTIO_GLOBAL_REG_ECC_INT_STATUS=0x%x\n",
-					 err->err_misc_24);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_25)
-			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_ENGN_INT_STS=0x%x\n",
-					 err->err_misc_25);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_26)
-			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_LOC_RPTR_CSR_RAM_EC_ADDR=0x%x\n",
-					 err->err_misc_26);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_27)
-			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_LOC_WPTR_CSR_RAM_ECC_ADDR=0x%x\n",
-					 err->err_misc_27);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_28)
-			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_LOC_AV_IDX_CSR_RAM_ECC_ADDR=0x%x\n",
-					 err->err_misc_28);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_29)
-			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_FETCH_AV_CPL_ERR_VQ_NUM=0x%x\n",
-					 err->err_misc_29);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_30)
-			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_DMA_CQ_ERR_STS=0x%x\n",
-					 err->err_misc_30);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_31)
-			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_FETCH_AV_IDX_ERR_QN=0x%x\n",
-					 err->err_misc_31);
-		if (err->val_bits & HISI_PCIE_LOCAL_VALID_ERR_MISC_32)
-			trace_seq_printf(s, "PCIE_VIRTIO_QUEUE_REG_ENGN_GET_DT_INF_BASE_ERR_PF=0x%x\n",
-					 err->err_misc_32);
+			record_vendor_data(dec_tab, hisi_oem_data_type_text,
+					   hip08_pcie_local_field_err_type,
+					   0, pcie_sdi_err_type(err->err_type));
+		}
+
+		for (i = 0; hisi_pcie_sdi_err_misc[i].msg; i++) {
+			if (err->val_bits & hisi_pcie_sdi_err_misc[i].msk)
+				trace_seq_printf(s, "%s=0x%x\n",
+						 hisi_pcie_sdi_err_misc[i].msg,
+						 err->err_misc[i]);
+		}
 		break;
 	}
+
+	step_vendor_data_tab(dec_tab, "hip08_pcie_local_event_tab");
 
 	return 0;
 }
